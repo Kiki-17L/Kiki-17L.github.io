@@ -1,0 +1,2579 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/k.png">
+  <link rel="icon" href="/img/k.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Louis Liang">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="汇编语言学习笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="汇编语言 #0 学习笔记">
+<meta property="og:url" content="http://kdata.top/2024/06/28/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/%E6%B1%87%E7%BC%96_0_%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Louis 的博客空间">
+<meta property="og:description" content="汇编语言学习笔记">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-06-28T02:00:00.000Z">
+<meta property="article:modified_time" content="2024-12-23T16:14:51.618Z">
+<meta property="article:author" content="Louis Liang">
+<meta property="article:tag" content="Technology">
+<meta property="article:tag" content="ASM">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>汇编语言 #0 学习笔记 - Louis 的博客空间</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/mac.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"kdata.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>KDATA</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg/inter.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="汇编语言 #0 学习笔记"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-06-28 10:00" pubdate>
+          2024年6月28日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          30 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="计算机技术"
+        id="heading-630753e9f71b3ce25b64bd8637e08e6d" role="tab" data-toggle="collapse" href="#collapse-630753e9f71b3ce25b64bd8637e08e6d"
+        aria-expanded="true"
+      >
+        计算机技术
+        <span class="list-group-count">(23)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-630753e9f71b3ce25b64bd8637e08e6d"
+           role="tabpanel" aria-labelledby="heading-630753e9f71b3ce25b64bd8637e08e6d">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Docker"
+        id="heading-c5fd214cdd0d2b3b4272e73b022ba5c2" role="tab" data-toggle="collapse" href="#collapse-c5fd214cdd0d2b3b4272e73b022ba5c2"
+        aria-expanded="false"
+      >
+        Docker
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-c5fd214cdd0d2b3b4272e73b022ba5c2"
+           role="tabpanel" aria-labelledby="heading-c5fd214cdd0d2b3b4272e73b022ba5c2">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/12/26/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Docker/Docker_%E6%9E%B6%E6%9E%84/" title="Docker #1 架构"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Docker #1 架构</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/05/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Docker/Docker_%E5%BF%AB%E9%80%9F%E6%93%8D%E4%BD%9C/" title="Docker_APIs"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Docker_APIs</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Linux"
+        id="heading-edc9f0a5a5d57797bf68e37364743831" role="tab" data-toggle="collapse" href="#collapse-edc9f0a5a5d57797bf68e37364743831"
+        aria-expanded="false"
+      >
+        Linux
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-edc9f0a5a5d57797bf68e37364743831"
+           role="tabpanel" aria-labelledby="heading-edc9f0a5a5d57797bf68e37364743831">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/12/28/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Linux/Linux%E5%86%85%E6%A0%B8_1_Cgroups/" title="Linux内核 #1 Cgroups"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Linux内核 #1 Cgroups</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/12/28/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Linux/Linux%E5%86%85%E6%A0%B8_2_Namespaces/" title="Linux内核 #2 Namespaces"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Linux内核 #2 Namespaces</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Mybatis"
+        id="heading-dcfb60bf74123650041eacb77b10c116" role="tab" data-toggle="collapse" href="#collapse-dcfb60bf74123650041eacb77b10c116"
+        aria-expanded="false"
+      >
+        Mybatis
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-dcfb60bf74123650041eacb77b10c116"
+           role="tabpanel" aria-labelledby="heading-dcfb60bf74123650041eacb77b10c116">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/05/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Mybatis/Mybatis%20%E7%AC%94%E8%AE%B0/" title="Mybatis 笔记"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Mybatis 笔记</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Mysql"
+        id="heading-9edb3c572b56b91542af659480518681" role="tab" data-toggle="collapse" href="#collapse-9edb3c572b56b91542af659480518681"
+        aria-expanded="false"
+      >
+        Mysql
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-9edb3c572b56b91542af659480518681"
+           role="tabpanel" aria-labelledby="heading-9edb3c572b56b91542af659480518681">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/05/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Mysql/Mysql/" title="Mysql #0 学习笔记"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Mysql #0 学习笔记</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Redis"
+        id="heading-e111446745a1825b862f8727ae63bce4" role="tab" data-toggle="collapse" href="#collapse-e111446745a1825b862f8727ae63bce4"
+        aria-expanded="false"
+      >
+        Redis
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-e111446745a1825b862f8727ae63bce4"
+           role="tabpanel" aria-labelledby="heading-e111446745a1825b862f8727ae63bce4">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/05/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Redis/Redis/" title="Redis #0 学习笔记"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Redis #0 学习笔记</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Spring"
+        id="heading-38008dd81c2f4d7985ecf6e0ce8af1d1" role="tab" data-toggle="collapse" href="#collapse-38008dd81c2f4d7985ecf6e0ce8af1d1"
+        aria-expanded="false"
+      >
+        Spring
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-38008dd81c2f4d7985ecf6e0ce8af1d1"
+           role="tabpanel" aria-labelledby="heading-38008dd81c2f4d7985ecf6e0ce8af1d1">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/05/25/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Spring/SpringCloud/" title="Spring Cloud"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Spring Cloud</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/05/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Spring/SpringSecurity/" title="Spring Security"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Spring Security</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/05/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Spring/Spring%20%E7%AC%94%E8%AE%B0/" title="Spring 笔记"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Spring 笔记</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Vue"
+        id="heading-2d8ec58babcec05d3fe8f712968de749" role="tab" data-toggle="collapse" href="#collapse-2d8ec58babcec05d3fe8f712968de749"
+        aria-expanded="false"
+      >
+        Vue
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-2d8ec58babcec05d3fe8f712968de749"
+           role="tabpanel" aria-labelledby="heading-2d8ec58babcec05d3fe8f712968de749">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/05/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Vue/VueRouter%20%E7%AC%94%E8%AE%B0/" title="Vue Router 笔记"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Vue Router 笔记</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/05/30/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Vue/Vue%20%E7%AC%94%E8%AE%B0/" title="Vue 笔记"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Vue 笔记</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="互联网标准"
+        id="heading-d574dc3cda98f8c4a5c07dc66800e6b8" role="tab" data-toggle="collapse" href="#collapse-d574dc3cda98f8c4a5c07dc66800e6b8"
+        aria-expanded="false"
+      >
+        互联网标准
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-d574dc3cda98f8c4a5c07dc66800e6b8"
+           role="tabpanel" aria-labelledby="heading-d574dc3cda98f8c4a5c07dc66800e6b8">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/05/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/%E4%BA%92%E8%81%94%E7%BD%91%E6%A0%87%E5%87%86/JWT/" title="JWT 笔记"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">JWT 笔记</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="分布式"
+        id="heading-00ea564d46b32212e91a6bff72168511" role="tab" data-toggle="collapse" href="#collapse-00ea564d46b32212e91a6bff72168511"
+        aria-expanded="false"
+      >
+        分布式
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-00ea564d46b32212e91a6bff72168511"
+           role="tabpanel" aria-labelledby="heading-00ea564d46b32212e91a6bff72168511">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/12/20/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/%E5%88%86%E5%B8%83%E5%BC%8F/CAP%E5%AE%9A%E7%90%86%E6%B5%85%E8%B0%88/" title="CAP原则浅谈"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">CAP原则浅谈</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="编程语言"
+        id="heading-3bf8a523aea21a3a0f6c53b0f43429bb" role="tab" data-toggle="collapse" href="#collapse-3bf8a523aea21a3a0f6c53b0f43429bb"
+        aria-expanded="true"
+      >
+        编程语言
+        <span class="list-group-count">(8)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-3bf8a523aea21a3a0f6c53b0f43429bb"
+           role="tabpanel" aria-labelledby="heading-3bf8a523aea21a3a0f6c53b0f43429bb">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/05/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Css/" title="CSS #1 布局"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">CSS #1 布局</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/05/15/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JSP/" title="JSP 笔记"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">JSP 笔记</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/10/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Java/" title="Java #1 基础"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Java #1 基础</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/10/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JavaScript/" title="JavaScript #1 基础"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">JavaScript #1 基础</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/01/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/" title="Python #1 速览Guide"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python #1 速览Guide</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/07/14/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Shell/" title="Shell 笔记"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Shell 笔记</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/07/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Verilog/" title="Verilog 笔记"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Verilog 笔记</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/06/28/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/%E6%B1%87%E7%BC%96_0_%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="汇编语言 #0 学习笔记"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">汇编语言 #0 学习笔记</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="虚拟化"
+        id="heading-f92844149455738938a8d38a0776a9b6" role="tab" data-toggle="collapse" href="#collapse-f92844149455738938a8d38a0776a9b6"
+        aria-expanded="false"
+      >
+        虚拟化
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-f92844149455738938a8d38a0776a9b6"
+           role="tabpanel" aria-labelledby="heading-f92844149455738938a8d38a0776a9b6">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/12/26/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/%E8%99%9A%E6%8B%9F%E5%8C%96/%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF/" title="虚拟化技术"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">虚拟化技术</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">汇编语言 #0 学习笔记</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="组成部分">组成部分</h1>
+<ol type="1">
+<li><p>汇编指令</p>
+<p>对应机器码，机器码助记符</p></li>
+<li><p>伪指令</p>
+<p>无机器码，由编译器执行</p></li>
+<li><p>其他符号</p>
+<p>如 +、-、*、/，无机器码，由编译器识别</p></li>
+</ol>
+<h1 id="内存地址空间">内存地址空间</h1>
+<table>
+<thead>
+<tr>
+<th>地址</th>
+<th>描述</th>
+<th>大小</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>00000-9FFFF</td>
+<td>主存地址空间</td>
+<td>640KB</td>
+</tr>
+<tr>
+<td>A0000-BFFFF</td>
+<td>显存地址空间</td>
+<td>128KB</td>
+</tr>
+<tr>
+<td>C0000-FFFFF</td>
+<td>各类ROM空间</td>
+<td>256KB</td>
+</tr>
+</tbody>
+</table>
+<p>总：2^20B=1MB</p>
+<h1 id="寄存器">寄存器</h1>
+<p>14个寄存器，寄存器16位</p>
+<table>
+<thead>
+<tr>
+<th>分类</th>
+<th>寄存器</th>
+<th>全称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>主寄存器</td>
+<td>AX</td>
+<td>Accumulator</td>
+<td>累加器</td>
+</tr>
+<tr>
+<td></td>
+<td>BX</td>
+<td>Base</td>
+<td>基址</td>
+</tr>
+<tr>
+<td></td>
+<td>CX</td>
+<td>Count</td>
+<td>计数</td>
+</tr>
+<tr>
+<td></td>
+<td>DX</td>
+<td>Data</td>
+<td>数据</td>
+</tr>
+<tr>
+<td>变址寄存器</td>
+<td>SI</td>
+<td>Source Index</td>
+<td>源变址</td>
+</tr>
+<tr>
+<td></td>
+<td>DI</td>
+<td>Destination Index</td>
+<td>目的变址</td>
+</tr>
+<tr>
+<td></td>
+<td>SP</td>
+<td>Stack Pointer</td>
+<td>堆栈指针</td>
+</tr>
+<tr>
+<td></td>
+<td>BP</td>
+<td>Base Pointer</td>
+<td>基址指针</td>
+</tr>
+<tr>
+<td>程序计数器</td>
+<td>IP</td>
+<td>Instruction Pointer</td>
+<td>指令指针</td>
+</tr>
+<tr>
+<td>段寄存器</td>
+<td>CS</td>
+<td>Code Segment</td>
+<td>代码段</td>
+</tr>
+<tr>
+<td></td>
+<td>SS</td>
+<td>Stack Segment</td>
+<td>堆栈段</td>
+</tr>
+<tr>
+<td></td>
+<td>DS</td>
+<td>Data Segment</td>
+<td>数据段</td>
+</tr>
+<tr>
+<td></td>
+<td>ES</td>
+<td>Extra Segment</td>
+<td>附加段</td>
+</tr>
+<tr>
+<td>状态寄存器</td>
+<td>PSW</td>
+<td></td>
+<td>标志</td>
+</tr>
+</tbody>
+</table>
+<h1 id="标志寄存器">标志寄存器</h1>
+<p>也叫 PSW 程序状态字</p>
+<table>
+<thead>
+<tr>
+<th>寄存器</th>
+<th>描述</th>
+<th>1标志</th>
+<th>0标志</th>
+<th>位序</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CF</td>
+<td>进位标志（无符号数运算）</td>
+<td>CY</td>
+<td>NC</td>
+<td>0</td>
+</tr>
+<tr>
+<td>PF</td>
+<td>奇偶标志</td>
+<td>PE</td>
+<td>PO</td>
+<td>2</td>
+</tr>
+<tr>
+<td>AF</td>
+<td>辅助标志</td>
+<td>AC</td>
+<td>NA</td>
+<td>4</td>
+</tr>
+<tr>
+<td>ZF</td>
+<td>零标志</td>
+<td>ZR</td>
+<td>NZ</td>
+<td>6</td>
+</tr>
+<tr>
+<td>SF</td>
+<td>符号标志（有符号数运算）</td>
+<td>NG</td>
+<td>PL</td>
+<td>7</td>
+</tr>
+<tr>
+<td>TF</td>
+<td>跟踪标志</td>
+<td>单步中断</td>
+<td>关</td>
+<td>8</td>
+</tr>
+<tr>
+<td>IF</td>
+<td>中断标志</td>
+<td>EI，可中断</td>
+<td>NI，屏蔽中断</td>
+<td>9</td>
+</tr>
+<tr>
+<td>DF</td>
+<td>方向标志</td>
+<td>DN</td>
+<td>UP</td>
+<td>10</td>
+</tr>
+<tr>
+<td>OF</td>
+<td>溢出标志（有符号数运算）</td>
+<td>OV</td>
+<td>NV</td>
+<td>11</td>
+</tr>
+</tbody>
+</table>
+<h1 id="给出物理地址的方法">给出物理地址的方法</h1>
+<p>问题：8060PC机，字长16位，CPU一次性能处理的数据最宽16位，寄存器只有16位，但地址线有20位</p>
+<p>解决方法：物理地址=段地址x16+偏移地址</p>
+<h1 id="加电启动和复位">加电启动和复位</h1>
+<p>8086 CPU 加电启动或复位后，CS=FFFFH，IP=0000H</p>
+<p>所以 8086 CPU 第一条指令是 FFFF0H</p>
+<h1 id="mov-指令">MOV 指令</h1>
+<p>可完成以下9种操作</p>
+<table>
+<thead>
+<tr>
+<th>目的</th>
+<th>源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>通用寄存器</td>
+<td>通用寄存器</td>
+</tr>
+<tr>
+<td></td>
+<td>段寄存器</td>
+</tr>
+<tr>
+<td></td>
+<td>内存</td>
+</tr>
+<tr>
+<td></td>
+<td>立即数</td>
+</tr>
+<tr>
+<td>段寄存器</td>
+<td>通用寄存器</td>
+</tr>
+<tr>
+<td></td>
+<td>内存</td>
+</tr>
+<tr>
+<td>内存</td>
+<td>通用寄存器</td>
+</tr>
+<tr>
+<td></td>
+<td>段寄存器</td>
+</tr>
+<tr>
+<td></td>
+<td>立即数</td>
+</tr>
+</tbody>
+</table>
+<h1 id="修改-csip">修改 CS:IP</h1>
+<p>8086 CPU 无法通过 <strong>传送指令</strong> 修改 CS:IP</p>
+<p>可以通过 <strong>转移指令</strong> 修改</p>
+<h1 id="dx-与-address">DX 与 [address]</h1>
+<p>8086 CPU 不支持将数据直接传送入段寄存器，必须用寄存器中转。</p>
+<h1 id="栈机制">栈机制</h1>
+<p>8086 CPU 提供 push 和 pop 指令，实际上为内存传送指令</p>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>操作对象</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>push</td>
+<td>寄存器|内存单元</td>
+</tr>
+<tr>
+<td>pop</td>
+<td>寄存器|内存单元</td>
+</tr>
+</tbody>
+</table>
+<p>提供 SS 和 SP 寄存器作为，栈段和栈指针。</p>
+<p>push ax 实现过程：</p>
+<ol type="1">
+<li>SP=SP-2，SS:SP
+指向当前栈顶元素的前一个元素，以当前栈顶前面的单元作为新栈顶</li>
+<li>将 ax 的内容送入 SS:SP 指向的内存单元处，SS:SP 此时指向新栈顶</li>
+</ol>
+<p>栈顶超界问题：8086 CPU
+未提供栈上下界寄存器，只记录栈顶，栈空间大小由我们自己管理。</p>
+<h1 id="汇编器对指令中-idata-解析">汇编器对指令中 [idata] 解析</h1>
+<p>在汇编源程序中，如果指令中出现 [idata]
+必须显示指出段寄存器（段前缀），才能表示内存单元，否则会被解析为立即数</p>
+<p>如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs assembly">mov ax,[idata]<br></code></pre></td></tr></table></figure>
+<p>等同于</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs assembly">mov ax,idata<br></code></pre></td></tr></table></figure>
+<p>显示指出段寄存器，表示内存单元</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs assembly">mov ax,ds:[idata]<br></code></pre></td></tr></table></figure>
+<p>[bx] 不用显示指出段寄存器，表示内存单元</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs assembly">mov ax,[bx]<br></code></pre></td></tr></table></figure>
+<p>而在Debug 中，指令中 [idata] 会被解析成内存单元</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs assembly">mov ax,[idata]<br></code></pre></td></tr></table></figure>
+<h1 id="一段安全的空间">一段安全的空间</h1>
+<p><code>0:200~0:2ff</code>
+这段空间一般不会被系统和其他合法程序的使用</p>
+<h1 id="源程序中的标号处理">源程序中的标号处理</h1>
+<pre><code class=" mermaid">mindmap
+	))标号((
+  	段标号
+  	数据段标号
+  	代码段标号
+	
+</code></pre>
+<p>（1）mov
+指令对标号（无论是数据标号，还是代码段标号）的直接引用的含义是，取标号表示的内存单元的值，而不是标号代表的偏移地址值</p>
+<p>下面两条指令等同，段地址默认为 数据标号（变量）所对应的数据段</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs assembly">mov ax,var1<br>mov ax,[var1]<br></code></pre></td></tr></table></figure>
+<p>通过 offset 和 seg 能分别取到标号的 偏移地址和段地址。</p>
+<p>（2）mov 指令对段标号的直接引用的含义是，取段标号所代表的段地址</p>
+<p>（3）转移指令
+对代码段标号的直接引用的含义是，取代码段标号表示的偏移地址</p>
+<h1 id="灵活的定位内存地址方法">灵活的定位内存地址方法</h1>
+<h2 id="bxidata">1. [bx+idata]</h2>
+<p>也可以写成</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs assembly">mov ax,idata[bx]<br></code></pre></td></tr></table></figure>
+<h2 id="si-和-di">2. SI 和 DI</h2>
+<p>SI 和 DI 是 8086 CPU 中，功能与 bx 差不多的寄存器，但 SI 和 DI
+不能拆分为两个8位的寄存器使用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs assembly">mov ax,[di+idata]<br>mov ax,idata[si]<br>mov ax,[bx+idata]<br></code></pre></td></tr></table></figure>
+<h2 id="bxsi-和-bxdi">3. [bx+si] 和 [bx+di]</h2>
+<p>[bx+si] 与 [bx+di] 功能类似</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs assembly">mov ax,[bx+si]<br></code></pre></td></tr></table></figure>
+<p>可以写成</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs assembly">mov ax,[bx][si]<br></code></pre></td></tr></table></figure>
+<h2 id="bxsiidata-和-bxdiidata">4. [bx+si+idata] 和 [bx+di+idata]</h2>
+<p>[bx+si+idata] 与 [bx+di+idata] 功能类似</p>
+<p>下例代码每句功能相同</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs assembly">mov ax, [bx+si+200]<br>mov ax,	[200+bx+si]<br>mov ax,	200[bx][si]<br>mov ax,	[bx].200[si]<br>mov ax,	[bx][si].200<br></code></pre></td></tr></table></figure>
+<h2 id="bp">5. BP</h2>
+<p>只要在 [...] 使用
+<strong>BP</strong>，若段地址没有显示给出，默认段地址都在
+<strong>SS</strong> 中</p>
+<h1 id="寻址方式">寻址方式</h1>
+<h2 id="面向操作数的">面向操作数的</h2>
+<h3 id="立即数寻址">立即数寻址</h3>
+<h2 id="面向寄存器寻址">面向寄存器寻址</h2>
+<h3 id="寄存器寻址">寄存器寻址</h3>
+<p>操作数在某个寄存器中</p>
+<h2 id="面向内存的寻址">面向内存的寻址</h2>
+<h3 id="直接寻址">1. 直接寻址</h3>
+<table>
+<thead>
+<tr>
+<th>寻址方式</th>
+<th>含义</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[idata]</td>
+<td>EA=idata，SA=[ds]</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="寄存器间接寻址">2. 寄存器间接寻址</h3>
+<table>
+<thead>
+<tr>
+<th>寻执方式</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[bx]</td>
+<td>EA=[bx]，SA=[ds]</td>
+</tr>
+<tr>
+<td>[si]</td>
+<td>EA=[si]，SA=[ds]</td>
+</tr>
+<tr>
+<td>[di]</td>
+<td>EA=[di]，SA=[ds]</td>
+</tr>
+<tr>
+<td>[bp]</td>
+<td>EA=[bp]，SA=[ds]</td>
+</tr>
+</tbody>
+</table>
+<h3 id="寄存器相对寻址基址寻址间址寻址">3.
+寄存器相对寻址（基址寻址、间址寻址）</h3>
+<table>
+<thead>
+<tr>
+<th>寻执方式</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[bx+idata]</td>
+<td>EA=[bx]+idata，SA=[ds]</td>
+</tr>
+<tr>
+<td>[si+idata]</td>
+<td>EA=[si]+idata，SA=[ds]</td>
+</tr>
+<tr>
+<td>[di+idata]</td>
+<td>EA=[di]+idata，SA=[ds]</td>
+</tr>
+<tr>
+<td>[bp+idata]</td>
+<td>EA=[bp]+idata，SA=[ds]</td>
+</tr>
+</tbody>
+</table>
+<h3 id="基址变址寻址">4. 基址变址寻址</h3>
+<table>
+<thead>
+<tr>
+<th>寻执方式</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[bx+si]</td>
+<td>EA=[bx]+[si]，SA=[ds]</td>
+</tr>
+<tr>
+<td>[bx+di]</td>
+<td>EA=[bx]+[di]，SA=[ds]</td>
+</tr>
+<tr>
+<td>[bp+si]</td>
+<td>EA=[bp]+[si]，SA=[ds]</td>
+</tr>
+<tr>
+<td>[bp+di]</td>
+<td>EA=[bp]+[di]，SA=[ds]</td>
+</tr>
+</tbody>
+</table>
+<h3 id="相对基址变址寻址">5. 相对基址变址寻址</h3>
+<table>
+<thead>
+<tr>
+<th>寻执方式</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[bx+si+idata]</td>
+<td>EA=[bx]+[si]+idata，SA=[ds]</td>
+</tr>
+<tr>
+<td>[bx+di+idata]</td>
+<td>EA=[bx]+[di]+idata，SA=[ds]</td>
+</tr>
+<tr>
+<td>[bp+si+idata]</td>
+<td>EA=[bp]+[si]+idata，SA=[ds]</td>
+</tr>
+<tr>
+<td>[bp+di+idata]</td>
+<td>EA=[bp]+[di]+idata，SA=[ds]</td>
+</tr>
+</tbody>
+</table>
+<h1 id="指令处理的数据有多长">指令处理的数据有多长</h1>
+<h2 id="寄存器指明">1. 寄存器指明</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs assembly">mov ax,bx<br></code></pre></td></tr></table></figure>
+<h2 id="x-ptr-指明">2. X ptr 指明</h2>
+<p>（1）word 指明操作数是字类型</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs assembly">mov word ptr [bx],[si]<br></code></pre></td></tr></table></figure>
+<p>（2）byte 指明操作数是字节类型</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs assembly">mov byte ptr [bx],[si]<br></code></pre></td></tr></table></figure>
+<h2 id="其他指明">3. 其他指明</h2>
+<p>push 指令只进行字操作</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs assembly">push [bx]<br></code></pre></td></tr></table></figure>
+<h1 id="算术运算">算术运算</h1>
+<h2 id="除法">除法</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs assembly">div [reg|mem]<br></code></pre></td></tr></table></figure>
+<p>支持 8位、16位除法</p>
+<ul>
+<li>除数：8位或16位，在一个 reg 或内存单元中</li>
+<li>被除数：若除数 8位，则被除数 16 位，默认存放在 AX中；若除数为 16
+位，则被除数 32位，AX 存低位，DX 存高位</li>
+<li>结果：若除数为 8位，AL 存结果，AH 存余数；除数为 16位，AX 存结果，DX
+存余数。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>除数</th>
+<th>被除数</th>
+<th>结果</th>
+<th>余数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>8位</td>
+<td>AX</td>
+<td>AL</td>
+<td>AH</td>
+</tr>
+<tr>
+<td>16位</td>
+<td>低位AX，高位DX</td>
+<td>AX</td>
+<td>DX</td>
+</tr>
+</tbody>
+</table>
+<h2 id="乘法">乘法</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs assembly">mul [reg|内存单元]<br></code></pre></td></tr></table></figure>
+<table style="width:100%;">
+
+<thead>
+<tr>
+<th>乘数位数</th>
+<th>乘数位置</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>8 位</td>
+<td>一个默认在 AL，另一个可以在 8位 reg，或者内存中</td>
+<td>AX</td>
+</tr>
+<tr>
+<td>16 位</td>
+<td>一个默认在 AX，另一个可以在 16位 reg，或者内存中</td>
+<td>低位 AX，高位 DX</td>
+</tr>
+</tbody>
+</table>
+<h1 id="转移指令原理">转移指令原理</h1>
+<h2 id="分类">分类</h2>
+<h3 id="根据转移行为不同">1、根据转移行为不同</h3>
+<ul>
+<li>段内转移：只修改 IP，如 <code>jmp ax</code></li>
+<li>段间转移：同时修改 CS:IP，如<code>jmp 1000:0</code></li>
+</ul>
+<h3 id="根据指令对-ip-修改范围不同">2、根据指令对 IP 修改范围不同</h3>
+<ul>
+<li>短转移：IP 修改范围为 -128～127</li>
+<li>近转移：IP 修改范围为 -32768～32767</li>
+</ul>
+<h3 id="cpu-转移指令">3、80806 CPU 转移指令</h3>
+<ul>
+<li><p>无条件转移指令（jmp）</p></li>
+<li><p>条件转移指令</p>
+<blockquote>
+<p>所有条件转移指令，都是短转移</p>
+</blockquote></li>
+<li><p>循环指令（loop）</p>
+<blockquote>
+<p>所有的循环指令，都是短转移</p>
+</blockquote></li>
+<li><p>过程</p></li>
+<li><p>中断</p></li>
+</ul>
+<h2 id="操作符-offset">操作符 offset</h2>
+<p>由编译器处理</p>
+<p>功能：取得标号处的偏移地址</p>
+<h2 id="依据位移进行转移的-jmp-指令">依据位移进行转移的 jmp 指令</h2>
+<h3 id="jmp-short-标号">jmp short [标号]</h3>
+<p>实现功能：(IP)=(IP)+8位位移</p>
+<p>汇编器在进行汇编时，根据汇编中的标号计算出来，并用补码表示</p>
+<h3 id="jmp-neart-ptr-标号">jmp neart ptr [标号]</h3>
+<p>实现段内近转移</p>
+<p>实现功能：(IP)=(IP)+16位位移</p>
+<h2 id="转移目的地址在指令中的-jmp-指令">转移目的地址在指令中的 jmp
+指令</h2>
+<p>段间转移，又称远转移：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs assembly">jmp far ptr 标号<br></code></pre></td></tr></table></figure>
+<h2 id="转移地址在寄存器中的-jmp-指令">转移地址在寄存器中的 jmp
+指令</h2>
+<p>用某一合法寄存器的值修改 IP 的值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs assembly">jmp reg<br></code></pre></td></tr></table></figure>
+<h2 id="转移地址在内存中的-jmp-指令">转移地址在内存中的 jmp 指令</h2>
+<p>段内转移：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs assembly">jmp word ptr [内存单元]<br></code></pre></td></tr></table></figure>
+<p>段间转移：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs assembly">jmp dword ptr [内存单元]<br></code></pre></td></tr></table></figure>
+<h2 id="jcxz-指令">jcxz 指令</h2>
+<p>所有条件转移，都是短转移</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs assembly">jcxz [标号]<br></code></pre></td></tr></table></figure>
+<p>当 CX=0
+时，跳转到标号处，位移由编译器在编译时算出，并由补码表示。</p>
+<h1 id="call-和-ret">CALL 和 RET</h1>
+<h2 id="ret">ret</h2>
+<p>功能：近转移返回</p>
+<p>相当于：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs assembly">POP IP<br></code></pre></td></tr></table></figure>
+<h2 id="retf">retf</h2>
+<p>功能：远转移返回</p>
+<p>相当于：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs assembly">POP IP<br>POP CS<br></code></pre></td></tr></table></figure>
+<h2 id="依据位移进行转移的-call-指令">依据位移进行转移的 call 指令</h2>
+<p>call指令不实现短转移，下面指令为近转移：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs assembly">call 标号<br></code></pre></td></tr></table></figure>
+<h2 id="转移地址在指令中的-call-指令">转移地址在指令中的 call 指令</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs assembly">call far ptr 标号<br></code></pre></td></tr></table></figure>
+<h2 id="转移地址在寄存器中的-call-指令">转移地址在寄存器中的 call
+指令</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs assembly">call reg<br></code></pre></td></tr></table></figure>
+<h2 id="转移地址在内存中的-call指令">转移地址在内存中的 call指令</h2>
+<h3 id="近转移">近转移</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs assembly">call word ptr [内存地址单元]<br></code></pre></td></tr></table></figure>
+<h3 id="远转移">远转移</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs assembly">call dword ptr [内存地址单元]<br></code></pre></td></tr></table></figure>
+<h1 id="pc-机键盘处理过程">PC 机键盘处理过程</h1>
+<h2 id="端口">端口</h2>
+<p>相关端口：60h</p>
+<h2 id="扫描码">扫描码</h2>
+<p>通码第7位为0，断码第7位为1，所以：</p>
+<p>断码=通码+80h</p>
+<h2 id="号中断例程">9号中断例程</h2>
+<p>9号中断例程是由BIOS提供，功能是将端口传来的扫描码，判断对应的 ascii
+码，一起存入 BIOS 键盘缓冲区</p>
+<p>内存中设置有BIOS键盘缓冲区，可以存储15个键盘输入，低位字节：字符码，高位字节：扫描码</p>
+<p>内存单元 0040:17 存储键盘状态信息</p>
+<table>
+<thead>
+<tr>
+<th>位</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>右Shift</td>
+</tr>
+<tr>
+<td>1</td>
+<td>左Shift</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Ctrl</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Alt</td>
+</tr>
+<tr>
+<td>4</td>
+<td>ScrollLock</td>
+</tr>
+<tr>
+<td>5</td>
+<td>NumLock</td>
+</tr>
+<tr>
+<td>6</td>
+<td>CapsLock</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Insert</td>
+</tr>
+</tbody>
+</table>
+<h2 id="h中断例程">16h中断例程</h2>
+<h3 id="号子程序">0号子程序</h3>
+<p>功能：从BIOS键盘缓冲区读出一个字符，并将其从缓冲区删除。如果缓冲区没有数据，则继续循环检测。</p>
+<p>结果：</p>
+<ol type="1">
+<li>ah：扫描码</li>
+<li>al：ASCII 码</li>
+</ol>
+<h1 id="端口读写">端口读写</h1>
+<p>8086 CPU 可寻址 65536 个端口</p>
+<p>只能用 al 存8位数据，ax 存16位数据</p>
+<p>访问 256-65535 端口，用 dx 寄存器存端口号</p>
+<p>读：从 71h 端口读数据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs assembly">in al,71h<br></code></pre></td></tr></table></figure>
+<p>写：向 71h 端口写数据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs assembly">out 71h,al<br></code></pre></td></tr></table></figure>
+<h1 id="显示缓冲区">显示缓冲区</h1>
+<p>内存地址 <code>B8000H-BFFFFH</code> 的<code>32KB</code>空间为 8086CPU
+80X25 彩色字符模式的显示缓冲区</p>
+<p>共8页，每页2000个字符，4000B</p>
+<p>每个字符，低字节为显示字符的
+<code>ASCII 码</code>，高字节为字符的<code>颜色属性</code></p>
+<p>颜色属性：</p>
+<table>
+<thead>
+<tr>
+<th>位数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>7</td>
+<td>闪烁位</td>
+</tr>
+<tr>
+<td>6</td>
+<td>背景R</td>
+</tr>
+<tr>
+<td>5</td>
+<td>背景G</td>
+</tr>
+<tr>
+<td>4</td>
+<td>背景B</td>
+</tr>
+<tr>
+<td>3</td>
+<td>高亮</td>
+</tr>
+<tr>
+<td>2</td>
+<td>前景R</td>
+</tr>
+<tr>
+<td>1</td>
+<td>前景G</td>
+</tr>
+<tr>
+<td>0</td>
+<td>前景B</td>
+</tr>
+</tbody>
+</table>
+<h1 id="中断机制">中断机制</h1>
+<h2 id="中断向量表">中断向量表</h2>
+<p>8086 CPU 默认</p>
+<p>0000:000-0000:03FF 存放中断向量表，高地址字存放
+<code>段地址</code>，低地址字存放 <code>偏移地址</code></p>
+<p>实际上 0000:0200-0000:02FF 为空</p>
+<p>除法溢出中断是0号</p>
+<h2 id="中断过程">中断过程</h2>
+<p>当产生中断信号时，硬件执行一系列过程，最后将 CS:IP
+指向中断处理程序。这个过程叫中断过程</p>
+<ol type="1">
+<li>从中断信息获取中断类型码---n</li>
+<li>PSW 入栈</li>
+<li>TF、IF 置0</li>
+<li>CS 入栈</li>
+<li>IP 入栈</li>
+<li>IP=(n*4)，CS=(n*4+2)</li>
+</ol>
+<p>这个过程由硬件完成，程序员不可改变</p>
+<h2 id="bios-中断例程">BIOS 中断例程</h2>
+<h3 id="int-10h">int 10h</h3>
+<h4 id="号子程序-1">2号子程序</h4>
+<p>功能：设置光标</p>
+<p>参数：</p>
+<ol type="1">
+<li>bh：页号</li>
+<li>dh：行号</li>
+<li>dl：列号</li>
+</ol>
+<h4 id="号子程序-2">9号子程序</h4>
+<p>功能：在光标处设置字符</p>
+<p>参数：</p>
+<ol type="1">
+<li>al：传入的字符</li>
+<li>bl：颜色属性</li>
+<li>bh：页号</li>
+<li>cx：字符重复个数</li>
+</ol>
+<h3 id="int-13h">int 13h</h3>
+<h2 id="dos-中断例程">DOS 中断例程</h2>
+<h3 id="int-21h">int 21h</h3>
+<h4 id="c号子程序">4c号子程序</h4>
+<p>功能：返回dos</p>
+<p>参数：</p>
+<ol type="1">
+<li>al：返回值</li>
+</ol>
+<h4 id="号子程序-3">9号子程序</h4>
+<p>功能：在光标处显示字符串</p>
+<p>参数</p>
+<ol type="1">
+<li>ds:dx：指向要显示的字符串</li>
+</ol>
+<h4 id="ah">0AH</h4>
+<h2 id="内中断">内中断</h2>
+<h2 id="外中断">外中断</h2>
+<h3 id="可屏蔽中断">1. 可屏蔽中断</h3>
+<h3 id="不可屏蔽中断">2. 不可屏蔽中断</h3>
+<h1 id="参数传递">参数传递</h1>
+<h2 id="寄存器冲突">寄存器冲突</h2>
+<p>由于无法知道子程序所用寄存器，是否在别的地方被使用</p>
+<p>应当在进入子程序后，将所用寄存器压栈保存，离开前，弹栈恢复</p>
+<p>例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs assembly">proc:	<br>		push bx<br>		<br>		mov bx,3<br>		inc bx<br>		<br>		pop bx<br>		ret<br></code></pre></td></tr></table></figure>
+<h2 id="首地址传参批量传参">首地址传参（批量传参）</h2>
+<h2 id="用栈传参">用栈传参</h2>
+<p>将需要传递的数据，在调用子程序之前，压栈，然后获取栈针<code>bp=sp</code>进行访问。</p>
+<p>进入子程序之后，当前栈顶为 IP，后面依次为传递的参数数据</p>
+<p>离开子程序后，使用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs assembly">ret X<br></code></pre></td></tr></table></figure>
+<p>弹栈删除</p>
+<p>例如</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs assembly">;实现 (a-b)*3<br>;ret 4 表示 (1)pop ip(2)add sp,4<br>difcube:<br>		push bp<br>		mov bp,sp<br>		mov ax,[bp+4]<br>		sub ax,[bp+6]<br>		mov bp,ax<br>		mul bp<br>		mul bp<br>		pop bp<br>		ret 4<br></code></pre></td></tr></table></figure>
+<h1 id="指令目录">指令目录</h1>
+<h2 id="算术运算-1">算术运算</h2>
+<table>
+
+<thead>
+<tr>
+<th>指令</th>
+<th>含义</th>
+<th>功能</th>
+<th>DST</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>add</td>
+<td>加法</td>
+<td>(DST)=(DST)+(SRC)</td>
+<td>内存|寄存器</td>
+</tr>
+<tr>
+<td>adc</td>
+<td>进位加法</td>
+<td>(DST)=(DST)+(SRC)+CF</td>
+<td>内存|寄存器</td>
+</tr>
+<tr>
+<td>inc</td>
+<td>+1</td>
+<td>(DST)=(DST)+1</td>
+<td>内存|寄存器</td>
+</tr>
+<tr>
+<td>sub</td>
+<td>减法</td>
+<td>(DST)=(DST)-(SRC)</td>
+<td></td>
+</tr>
+<tr>
+<td>sbb</td>
+<td>借位减法</td>
+<td>(DST)=(DST)-(SRC)-1</td>
+<td></td>
+</tr>
+<tr>
+<td>dec</td>
+<td>-1</td>
+<td>(DST)=(DST)-1</td>
+<td></td>
+</tr>
+<tr>
+<td>neg</td>
+<td>求反</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>cmp</td>
+<td>比较，两数相减，只影响标志寄存器</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="逻辑运算">逻辑运算</h2>
+<h2 id="串指令">串指令</h2>
+<table>
+
+<thead>
+<tr>
+<th>指令</th>
+<th>功能</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>movsb</td>
+<td>((ES)*16+DI)=((DS)*16+SI)；IF DF=0，DI++，SI++，ELSE DI--，SI--</td>
+<td>内存到内存的字节复制</td>
+</tr>
+<tr>
+<td>movsw</td>
+<td></td>
+<td>内存到内存的字复制</td>
+</tr>
+<tr>
+<td>rep</td>
+<td>根据 CX，重复执行后面的串指令</td>
+<td></td>
+</tr>
+<tr>
+<td>cld</td>
+<td>DF=0，UP</td>
+<td></td>
+</tr>
+<tr>
+<td>std</td>
+<td>DF=1，DN</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="程序转移指令">程序转移指令</h2>
+<p>通常和 cmp 配合使用</p>
+<table>
+<thead>
+<tr>
+<th>分类</th>
+<th>指令</th>
+<th>含义</th>
+<th>检测标志</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>无符号数</td>
+<td>JA</td>
+<td>大于</td>
+<td>CF=0 且 ZF=0</td>
+</tr>
+<tr>
+<td></td>
+<td>JNA，JBE</td>
+<td>不大于，小于等于</td>
+<td>CF=1 或 ZF=1</td>
+</tr>
+<tr>
+<td></td>
+<td>JB</td>
+<td>低于</td>
+<td>CF=1 且 ZF=0</td>
+</tr>
+<tr>
+<td></td>
+<td>JNB，JAE</td>
+<td>不低于，大于等于</td>
+<td>CF=0 或 ZF=1</td>
+</tr>
+<tr>
+<td>有符号数</td>
+<td>JG</td>
+<td>大于</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>JNG，JLE</td>
+<td>不大于，小于等于</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>JL</td>
+<td>小于</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>JNL，JGE</td>
+<td>不小于，大于等于</td>
+<td></td>
+</tr>
+<tr>
+<td>其他</td>
+<td>JZ，JE</td>
+<td>等于0</td>
+<td>ZF=1</td>
+</tr>
+<tr>
+<td></td>
+<td>JNZ，JNE</td>
+<td>不等于0</td>
+<td>ZF=0</td>
+</tr>
+<tr>
+<td></td>
+<td>JC</td>
+<td>有进位</td>
+<td>CY</td>
+</tr>
+<tr>
+<td></td>
+<td>JNC</td>
+<td>无进位</td>
+<td>NC</td>
+</tr>
+<tr>
+<td></td>
+<td>JO</td>
+<td>有溢出</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>JNO</td>
+<td>无溢出</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>JP，JPE</td>
+<td>为偶</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>JNP，JPO</td>
+<td>为奇</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="中断汇总表">中断汇总表</h1>
+<table>
+<thead>
+<tr>
+<th>分类</th>
+<th>中断例程</th>
+<th>描述</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BIOS中断</td>
+<td>10h</td>
+<td>显示服务</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>13h</td>
+<td>直接磁盘服务</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>14h</td>
+<td>串行口服务</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>15h</td>
+<td>杂项系统服务</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>16h</td>
+<td>键盘服务</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>17h</td>
+<td>并行口服务</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>1Ah</td>
+<td>时钟服务</td>
+<td></td>
+</tr>
+<tr>
+<td>DOS中断</td>
+<td>20h</td>
+<td>终止程序运行</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>21h</td>
+<td>DOS功能调用</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>22h</td>
+<td>终止处理程序的地址</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>23h</td>
+<td>Ctrl+C 处理程序</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>24h</td>
+<td>致命错误处理程序</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>25h</td>
+<td>读磁盘扇区</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>26h</td>
+<td>写磁盘扇区</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>27h</td>
+<td>终止，并驻留内存</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>28h</td>
+<td>DOS空闲</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>2Fh</td>
+<td>多重中断服务</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>33h</td>
+<td>鼠标功能</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="int-10h-显示服务">int 10h 显示服务</h2>
+<table>
+<thead>
+<tr>
+<th>ah（功能号）</th>
+<th>描述</th>
+<th>参数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>00h</td>
+<td>设置显示器模式</td>
+<td></td>
+</tr>
+<tr>
+<td>01h</td>
+<td>设置光标形状</td>
+<td></td>
+</tr>
+<tr>
+<td>02h</td>
+<td>设置光标位置</td>
+<td></td>
+</tr>
+<tr>
+<td>03h</td>
+<td>读取光标位置</td>
+<td></td>
+</tr>
+<tr>
+<td>04h</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>05h</td>
+<td>设置显示页</td>
+<td></td>
+</tr>
+<tr>
+<td>06h</td>
+<td>初始化</td>
+<td></td>
+</tr>
+<tr>
+<td>07h</td>
+<td>滚屏</td>
+<td></td>
+</tr>
+<tr>
+<td>08h</td>
+<td>读取光标处的字符及其属性</td>
+<td></td>
+</tr>
+<tr>
+<td>09h</td>
+<td>在光标处，按指定属性显示字符</td>
+<td></td>
+</tr>
+<tr>
+<td>0Ah</td>
+<td>在当前光标处显示字符</td>
+<td></td>
+</tr>
+<tr>
+<td>0Bh</td>
+<td>设置调色板、背景色、边框</td>
+<td></td>
+</tr>
+<tr>
+<td>0Ch</td>
+<td>写图形像素</td>
+<td></td>
+</tr>
+<tr>
+<td>0Dh</td>
+<td>读图形像素</td>
+<td></td>
+</tr>
+<tr>
+<td>0Eh</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>0Fh</td>
+<td>读显示器模式</td>
+<td></td>
+</tr>
+<tr>
+<td>10h</td>
+<td>颜色</td>
+<td></td>
+</tr>
+<tr>
+<td>11h</td>
+<td>字体</td>
+<td></td>
+</tr>
+<tr>
+<td>12h</td>
+<td>显示器的配置</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="debug">Debug</h1>
+<table style="width:100%;">
+
+<thead>
+<tr>
+<th>指令</th>
+<th>描述</th>
+<th>格式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>R</td>
+<td>查看、改变CPU寄存器的内容</td>
+<td></td>
+</tr>
+<tr>
+<td>D</td>
+<td>查看内存 中的内容</td>
+<td>-d 段地址 : 起始偏移地址 [末尾偏移地址]</td>
+</tr>
+<tr>
+<td>E</td>
+<td>改写内存中的内容</td>
+<td></td>
+</tr>
+<tr>
+<td>U</td>
+<td>将内存中的机器指令编译成汇编指令</td>
+<td></td>
+</tr>
+<tr>
+<td>T</td>
+<td>执行一条机器指令</td>
+<td></td>
+</tr>
+<tr>
+<td>A</td>
+<td>以汇编指令的格式在内存中写入一条机器指令</td>
+<td></td>
+</tr>
+<tr>
+<td>Q</td>
+<td>退出</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="nasm-vs-masm">NASM VS MASM</h1>
+<p>Netwide Assembler，是一款开源且免费的汇编器，与MASM 都是 Intel
+汇编风格</p>
+<p>（1）标号即汇编地址</p>
+<p>在编译时，所有的标号都会被换为汇编地址，是一个立即数</p>
+<p>如果要取得该地址处的值，必须是用 [tag]</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs assembly">mov ax,tag		立即数寻址<br>mov ax,[tag]	直接寻址<br></code></pre></td></tr></table></figure>
+<p>（2）不需要 seg，offset</p>
+<p>因为标号即地址，立即数</p>
+<p>（3）没有 dup ，取而代之的是 times</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs assembly">times 128 db 1		定义128个字节1<br></code></pre></td></tr></table></figure>
+<p>（4）多了一个伪指令 dq</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs assembly">dq 1		定义一个4字变量<br></code></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/" class="category-chain-item">计算机技术</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" class="category-chain-item">编程语言</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Technology/" class="print-no-link">#Technology</a>
+      
+        <a href="/tags/ASM/" class="print-no-link">#ASM</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>汇编语言 #0 学习笔记</div>
+      <div>http://kdata.top/2024/06/28/计算机技术/编程语言/汇编_0_学习笔记/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Louis Liang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年6月28日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/07/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Verilog/" title="Verilog 笔记">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Verilog 笔记</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/05/30/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Vue/Vue%20%E7%AC%94%E8%AE%B0/" title="Vue 笔记">
+                        <span class="hidden-mobile">Vue 笔记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
