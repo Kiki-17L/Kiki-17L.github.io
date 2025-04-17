@@ -1,0 +1,1496 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/k.png">
+  <link rel="icon" href="/img/k.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Louis Liang">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="JWT 学习笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JWT 笔记">
+<meta property="og:url" content="http://blog.kdata.top/2024/05/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/%E4%BA%92%E8%81%94%E7%BD%91%E6%A0%87%E5%87%86/JWT/index.html">
+<meta property="og:site_name" content="Louis 的博客空间">
+<meta property="og:description" content="JWT 学习笔记">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-05-08T02:00:00.000Z">
+<meta property="article:modified_time" content="2024-12-23T16:15:05.628Z">
+<meta property="article:author" content="Louis Liang">
+<meta property="article:tag" content="Technology">
+<meta property="article:tag" content="JWT">
+<meta property="article:tag" content="Web">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+    <meta name="baidu-site-verification" content="codeva-Qg6I8FqWDv" />
+  
+  <title>JWT 笔记 - Louis 的博客空间</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/mac.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"blog.kdata.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"jaYO9kMjXPLXHSqIxztIklMO-MdYXbMMI","app_key":"SdZwfj7e4KZk7Qr42DotllfP","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>KDATA</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg/inter.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="JWT 笔记"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-05-08 10:00" pubdate>
+          2024年5月8日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          566 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          5 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="计算机技术"
+        id="heading-630753e9f71b3ce25b64bd8637e08e6d" role="tab" data-toggle="collapse" href="#collapse-630753e9f71b3ce25b64bd8637e08e6d"
+        aria-expanded="true"
+      >
+        计算机技术
+        <span class="list-group-count">(25)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-630753e9f71b3ce25b64bd8637e08e6d"
+           role="tabpanel" aria-labelledby="heading-630753e9f71b3ce25b64bd8637e08e6d">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Docker"
+        id="heading-c5fd214cdd0d2b3b4272e73b022ba5c2" role="tab" data-toggle="collapse" href="#collapse-c5fd214cdd0d2b3b4272e73b022ba5c2"
+        aria-expanded="false"
+      >
+        Docker
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-c5fd214cdd0d2b3b4272e73b022ba5c2"
+           role="tabpanel" aria-labelledby="heading-c5fd214cdd0d2b3b4272e73b022ba5c2">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/12/26/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Docker/Docker_%E6%9E%B6%E6%9E%84/" title="Docker #1 架构"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Docker #1 架构</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/05/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Docker/Docker_%E5%BF%AB%E9%80%9F%E6%93%8D%E4%BD%9C/" title="Docker_APIs"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Docker_APIs</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="FPGA"
+        id="heading-a1b5c56eac8d96bc8d1c7e941a18dbf7" role="tab" data-toggle="collapse" href="#collapse-a1b5c56eac8d96bc8d1c7e941a18dbf7"
+        aria-expanded="false"
+      >
+        FPGA
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-a1b5c56eac8d96bc8d1c7e941a18dbf7"
+           role="tabpanel" aria-labelledby="heading-a1b5c56eac8d96bc8d1c7e941a18dbf7">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2025/03/22/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/FPGA/FPGA%E4%BA%A7%E5%93%81%E5%88%86%E6%9E%90/" title="Louis Liang"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Louis Liang</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Linux"
+        id="heading-edc9f0a5a5d57797bf68e37364743831" role="tab" data-toggle="collapse" href="#collapse-edc9f0a5a5d57797bf68e37364743831"
+        aria-expanded="false"
+      >
+        Linux
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-edc9f0a5a5d57797bf68e37364743831"
+           role="tabpanel" aria-labelledby="heading-edc9f0a5a5d57797bf68e37364743831">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/12/28/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Linux/Linux%E5%86%85%E6%A0%B8_1_Cgroups/" title="Linux内核 #1 Cgroups"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Linux内核 #1 Cgroups</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/12/28/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Linux/Linux%E5%86%85%E6%A0%B8_2_Namespaces/" title="Linux内核 #2 Namespaces"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Linux内核 #2 Namespaces</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Mybatis"
+        id="heading-dcfb60bf74123650041eacb77b10c116" role="tab" data-toggle="collapse" href="#collapse-dcfb60bf74123650041eacb77b10c116"
+        aria-expanded="false"
+      >
+        Mybatis
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-dcfb60bf74123650041eacb77b10c116"
+           role="tabpanel" aria-labelledby="heading-dcfb60bf74123650041eacb77b10c116">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/05/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Mybatis/Mybatis%20%E7%AC%94%E8%AE%B0/" title="Mybatis 笔记"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Mybatis 笔记</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Mysql"
+        id="heading-9edb3c572b56b91542af659480518681" role="tab" data-toggle="collapse" href="#collapse-9edb3c572b56b91542af659480518681"
+        aria-expanded="false"
+      >
+        Mysql
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-9edb3c572b56b91542af659480518681"
+           role="tabpanel" aria-labelledby="heading-9edb3c572b56b91542af659480518681">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/05/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Mysql/Mysql/" title="Mysql #0 学习笔记"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Mysql #0 学习笔记</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Redis"
+        id="heading-e111446745a1825b862f8727ae63bce4" role="tab" data-toggle="collapse" href="#collapse-e111446745a1825b862f8727ae63bce4"
+        aria-expanded="false"
+      >
+        Redis
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-e111446745a1825b862f8727ae63bce4"
+           role="tabpanel" aria-labelledby="heading-e111446745a1825b862f8727ae63bce4">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/05/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Redis/Redis/" title="Redis #0 学习笔记"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Redis #0 学习笔记</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Spring"
+        id="heading-38008dd81c2f4d7985ecf6e0ce8af1d1" role="tab" data-toggle="collapse" href="#collapse-38008dd81c2f4d7985ecf6e0ce8af1d1"
+        aria-expanded="false"
+      >
+        Spring
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-38008dd81c2f4d7985ecf6e0ce8af1d1"
+           role="tabpanel" aria-labelledby="heading-38008dd81c2f4d7985ecf6e0ce8af1d1">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/05/25/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Spring/SpringCloud/" title="Spring Cloud"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Spring Cloud</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/05/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Spring/SpringSecurity/" title="Spring Security"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Spring Security</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/05/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Spring/Spring%20%E7%AC%94%E8%AE%B0/" title="Spring 笔记"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Spring 笔记</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Vue"
+        id="heading-2d8ec58babcec05d3fe8f712968de749" role="tab" data-toggle="collapse" href="#collapse-2d8ec58babcec05d3fe8f712968de749"
+        aria-expanded="false"
+      >
+        Vue
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-2d8ec58babcec05d3fe8f712968de749"
+           role="tabpanel" aria-labelledby="heading-2d8ec58babcec05d3fe8f712968de749">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/05/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Vue/VueRouter%20%E7%AC%94%E8%AE%B0/" title="Vue Router 笔记"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Vue Router 笔记</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/05/30/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Vue/Vue%20%E7%AC%94%E8%AE%B0/" title="Vue 笔记"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Vue 笔记</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="互联网标准"
+        id="heading-d574dc3cda98f8c4a5c07dc66800e6b8" role="tab" data-toggle="collapse" href="#collapse-d574dc3cda98f8c4a5c07dc66800e6b8"
+        aria-expanded="true"
+      >
+        互联网标准
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-d574dc3cda98f8c4a5c07dc66800e6b8"
+           role="tabpanel" aria-labelledby="heading-d574dc3cda98f8c4a5c07dc66800e6b8">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/05/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/%E4%BA%92%E8%81%94%E7%BD%91%E6%A0%87%E5%87%86/JWT/" title="JWT 笔记"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">JWT 笔记</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="分布式"
+        id="heading-00ea564d46b32212e91a6bff72168511" role="tab" data-toggle="collapse" href="#collapse-00ea564d46b32212e91a6bff72168511"
+        aria-expanded="false"
+      >
+        分布式
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-00ea564d46b32212e91a6bff72168511"
+           role="tabpanel" aria-labelledby="heading-00ea564d46b32212e91a6bff72168511">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/12/20/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/%E5%88%86%E5%B8%83%E5%BC%8F/CAP%E5%AE%9A%E7%90%86%E6%B5%85%E8%B0%88/" title="CAP原则浅谈"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">CAP原则浅谈</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="编程语言"
+        id="heading-3bf8a523aea21a3a0f6c53b0f43429bb" role="tab" data-toggle="collapse" href="#collapse-3bf8a523aea21a3a0f6c53b0f43429bb"
+        aria-expanded="false"
+      >
+        编程语言
+        <span class="list-group-count">(9)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-3bf8a523aea21a3a0f6c53b0f43429bb"
+           role="tabpanel" aria-labelledby="heading-3bf8a523aea21a3a0f6c53b0f43429bb">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2025/03/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/NumPy/" title=""
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post"></span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/05/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Css/" title="CSS #1 布局"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">CSS #1 布局</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/05/15/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JSP/" title="JSP 笔记"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">JSP 笔记</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/10/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Java/" title="Java #1 基础"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Java #1 基础</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/10/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JavaScript/" title="JavaScript #1 基础"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">JavaScript #1 基础</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/01/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/" title="Python #1 速览Guide"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python #1 速览Guide</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/07/14/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Shell/" title="Shell 笔记"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Shell 笔记</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/07/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Verilog/" title="Verilog 笔记"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Verilog 笔记</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/06/28/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/%E6%B1%87%E7%BC%96_0_%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="汇编语言 #0 学习笔记"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">汇编语言 #0 学习笔记</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="虚拟化"
+        id="heading-f92844149455738938a8d38a0776a9b6" role="tab" data-toggle="collapse" href="#collapse-f92844149455738938a8d38a0776a9b6"
+        aria-expanded="false"
+      >
+        虚拟化
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-f92844149455738938a8d38a0776a9b6"
+           role="tabpanel" aria-labelledby="heading-f92844149455738938a8d38a0776a9b6">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/12/26/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/%E8%99%9A%E6%8B%9F%E5%8C%96/%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF/" title="虚拟化技术"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">虚拟化技术</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">JWT 笔记</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="一abstract">一、Abstract</h1>
+<p><strong>JSON Web Token</strong> (<strong>JWT</strong>, suggested
+pronunciation <strong>[/dʒɒt/]</strong>, same as the word "jot") is a
+proposed Internet standard for creating data with optional</p>
+<p>signature and/or optional encryption whose payload holds JSON that
+asserts some number of claims. The tokens are signed either using a
+private</p>
+<p>secret or a public/private key.</p>
+<h1 id="二structure">二、Structure</h1>
+<h2 id="header">2.1 Header</h2>
+<p>Identifies which algorithm is used to generate the signature. In the
+below example, <code>HS256</code> indicates that this token is signed
+using HMAC-SHA256.</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;alg&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;HS256&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;typ&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;JWT&quot;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+<h2 id="payload">2.2 Payload</h2>
+<p>Contains a set of claims. The JWT specification defines seven
+Registered Claim Names, which are the standard fields commonly included
+in tokens.</p>
+<p>Custom claims are usually also included, depending on the purpose of
+the token.</p>
+<p>This example has the standard Issued At Time claim (<code>iat</code>)
+and a custom claim (<code>loggedInAs</code>).</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;loggedInAs&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;admin&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;iat&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1422779638</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+<h2 id="signature">2.3 Signature</h2>
+<p>Securely validates the token. The signature is calculated by encoding
+the header and payload using Base64url Encoding RFC 4648 and
+concatenating the</p>
+<p>two together with a period separator. That string is then run through
+the cryptographic algorithm specified in the header. This example uses
+HMAC-</p>
+<p>SHA256 with a shared secret (public key algorithms are also defined).
+The <em>Base64url Encoding</em> is similar to base64, but uses different
+non-alphanumeric</p>
+<p>characters and omits padding.</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs json">HMAC_SHA256(<br>  secret<span class="hljs-punctuation">,</span><br>  base64urlEncoding(header) + &#x27;.&#x27; +<br>  base64urlEncoding(payload)<br>)<br></code></pre></td></tr></table></figure>
+<p>The three parts are encoded separately using Base64url Encoding RFC
+4648, and concatenated using periods to produce the JWT:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> token = <span class="hljs-title function_">base64urlEncoding</span>(header) + <span class="hljs-string">&#x27;.&#x27;</span> + <span class="hljs-title function_">base64urlEncoding</span>(payload) + <span class="hljs-string">&#x27;.&#x27;</span> + <span class="hljs-title function_">base64urlEncoding</span>(signature)<br></code></pre></td></tr></table></figure>
+<h1 id="三standard-fields">三、Standard Fields</h1>
+<table>
+
+<thead>
+<tr>
+<th>Code</th>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>iss</td>
+<td>Issuer</td>
+<td>Identifies principal that issued the JWT.</td>
+</tr>
+<tr>
+<td>sub</td>
+<td>Subject</td>
+<td>Identifies the subject of the JWT.</td>
+</tr>
+<tr>
+<td>aud</td>
+<td>Audience</td>
+<td></td>
+</tr>
+<tr>
+<td>exp</td>
+<td>Expiration Time</td>
+<td>Identifies the expiration time on and after which the JWT
+<strong>must not</strong> be accepted for processing. The value must be
+a NumericDate: either an integer or decimal, representing seconds past
+1970-01-01 00:00:00Z.</td>
+</tr>
+<tr>
+<td>nbf</td>
+<td>Not Before</td>
+<td>Identifies the time on which the JWT will start to be accepted for
+processing. The value must be a NumericDate.</td>
+</tr>
+<tr>
+<td>iat</td>
+<td>Issued at</td>
+<td>Identifies the time at which the JWT was issued. The value must be a
+NumericDate.</td>
+</tr>
+<tr>
+<td>jti</td>
+<td>JWT ID</td>
+<td>Case-sensitive unique identifier of the token even among different
+issuers.</td>
+</tr>
+</tbody>
+</table>
+<h1 id="四implement">四、Implement</h1>
+<p>在 https://jwt.io/ 网站中收录有各类语言的JWT库实现，java
+目前有6个实现</p>
+<ol type="1">
+<li><p><strong>java-jwt</strong></p>
+<blockquote>
+<p>Auth0实现的--maven: com.auth0 / java-jwt / 3.3.0</p>
+<p>Auth0提供的JWT库简单实用,
+依赖第三方(如JAVA运行环境)提供的证书信息(keypair);有一问题是在
+生成id_token与 校验(verify)id_token时都需要 公钥</p>
+<p>(public key)与密钥(private key),
+个人感觉是一不足(实际上在校验时只需要public key即可)</p>
+</blockquote></li>
+<li><p><strong>jose4j</strong></p>
+<blockquote>
+<p>Brian Campbell实现的--maven: org.bitbucket.b_c / jose4j / 0.6.3</p>
+<p>jose4j提供了完整的JWT实现, 可以不依赖第三方提供的证书信息(keypair,
+库本身自带有RSA的实现),类定义与JWT协议规定匹配度高,易理解与上手对称加</p>
+<p>密与非对称加密都有提供实现</p>
+</blockquote></li>
+<li><p><strong>nimbus-jose-jwt</strong></p>
+<blockquote>
+<p>connect2id实现的--maven: com.nimbusds / nimbus-jose-jwt / 5.7</p>
+<p>nimbus-jose-jwt库类定义清晰,简单易用,易理解 ,
+依赖第三方提供的证书信息(keypair), 对称算法 与非对称算法皆有实现.</p>
+</blockquote></li>
+<li><p><strong>jjwt</strong>　　</p>
+<blockquote>
+<p>Les Haziewood实现的--maven: io.jsonwebtoken / jjwt-root / 0.11.1</p>
+<p>jjwt小巧够用, 但对JWT的一些细节包装不够, 比如 Claims
+(只提供获取header,body)</p>
+<p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">JwtUtils</span> &#123;<br><br>    <span class="hljs-comment">//单位秒</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">long</span> expiration_time=<span class="hljs-number">60</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String key=<span class="hljs-string">&quot;this is louis&quot;</span>;<br><br><br>    <span class="hljs-comment">// 生成token</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title function_">generateToken</span><span class="hljs-params">(String username)</span>&#123;<br><br>        <span class="hljs-type">Date</span> <span class="hljs-variable">now</span> <span class="hljs-operator">=</span><span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>();<br>        <span class="hljs-type">Date</span> <span class="hljs-variable">expire</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>(now.getTime()+expiration_time*<span class="hljs-number">5</span>);<br>        <span class="hljs-keyword">return</span> Jwts.builder()<br>                .setHeaderParam(<span class="hljs-string">&quot;type&quot;</span>,<span class="hljs-string">&quot;JWT&quot;</span>)<br>                .setSubject(username)<br>                .setIssuedAt(now)<br>                .setExpiration(expire)<br>                .signWith(SignatureAlgorithm.HS256,key)<br>                .compact();<br><br>    &#125;<br><br>    <span class="hljs-comment">// 解析token</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Claims <span class="hljs-title function_">getClaimsByToken</span><span class="hljs-params">(String token)</span>&#123;<br><br>        <span class="hljs-keyword">return</span> Jwts.parser()<br>                .setSigningKey(key)<br>                .parseClaimsJws(token)<br>                .getBody();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></p>
+</blockquote></li>
+<li><p><strong>prime-jwt</strong>　　</p>
+<blockquote>
+<p>Inversoft实现的--maven: io.fusionauth / fusionauth-jwt / 3.5.0</p>
+<p>prime jwt库怎么说呢, 有些地方不符合JAVA语言规范, 支持对称算法(HMAC)
+与非对称算法(RSA), 也算容易理解</p>
+</blockquote></li>
+<li><p><strong>vertx-auth-jwt</strong>　　</p>
+<blockquote>
+<p>Vertx实现的--maven: io.vertx / vertx-auth-jwt / 3.5.1</p>
+<p>Vertx Auth Jwt
+库算是最不容易理解的一个库了.花了不少时间才弄通这一示例. 不容易上手.
+并且生成与校验id_token 时都需要公钥与私钥,不足.</p>
+</blockquote></li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/" class="category-chain-item">计算机技术</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/%E4%BA%92%E8%81%94%E7%BD%91%E6%A0%87%E5%87%86/" class="category-chain-item">互联网标准</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Technology/" class="print-no-link">#Technology</a>
+      
+        <a href="/tags/JWT/" class="print-no-link">#JWT</a>
+      
+        <a href="/tags/Web/" class="print-no-link">#Web</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>JWT 笔记</div>
+      <div>http://blog.kdata.top/2024/05/08/计算机技术/互联网标准/JWT/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Louis Liang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年5月8日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/05/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Redis/Redis/" title="Redis #0 学习笔记">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Redis #0 学习笔记</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/05/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Spring/SpringSecurity/" title="Spring Security">
+                        <span class="hidden-mobile">Spring Security</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"xj3pSmoXkOUNvlam7Ck0Q6L7-MdYXbMMI","appKey":"1H3MIGm9Juy7xDztbm2EBlHb","path":"window.location.pathname","placeholder":"说点什么吧...","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"https://xj3psmox.api.lncldglobal.com","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
