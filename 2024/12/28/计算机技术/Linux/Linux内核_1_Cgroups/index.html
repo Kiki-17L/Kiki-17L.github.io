@@ -22,17 +22,17 @@
     <meta name="description" content="What is cgroups? ​ Control Groups，是一个Linux 内核功能，用来限制、控制与分离一个进程组的资源。最早的名称为进程容器（process containers）。 Functionality cgroups 提供  资源限制（Resources Limiting）：组可以被设置不超过设定的内存限制、I&#x2F;O带宽限制、CPU配额限制、最大打开文件数">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux内核 #1 Cgroups">
-<meta property="og:url" content="http://kdata.top/2024/12/28/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Linux/Linux%E5%86%85%E6%A0%B8_1_Cgroups/index.html">
+<meta property="og:url" content="http://kiki-17l.github.io/2024/12/28/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Linux/Linux%E5%86%85%E6%A0%B8_1_Cgroups/index.html">
 <meta property="og:site_name" content="Louis 的博客空间">
 <meta property="og:description" content="What is cgroups? ​ Control Groups，是一个Linux 内核功能，用来限制、控制与分离一个进程组的资源。最早的名称为进程容器（process containers）。 Functionality cgroups 提供  资源限制（Resources Limiting）：组可以被设置不超过设定的内存限制、I&#x2F;O带宽限制、CPU配额限制、最大打开文件数">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://kdata.top/img/pt/linux.svg">
+<meta property="og:image" content="http://kiki-17l.github.io/img/pt/linux.svg">
 <meta property="article:published_time" content="2024-12-28T12:09:03.000Z">
 <meta property="article:modified_time" content="2024-12-29T13:40:36.603Z">
 <meta property="article:author" content="Louis Liang">
 <meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://kdata.top/img/pt/linux.svg">
+<meta name="twitter:image" content="http://kiki-17l.github.io/img/pt/linux.svg">
   
   
   
@@ -78,7 +78,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"kdata.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"kiki-17l.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -363,7 +363,7 @@ Limiting）：组可以被设置不超过设定的内存限制、I/O带宽限制
   <div class="license-box my-3">
     <div class="license-title">
       <div>Linux内核 #1 Cgroups</div>
-      <div>http://kdata.top/2024/12/28/计算机技术/Linux/Linux内核_1_Cgroups/</div>
+      <div>http://kiki-17l.github.io/2024/12/28/计算机技术/Linux/Linux内核_1_Cgroups/</div>
     </div>
     <div class="license-meta">
       
