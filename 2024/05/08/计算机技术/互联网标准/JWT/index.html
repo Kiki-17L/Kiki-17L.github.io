@@ -1141,9 +1141,9 @@ issuers.</td>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/05/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Redis/Redis/" title="Redis #0 学习笔记">
+                      <a href="/2024/05/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Spring/SpringSecurity/" title="Spring Security">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Redis #0 学习笔记</span>
+                        <span class="hidden-mobile">Spring Security</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -1151,8 +1151,8 @@ issuers.</td>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/05/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Spring/SpringSecurity/" title="Spring Security">
-                        <span class="hidden-mobile">Spring Security</span>
+                      <a href="/2024/05/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Vue/VueRouter%20%E7%AC%94%E8%AE%B0/" title="Vue Router 笔记">
+                        <span class="hidden-mobile">Vue Router 笔记</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -1167,6 +1167,28 @@ issuers.</td>
   
     <article id="comments" lazyload>
       
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"0ldeoZKoVWFzwMX4tAUyktcs-MdYXbMMI","appKey":"1dEQzr4YVgt4vJBrlEqHGR59","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
 
     </article>
   

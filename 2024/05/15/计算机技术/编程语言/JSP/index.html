@@ -31,8 +31,8 @@
 <meta property="article:modified_time" content="2024-12-30T09:10:44.817Z">
 <meta property="article:author" content="Louis Liang">
 <meta property="article:tag" content="Technology">
-<meta property="article:tag" content="JSP">
 <meta property="article:tag" content="Java">
+<meta property="article:tag" content="JSP">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://blog.kdata.top/img/pt/jsp.svg">
   
@@ -1103,9 +1103,9 @@ JSP 页面的实例，可以用于调用页面的方法。</td>
       
         <a href="/tags/Technology/" class="print-no-link">#Technology</a>
       
-        <a href="/tags/JSP/" class="print-no-link">#JSP</a>
-      
         <a href="/tags/Java/" class="print-no-link">#Java</a>
+      
+        <a href="/tags/JSP/" class="print-no-link">#JSP</a>
       
     </div>
   
@@ -1188,6 +1188,28 @@ JSP 页面的实例，可以用于调用页面的方法。</td>
   
     <article id="comments" lazyload>
       
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"0ldeoZKoVWFzwMX4tAUyktcs-MdYXbMMI","appKey":"1dEQzr4YVgt4vJBrlEqHGR59","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
 
     </article>
   
