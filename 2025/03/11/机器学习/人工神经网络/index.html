@@ -27,7 +27,7 @@
 <meta property="og:description" content="Cross-Entropy Loss \[ J(W)&#x3D;\frac{1}{m}\sum^{m-1}_{i&#x3D;0}\sum^{n-1}_{j&#x3D;0} y_{ij}\log(\hat y_{ij}) \] Backpropagation denote: 每层的误差项 \(\delta\) 表示的是一个误差向量，每层之间连接的权重 \(W\) 表示的是一个权重矩阵 误差项在反向传播中的递推关">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-03-11T08:33:07.000Z">
-<meta property="article:modified_time" content="2025-04-17T05:31:41.157Z">
+<meta property="article:modified_time" content="2025-05-02T16:29:27.399Z">
 <meta property="article:author" content="Louis Liang">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -325,9 +325,9 @@ class="math inline">\(l+1\)</span> 层 <span class="math display">\[
 \]</span> 根据 Stochastic Gradient Descent
 方法，通过<strong>误差项</strong>来修正权重与偏置：</p>
 <p>（1）权重 <span class="math display">\[
-\frac{\part C}{\part W^l_{jk}}=\delta^l_j\cdot a^{l-1}_{k}
+\frac{\partial C}{\partial W^l_{jk}}=\delta^l_j\cdot a^{l-1}_{k}
 \]</span> （2）偏置 <span class="math display">\[
-\frac{\part C}{\part b^{l}_j}=\delta^l_j
+\frac{\partial C}{\partial b^{l}_j}=\delta^l_j
 \]</span></p>
 
                 
