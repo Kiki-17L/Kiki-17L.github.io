@@ -1,0 +1,805 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/k.png">
+  <link rel="icon" href="/img/k.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Louis Liang">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1 官方下载器安装 （1）访问 AMD Xilinx 官网，下载 ISE 14.7 的完整安装包 Full installer for Linux (TAR&#x2F;GZIP) （2）将下载好的压缩包 Xilinx_ISE_DS_Lin_14.7_1015_1.tar 解压到非中文目录 （3）执行解压好的安装包里面的安装程序 123cd Xilinx_ISE_DS_Lin_14.7_1015_">
+<meta property="og:type" content="article">
+<meta property="og:title" content="安装实践 #3 ISE 14.7">
+<meta property="og:url" content="http://blog.kdata.top/2025/04/07/%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/ISE%2014.7%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/index.html">
+<meta property="og:site_name" content="Louis 的博客空间">
+<meta property="og:description" content="1 官方下载器安装 （1）访问 AMD Xilinx 官网，下载 ISE 14.7 的完整安装包 Full installer for Linux (TAR&#x2F;GZIP) （2）将下载好的压缩包 Xilinx_ISE_DS_Lin_14.7_1015_1.tar 解压到非中文目录 （3）执行解压好的安装包里面的安装程序 123cd Xilinx_ISE_DS_Lin_14.7_1015_">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-04-07T13:00:00.000Z">
+<meta property="article:modified_time" content="2025-06-16T07:00:54.033Z">
+<meta property="article:author" content="Louis Liang">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+    <meta name="baidu-site-verification" content="codeva-Qg6I8FqWDv" /> <meta name="google-site-verification" content="V5sVDpfhaYzqaJlPmJabZW54pHtZlZrnFhwBBEwwnyA" />
+  
+  <title>安装实践 #3 ISE 14.7 - Louis 的博客空间</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/mac.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"blog.kdata.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"jaYO9kMjXPLXHSqIxztIklMO-MdYXbMMI","app_key":"SdZwfj7e4KZk7Qr42DotllfP","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>KDATA</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="安装实践 #3 ISE 14.7"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-04-07 21:00" pubdate>
+          2025年4月7日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          923 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          8 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">安装实践 #3 ISE 14.7</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="官方下载器安装">1 官方下载器安装</h1>
+<p>（1）访问 AMD Xilinx 官网，下载 ISE 14.7 的完整安装包 <a
+target="_blank" rel="noopener" href="https://www.xilinx.com/member/forms/download/xef.html?filename=Xilinx_ISE_DS_Lin_14.7_1015_1.tar">Full
+installer for Linux (TAR/GZIP)</a></p>
+<p>（2）将下载好的压缩包 <code>Xilinx_ISE_DS_Lin_14.7_1015_1.tar</code>
+解压到非中文目录</p>
+<p>（3）执行解压好的安装包里面的安装程序</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> Xilinx_ISE_DS_Lin_14.7_1015_1<br><span class="hljs-built_in">sudo</span> <span class="hljs-built_in">chmod</span> +x xsetup     <span class="hljs-comment">#当前sudo用户下给xsetup文件添加执行权限</span><br><span class="hljs-built_in">sudo</span> ./xsetup            <span class="hljs-comment">#进行安装</span><br></code></pre></td></tr></table></figure>
+<p>（4）在弹出的可视化的安装程序中，选择
+<code>ISE Design Suite System Edition</code></p>
+<p>（5）在官方下载程序里面下载 Cable Driver 通常会失败。</p>
+<p>原因：由于ISE的cable
+driver需要使用windrvr6模块，而该模块不支持较新的linux内核，所以不能使用官方的方式安装驱动。需要使用网上的开源代码安装驱动。</p>
+<p>（6）安装完成后，会默认安装在 <code>/opt/Xilinx/</code> 目录下</p>
+<h1 id="设置桌面快捷方式">2 设置桌面快捷方式</h1>
+<p>（1）通过官方的 <code>installer</code> 安装 ISE
+14.7，默认是不会有快捷启动方式的。</p>
+<p>（2）编写 ISE 14.7 启动脚本 <code>ise14.7_start.sh</code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-meta">#!/bin/bash</span><br><span class="hljs-built_in">source</span> /opt/Xilinx/14.7/ISE_DS/settings64.sh<br><span class="hljs-built_in">export</span> LD_PRELOAD=/opt/Xilinx/usb-driver/libusb-driver.so //替换为你编译好的驱动路径（见解决Cable Driver问题部分）<br>ise <span class="hljs-string">&quot;<span class="hljs-variable">$2</span>&quot;</span><br></code></pre></td></tr></table></figure>
+<p>将其存放到你自定义的目录下（如：<code>~/Documents/MyScript/ise14.7_start.sh</code>），并添加执行权限</p>
+<p>（3）编辑一个新的 <code>Desktop Entry</code> 文件（这是 GNOME
+环境，配置桌面快捷启动方式的入口文件）</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-section">[Desktop Entry]</span><br><span class="hljs-attr">Name</span>=ISE <span class="hljs-number">14.7</span><br><span class="hljs-attr">Exec</span>=/path/to/your/ise14.<span class="hljs-number">7</span>_start.sh /opt/Xilinx/<span class="hljs-number">14.7</span>/ISE_DS/ %f<br><span class="hljs-attr">Icon</span>=/opt/Xilinx/<span class="hljs-number">14.7</span>/ISE_DS/ISE/data/images/pn-ise.png<br><span class="hljs-attr">StartupWMClass</span>=_np			//解决窗口活动问题。只要设置了正确的WMClass，启动应用就会在图标旁边加点来表示活动。<br><span class="hljs-attr">Type</span>=Application<br></code></pre></td></tr></table></figure>
+<p>保存为 <code>ise.desktop</code>
+文件，可以暂时保存到桌面，然后右键设置该文件的属性，添加执行权限，允许
+Launch</p>
+<p>如果该文件图标还是不可执行，应该是 <code>desktop</code> 文件中的
+<code>Exec</code> 值中的参数 <code>/opt/Xilinx/...</code> 的问题</p>
+<p>官方 <code>installer</code> 将 ISE 安装在 <code>/opt/Xilinx</code>
+这个路径下，所有者都是 <code>root</code></p>
+<p>而刚才写的 <code>ise.desktop</code>
+文件，所有者是你当前登陆的用户。</p>
+<p>所以，当然不能在用户级别的 <code>desktop</code>
+文件中去启动一个系统级的脚本</p>
+<p>我的解决办法是，改 <code>/opt/Xilinx</code> 的权限（注：如果desktop
+文件语法没有问题，但还是无法启动，一般是路径权限问题）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">chown</span> -R /opt/Xilinx username:username<br></code></pre></td></tr></table></figure>
+<p>当图标状态改变为可执行时，可以 <code>ise.desktop</code> 放在
+<code>~/.local/share/applications/</code> 这个目录下，系统会自动识别</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mv</span> ise.desktop ~/.local/share/applications/<br></code></pre></td></tr></table></figure>
+<h1 id="解决cable-driver问题">3 解决Cable Driver问题</h1>
+<blockquote>
+<p>原因：由于ISE的cable
+driver需要使用windrvr6模块，而该模块不支持较新的linux内核，所以不能使用官方的方式安装驱动。需要使用网上的开源代码安装驱动。</p>
+</blockquote>
+<p>（1）安装驱动所需的依赖</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> apt install libusb-dev libftdi-dev build-essential libc6-dev fxload<br></code></pre></td></tr></table></figure>
+<ul>
+<li>libusb-dev</li>
+<li>libftdi-dev</li>
+<li>build-essential：C/C++ 环境，接下来需要编译 git 上找的驱动库</li>
+<li>libc6-dev</li>
+<li>fxload</li>
+</ul>
+<p>（2）判断你的下载器类型</p>
+<ul>
+<li><p>如果你的FPGA下载器是 Xilinx 自家的 Platform
+Cable，直接进行步骤（3）</p></li>
+<li><p>如果你的FPGA下载器是 Digilent 的 JTAG HS3，它是基于 FT232
+方案的（开源的一般都是这个）。请仔细阅读 git 库里面的 README 文档。
+最后面有基于 FT232 的方案。</p></li>
+</ul>
+<p>如何判断：</p>
+<p>下载器连接PC正常后，执行以下命名，</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> lsusb<br></code></pre></td></tr></table></figure>
+<p>然后找到对应的USB端口，后面有公司名称。</p>
+<p>（3）下载并编译 Cable Driver（建议 git 到非中文目录，如：我直接拉取在
+<code>/opt/Xilinx/usb-driver</code>）</p>
+<p>git 库地址：<a
+target="_blank" rel="noopener" href="https://github.com/JohnDMcMaster/xilinx-usb-driver">https://github.com/JohnDMcMaster/xilinx-usb-driver</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">clone</span> git://git.zerfleddert.de/usb-driver<br><span class="hljs-built_in">cd</span> /path/to/your/usb-driver<br>make<br></code></pre></td></tr></table></figure>
+<p>编译完成后可能会弹出 Warnning，可以忽略</p>
+<p>（4）通过设置文件<code>your/path/usb-driver/setup_pcusb</code>，安装编译好的驱动</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> ./setup_pcusb /opt/Xilinx/14.7/ISE_DS/ISE/<br></code></pre></td></tr></table></figure>
+<p>（5）重启 <code>udevadm</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> udevadm control --reload-rules<br></code></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" class="category-chain-item">最佳实践</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>安装实践 #3 ISE 14.7</div>
+      <div>http://blog.kdata.top/2025/04/07/最佳实践/ISE 14.7安装教程/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Louis Liang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年4月7日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/04/24/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/PyTorch%E7%AE%80%E6%98%8E%E6%95%99%E7%A8%8B/" title="Pytorch 简明教程">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Pytorch 简明教程</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/03/29/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/" title="算法笔记">
+                        <span class="hidden-mobile">算法笔记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"xj3pSmoXkOUNvlam7Ck0Q6L7-MdYXbMMI","appKey":"1H3MIGm9Juy7xDztbm2EBlHb","path":"window.location.pathname","placeholder":"说点什么吧...","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"https://xj3psmox.api.lncldglobal.com","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
