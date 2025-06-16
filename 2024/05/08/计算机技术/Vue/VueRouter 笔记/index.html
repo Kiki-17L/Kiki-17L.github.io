@@ -82,7 +82,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"blog.kdata.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"jaYO9kMjXPLXHSqIxztIklMO-MdYXbMMI","app_key":"SdZwfj7e4KZk7Qr42DotllfP","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"blog.kdata.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"jaYO9kMjXPLXHSqIxztIklMO-MdYXbMMI","app_key":"SdZwfj7e4KZk7Qr42DotllfP","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -299,7 +299,259 @@
   <div class="row nomargin-x">
     <div class="side-col d-none d-lg-block col-lg-2">
       
-  <aside class="sidebar category-bar" style="margin-right: -1rem">
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Vue Router 笔记</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2025年4月24日 晚上
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="安装与使用">安装与使用</h1>
+<p>Vue2 只能使用 VueRouter3，Vue3 只能使用VueRouter4。</p>
+<p>通过npm 安装：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">npm add vue-router@3<br><br>npm add vue-router@4<br></code></pre></td></tr></table></figure>
+<p>第一步，独立维护一个路由配置文件。</p>
+<p>src/router/index.js:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">//导入VueRouter路由与Vue</span><br><span class="hljs-keyword">import</span> <span class="hljs-title class_">VueRouter</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vue-router&#x27;</span><br><span class="hljs-keyword">import</span> <span class="hljs-title class_">Vue</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vue&#x27;</span><br><br><span class="hljs-comment">//导入自定义组件</span><br><span class="hljs-keyword">import</span> <span class="hljs-title class_">Test</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@/components/Test.vue&#x27;</span><br><span class="hljs-keyword">import</span> <span class="hljs-title class_">My</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@/components/My.vue&#x27;</span><br><span class="hljs-keyword">import</span> <span class="hljs-title class_">Work</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@/components/Work.vue&#x27;</span><br><br><span class="hljs-comment">//Vue挂载路由</span><br><span class="hljs-title class_">Vue</span>.<span class="hljs-title function_">use</span>(<span class="hljs-title class_">VueRouter</span>)<br><br><span class="hljs-comment">//创建路由对象</span><br><span class="hljs-comment">//建立路径hash与组件的映射</span><br><span class="hljs-keyword">const</span> router=<span class="hljs-keyword">new</span> <span class="hljs-title class_">VueRouter</span>(&#123;<br>    <span class="hljs-attr">routes</span>:[<br>        &#123; <span class="hljs-attr">path</span>:<span class="hljs-string">&#x27;/&#x27;</span> , <span class="hljs-attr">redirect</span>:<span class="hljs-string">&#x27;/path/to/component1&#x27;</span>&#125;<br>        &#123; <span class="hljs-attr">path</span>:<span class="hljs-string">&#x27;/path/to/component1&#x27;</span> , <span class="hljs-attr">component</span>: <span class="hljs-title class_">Test</span>&#125;,<br>        &#123; <span class="hljs-attr">path</span>:<span class="hljs-string">&#x27;/path/to/component2&#x27;</span> , <span class="hljs-attr">component</span>: <span class="hljs-title class_">My</span> &#125;,<br>		&#123; <span class="hljs-attr">path</span>:<span class="hljs-string">&#x27;/path/to/component3&#x27;</span> , <span class="hljs-attr">component</span>: <span class="hljs-title class_">Work</span> &#125;<br>    ]<br>&#125;)<br><br><span class="hljs-comment">//导出路由对象</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> router<br></code></pre></td></tr></table></figure>
+<p>第二步，在main.js 里面，通过router属性，挂载路由。</p>
+<p>src/main.js:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> <span class="hljs-title class_">Vue</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;Vue&#x27;</span><br>impory <span class="hljs-title class_">App</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@/App.vue&#x27;</span><br><span class="hljs-keyword">import</span> router <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@/router&#x27;</span><br><br><br><span class="hljs-keyword">new</span> <span class="hljs-title class_">Vue</span>(&#123;<br>    <span class="hljs-attr">render</span>:<span class="hljs-function">(<span class="hljs-params">h</span>)=&gt;</span><span class="hljs-title function_">h</span>(<span class="hljs-title class_">App</span>),<br>    router<br>&#125;).<span class="hljs-title function_">mount</span>(<span class="hljs-string">&#x27;#app&#x27;</span>)<br></code></pre></td></tr></table></figure>
+<p>第三部，创建显示路由：</p>
+<p>src/App.vue：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>	&lt;div&gt;<br>        &lt;router-link to=&#x27;/path/to/component1&#x27;&gt;组件1&lt;/router-link&gt;<br>        &lt;router-link to=&#x27;/path/to/component2&#x27;&gt;组件2&lt;/router-link&gt;<br>        &lt;router-link to=&#x27;/path/to/component3&#x27;&gt;组件3&lt;/router-link&gt;<br>       	&lt;!--路由出口 --&gt;<br>        &lt;router-view&gt;&lt;/router-view&gt;<br>    &lt;/div&gt;<br>&lt;/template&gt;<br></code></pre></td></tr></table></figure>
+<h1 id="路由重定向">路由重定向</h1>
+<p>通过redirect属性重定向<code>'/'</code>路径到首页<code>/path/to/main</code></p>
+<p>@/router/index.js：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> router=&#123;<br>    <br>    <span class="hljs-attr">routes</span>:[<br>        &#123;<span class="hljs-attr">path</span>:<span class="hljs-string">&#x27;/&#x27;</span>, <span class="hljs-attr">redirect</span>:<span class="hljs-string">&#x27;/paht/to/main&#x27;</span>&#125;,<br>        &#123;&#125;,<br>        &#123;&#125;<br>    ]<br>&#125;<br></code></pre></td></tr></table></figure>
+<h1 id="嵌套路由">嵌套路由</h1>
+<p>通过children属性声明子路由</p>
+<p>@/router/index.js：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> router=&#123;<br>    <br>    <span class="hljs-attr">routes</span>:[<br>        &#123;<span class="hljs-attr">path</span>:<span class="hljs-string">&#x27;/&#x27;</span>, <span class="hljs-attr">redirect</span>:<span class="hljs-string">&#x27;/paht/to/main&#x27;</span>&#125;,<br>        &#123;<span class="hljs-attr">path</span>:<span class="hljs-string">&#x27;/father&#x27;</span>, <span class="hljs-attr">component</span>: <span class="hljs-title class_">Father</span>, <br>         	<span class="hljs-attr">children</span>: [<br>          		&#123;<span class="hljs-attr">path</span>:<span class="hljs-string">&#x27;children&#x27;</span>, <span class="hljs-attr">component</span>: <span class="hljs-title class_">Children</span>&#125;,<br>          		&#123;&#125;,<br>            ]<br>        &#125;<br>    ]<br>&#125;<br></code></pre></td></tr></table></figure>
+<h1 id="动态路由">动态路由</h1>
+<p>通过<code>:</code>-<code>冒号</code>声明路径参数，实现动态路由。</p>
+<p>例如<code>/path/to/user/:id</code>。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> router=&#123;<br>    <br>    <span class="hljs-attr">routes</span>:[<br>        &#123;<span class="hljs-attr">path</span>:<span class="hljs-string">&#x27;/path/to/user/:id&#x27;</span>, <span class="hljs-attr">component</span>: <span class="hljs-title class_">User</span>&#125;,<br>        &#123;&#125;,<br>        <br>    ]<br>    <br>&#125;<br></code></pre></td></tr></table></figure>
+<p><code>/path/to/user/1</code></p>
+<p><code>/path/to/user/2</code></p>
+<p>都会路由到User组件</p>
+<p>在User组件中，可通过<code>this.$route.param</code>对象获取这个路径参数。</p>
+<h2 id="属性传参">属性传参</h2>
+<p>以属性<code>prop</code>的的方式接受路由参数。
+主要解决<code>$router</code>对象产生的耦合</p>
+<p>第一步</p>
+<p>将路由映射对象的<code>props</code>属性设置为<code>true</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> router=&#123;<br>    <br>    <span class="hljs-attr">routes</span>:[<br>        &#123;<span class="hljs-attr">path</span>:<span class="hljs-string">&#x27;/path/to/user/:id&#x27;</span>, <span class="hljs-attr">component</span>: <span class="hljs-title class_">User</span>,<span class="hljs-attr">props</span>:<span class="hljs-literal">true</span>&#125;,<br>        &#123;&#125;,<br>        <br>    ]<br>    <br>&#125;<br></code></pre></td></tr></table></figure>
+<p>第二步</p>
+<p>组件设置自定义属性。</p>
+<p>User.vue：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>	&lt;h1&gt;<br>        your id is&#123;&#123; id &#125;&#125;<br>    &lt;/h1&gt;<br>&lt;/template&gt;<br>&lt;script&gt;<br>	export default&#123;<br>        //设置自定义属性id<br>       props: [ &#x27;id&#x27; ]<br>    &#125;<br>&lt;/script&gt;<br></code></pre></td></tr></table></figure>
+<h2 id="方法路由">方法路由</h2>
+<table>
+<thead>
+<tr>
+<th>声明式导航</th>
+<th>编程式导航</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;router-link to='/..'&gt;</code></td>
+<td><code>this.$router.push('/...')</code></td>
+</tr>
+</tbody>
+</table>
+<p>Test.vue：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>	&lt;button @click=&#x27;to&#x27;&gt;<br>        跳转<br>    &lt;/button&gt;<br>&lt;/template&gt;<br><br>&lt;script&gt;<br>	export default&#123;<br>        methods:&#123;<br>            to()&#123;<br>                this.$router.push(&quot;/user/$&#123;id&#125;&quot;)<br>            &#125;<br>            <br>            <br>        &#125;<br>    &#125;<br>&lt;/script&gt;<br></code></pre></td></tr></table></figure>
+<h1 id="导航卫士">导航卫士</h1>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs js">router.<span class="hljs-title function_">beforeEach</span>( <span class="hljs-function">(<span class="hljs-params">to, <span class="hljs-keyword">from</span>, next</span>)=&gt;</span>&#123;<br><br>	<span class="hljs-keyword">if</span>( to.<span class="hljs-property">paht</span>=<span class="hljs-string">&#x27;/..&#x27;</span> &amp;&amp; !isAuthenticated)&#123;<br>        <span class="hljs-title function_">next</span>(<span class="hljs-string">&#x27;/login&#x27;</span>)<br>    &#125;<br>    <span class="hljs-keyword">else</span><br>    &#123;<br>        <span class="hljs-title function_">next</span>()<span class="hljs-comment">//放行</span><br>    &#125;<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/" class="category-chain-item">计算机技术</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Vue/" class="category-chain-item">Vue</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Technology/" class="print-no-link">#Technology</a>
+      
+        <a href="/tags/Vue/" class="print-no-link">#Vue</a>
+      
+        <a href="/tags/Vue-Router/" class="print-no-link">#Vue Router</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Vue Router 笔记</div>
+      <div>http://blog.kdata.top/2024/05/08/计算机技术/Vue/VueRouter 笔记/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Louis Liang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年5月8日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/05/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Spring/Spring%20%E7%AC%94%E8%AE%B0/" title="Spring 笔记">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Spring 笔记</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/05/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Mybatis/Mybatis%20%E7%AC%94%E8%AE%B0/" title="Mybatis 笔记">
+                        <span class="hidden-mobile">Mybatis 笔记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"xj3pSmoXkOUNvlam7Ck0Q6L7-MdYXbMMI","appKey":"1H3MIGm9Juy7xDztbm2EBlHb","path":"window.location.pathname","placeholder":"说点什么吧...","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"https://xj3psmox.api.lncldglobal.com","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-left: -1rem">
     
 
 
@@ -902,250 +1154,6 @@
     </div>
   
 </div>
-
-
-  </aside>
-
-
-    </div>
-
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div id="board">
-          <article class="post-content mx-auto">
-            <h1 id="seo-header">Vue Router 笔记</h1>
-            
-            
-              <div class="markdown-body">
-                
-                <h1 id="安装与使用">安装与使用</h1>
-<p>Vue2 只能使用 VueRouter3，Vue3 只能使用VueRouter4。</p>
-<p>通过npm 安装：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">npm add vue-router@3<br><br>npm add vue-router@4<br></code></pre></td></tr></table></figure>
-<p>第一步，独立维护一个路由配置文件。</p>
-<p>src/router/index.js:</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">//导入VueRouter路由与Vue</span><br><span class="hljs-keyword">import</span> <span class="hljs-title class_">VueRouter</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vue-router&#x27;</span><br><span class="hljs-keyword">import</span> <span class="hljs-title class_">Vue</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vue&#x27;</span><br><br><span class="hljs-comment">//导入自定义组件</span><br><span class="hljs-keyword">import</span> <span class="hljs-title class_">Test</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@/components/Test.vue&#x27;</span><br><span class="hljs-keyword">import</span> <span class="hljs-title class_">My</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@/components/My.vue&#x27;</span><br><span class="hljs-keyword">import</span> <span class="hljs-title class_">Work</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@/components/Work.vue&#x27;</span><br><br><span class="hljs-comment">//Vue挂载路由</span><br><span class="hljs-title class_">Vue</span>.<span class="hljs-title function_">use</span>(<span class="hljs-title class_">VueRouter</span>)<br><br><span class="hljs-comment">//创建路由对象</span><br><span class="hljs-comment">//建立路径hash与组件的映射</span><br><span class="hljs-keyword">const</span> router=<span class="hljs-keyword">new</span> <span class="hljs-title class_">VueRouter</span>(&#123;<br>    <span class="hljs-attr">routes</span>:[<br>        &#123; <span class="hljs-attr">path</span>:<span class="hljs-string">&#x27;/&#x27;</span> , <span class="hljs-attr">redirect</span>:<span class="hljs-string">&#x27;/path/to/component1&#x27;</span>&#125;<br>        &#123; <span class="hljs-attr">path</span>:<span class="hljs-string">&#x27;/path/to/component1&#x27;</span> , <span class="hljs-attr">component</span>: <span class="hljs-title class_">Test</span>&#125;,<br>        &#123; <span class="hljs-attr">path</span>:<span class="hljs-string">&#x27;/path/to/component2&#x27;</span> , <span class="hljs-attr">component</span>: <span class="hljs-title class_">My</span> &#125;,<br>		&#123; <span class="hljs-attr">path</span>:<span class="hljs-string">&#x27;/path/to/component3&#x27;</span> , <span class="hljs-attr">component</span>: <span class="hljs-title class_">Work</span> &#125;<br>    ]<br>&#125;)<br><br><span class="hljs-comment">//导出路由对象</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> router<br></code></pre></td></tr></table></figure>
-<p>第二步，在main.js 里面，通过router属性，挂载路由。</p>
-<p>src/main.js:</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> <span class="hljs-title class_">Vue</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;Vue&#x27;</span><br>impory <span class="hljs-title class_">App</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@/App.vue&#x27;</span><br><span class="hljs-keyword">import</span> router <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@/router&#x27;</span><br><br><br><span class="hljs-keyword">new</span> <span class="hljs-title class_">Vue</span>(&#123;<br>    <span class="hljs-attr">render</span>:<span class="hljs-function">(<span class="hljs-params">h</span>)=&gt;</span><span class="hljs-title function_">h</span>(<span class="hljs-title class_">App</span>),<br>    router<br>&#125;).<span class="hljs-title function_">mount</span>(<span class="hljs-string">&#x27;#app&#x27;</span>)<br></code></pre></td></tr></table></figure>
-<p>第三部，创建显示路由：</p>
-<p>src/App.vue：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>	&lt;div&gt;<br>        &lt;router-link to=&#x27;/path/to/component1&#x27;&gt;组件1&lt;/router-link&gt;<br>        &lt;router-link to=&#x27;/path/to/component2&#x27;&gt;组件2&lt;/router-link&gt;<br>        &lt;router-link to=&#x27;/path/to/component3&#x27;&gt;组件3&lt;/router-link&gt;<br>       	&lt;!--路由出口 --&gt;<br>        &lt;router-view&gt;&lt;/router-view&gt;<br>    &lt;/div&gt;<br>&lt;/template&gt;<br></code></pre></td></tr></table></figure>
-<h1 id="路由重定向">路由重定向</h1>
-<p>通过redirect属性重定向<code>'/'</code>路径到首页<code>/path/to/main</code></p>
-<p>@/router/index.js：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> router=&#123;<br>    <br>    <span class="hljs-attr">routes</span>:[<br>        &#123;<span class="hljs-attr">path</span>:<span class="hljs-string">&#x27;/&#x27;</span>, <span class="hljs-attr">redirect</span>:<span class="hljs-string">&#x27;/paht/to/main&#x27;</span>&#125;,<br>        &#123;&#125;,<br>        &#123;&#125;<br>    ]<br>&#125;<br></code></pre></td></tr></table></figure>
-<h1 id="嵌套路由">嵌套路由</h1>
-<p>通过children属性声明子路由</p>
-<p>@/router/index.js：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> router=&#123;<br>    <br>    <span class="hljs-attr">routes</span>:[<br>        &#123;<span class="hljs-attr">path</span>:<span class="hljs-string">&#x27;/&#x27;</span>, <span class="hljs-attr">redirect</span>:<span class="hljs-string">&#x27;/paht/to/main&#x27;</span>&#125;,<br>        &#123;<span class="hljs-attr">path</span>:<span class="hljs-string">&#x27;/father&#x27;</span>, <span class="hljs-attr">component</span>: <span class="hljs-title class_">Father</span>, <br>         	<span class="hljs-attr">children</span>: [<br>          		&#123;<span class="hljs-attr">path</span>:<span class="hljs-string">&#x27;children&#x27;</span>, <span class="hljs-attr">component</span>: <span class="hljs-title class_">Children</span>&#125;,<br>          		&#123;&#125;,<br>            ]<br>        &#125;<br>    ]<br>&#125;<br></code></pre></td></tr></table></figure>
-<h1 id="动态路由">动态路由</h1>
-<p>通过<code>:</code>-<code>冒号</code>声明路径参数，实现动态路由。</p>
-<p>例如<code>/path/to/user/:id</code>。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> router=&#123;<br>    <br>    <span class="hljs-attr">routes</span>:[<br>        &#123;<span class="hljs-attr">path</span>:<span class="hljs-string">&#x27;/path/to/user/:id&#x27;</span>, <span class="hljs-attr">component</span>: <span class="hljs-title class_">User</span>&#125;,<br>        &#123;&#125;,<br>        <br>    ]<br>    <br>&#125;<br></code></pre></td></tr></table></figure>
-<p><code>/path/to/user/1</code></p>
-<p><code>/path/to/user/2</code></p>
-<p>都会路由到User组件</p>
-<p>在User组件中，可通过<code>this.$route.param</code>对象获取这个路径参数。</p>
-<h2 id="属性传参">属性传参</h2>
-<p>以属性<code>prop</code>的的方式接受路由参数。
-主要解决<code>$router</code>对象产生的耦合</p>
-<p>第一步</p>
-<p>将路由映射对象的<code>props</code>属性设置为<code>true</code></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> router=&#123;<br>    <br>    <span class="hljs-attr">routes</span>:[<br>        &#123;<span class="hljs-attr">path</span>:<span class="hljs-string">&#x27;/path/to/user/:id&#x27;</span>, <span class="hljs-attr">component</span>: <span class="hljs-title class_">User</span>,<span class="hljs-attr">props</span>:<span class="hljs-literal">true</span>&#125;,<br>        &#123;&#125;,<br>        <br>    ]<br>    <br>&#125;<br></code></pre></td></tr></table></figure>
-<p>第二步</p>
-<p>组件设置自定义属性。</p>
-<p>User.vue：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>	&lt;h1&gt;<br>        your id is&#123;&#123; id &#125;&#125;<br>    &lt;/h1&gt;<br>&lt;/template&gt;<br>&lt;script&gt;<br>	export default&#123;<br>        //设置自定义属性id<br>       props: [ &#x27;id&#x27; ]<br>    &#125;<br>&lt;/script&gt;<br></code></pre></td></tr></table></figure>
-<h2 id="方法路由">方法路由</h2>
-<table>
-<thead>
-<tr>
-<th>声明式导航</th>
-<th>编程式导航</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>&lt;router-link to='/..'&gt;</code></td>
-<td><code>this.$router.push('/...')</code></td>
-</tr>
-</tbody>
-</table>
-<p>Test.vue：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>	&lt;button @click=&#x27;to&#x27;&gt;<br>        跳转<br>    &lt;/button&gt;<br>&lt;/template&gt;<br><br>&lt;script&gt;<br>	export default&#123;<br>        methods:&#123;<br>            to()&#123;<br>                this.$router.push(&quot;/user/$&#123;id&#125;&quot;)<br>            &#125;<br>            <br>            <br>        &#125;<br>    &#125;<br>&lt;/script&gt;<br></code></pre></td></tr></table></figure>
-<h1 id="导航卫士">导航卫士</h1>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs js">router.<span class="hljs-title function_">beforeEach</span>( <span class="hljs-function">(<span class="hljs-params">to, <span class="hljs-keyword">from</span>, next</span>)=&gt;</span>&#123;<br><br>	<span class="hljs-keyword">if</span>( to.<span class="hljs-property">paht</span>=<span class="hljs-string">&#x27;/..&#x27;</span> &amp;&amp; !isAuthenticated)&#123;<br>        <span class="hljs-title function_">next</span>(<span class="hljs-string">&#x27;/login&#x27;</span>)<br>    &#125;<br>    <span class="hljs-keyword">else</span><br>    &#123;<br>        <span class="hljs-title function_">next</span>()<span class="hljs-comment">//放行</span><br>    &#125;<br>&#125;)<br></code></pre></td></tr></table></figure>
-
-                
-              </div>
-            
-            <hr/>
-            <div>
-              <div class="post-metas my-3">
-  
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/" class="category-chain-item">计算机技术</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Vue/" class="category-chain-item">Vue</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
-  
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/Technology/" class="print-no-link">#Technology</a>
-      
-        <a href="/tags/Vue/" class="print-no-link">#Vue</a>
-      
-        <a href="/tags/Vue-Router/" class="print-no-link">#Vue Router</a>
-      
-    </div>
-  
-</div>
-
-
-              
-  
-
-  <div class="license-box my-3">
-    <div class="license-title">
-      <div>Vue Router 笔记</div>
-      <div>http://blog.kdata.top/2024/05/08/计算机技术/Vue/VueRouter 笔记/</div>
-    </div>
-    <div class="license-meta">
-      
-        <div class="license-meta-item">
-          <div>作者</div>
-          <div>Louis Liang</div>
-        </div>
-      
-      
-        <div class="license-meta-item license-meta-date">
-          <div>发布于</div>
-          <div>2024年5月8日</div>
-        </div>
-      
-      
-      
-        <div class="license-meta-item">
-          <div>许可协议</div>
-          <div>
-            
-              
-              
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
-                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
-                    <i class="iconfont icon-cc-by"></i>
-                  </span>
-                </a>
-              
-            
-          </div>
-        </div>
-      
-    </div>
-    <div class="license-icon iconfont"></div>
-  </div>
-
-
-
-              
-                <div class="post-prevnext my-3">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2024/05/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Spring/SpringSecurity/" title="Spring Security">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Spring Security</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2024/05/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Redis/Redis/" title="Redis #0 学习笔记">
-                        <span class="hidden-mobile">Redis #0 学习笔记</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
-  
-  
-    <article id="comments" lazyload>
-      
-  <div id="valine"></div>
-  <script type="text/javascript">
-    Fluid.utils.loadComments('#valine', function() {
-      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
-        var options = Object.assign(
-          {"appId":"xj3pSmoXkOUNvlam7Ck0Q6L7-MdYXbMMI","appKey":"1H3MIGm9Juy7xDztbm2EBlHb","path":"window.location.pathname","placeholder":"说点什么吧...","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"https://xj3psmox.api.lncldglobal.com","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
-          {
-            el: "#valine",
-            path: window.location.pathname
-          }
-        )
-        new Valine(options);
-        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
-          var imgSelector = '#valine .vcontent img:not(.vemoji)';
-          Fluid.plugins.imageCaption(imgSelector);
-          Fluid.plugins.fancyBox(imgSelector);
-        })
-      });
-    });
-  </script>
-  <noscript>Please enable JavaScript to view the comments</noscript>
-
-
-    </article>
-  
-
-
-          </article>
-        </div>
-      </div>
-    </div>
-
-    <div class="side-col d-none d-lg-block col-lg-2">
-      
-  <aside class="sidebar" style="margin-left: -1rem">
-    <div id="toc">
-  <p class="toc-header">
-    <i class="iconfont icon-list"></i>
-    <span>目录</span>
-  </p>
-  <div class="toc-body" id="toc-body"></div>
-</div>
-
 
 
   </aside>

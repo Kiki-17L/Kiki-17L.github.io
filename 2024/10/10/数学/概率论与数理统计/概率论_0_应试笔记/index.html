@@ -81,7 +81,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"blog.kdata.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"jaYO9kMjXPLXHSqIxztIklMO-MdYXbMMI","app_key":"SdZwfj7e4KZk7Qr42DotllfP","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"blog.kdata.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"jaYO9kMjXPLXHSqIxztIklMO-MdYXbMMI","app_key":"SdZwfj7e4KZk7Qr42DotllfP","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -298,7 +298,288 @@
   <div class="row nomargin-x">
     <div class="side-col d-none d-lg-block col-lg-2">
       
-  <aside class="sidebar category-bar" style="margin-right: -1rem">
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">概率论 #0 应试笔记</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2025年4月24日 晚上
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="概率公理化">概率公理化</h1>
+<h2 id="概率空间">概率空间</h2>
+<p>定义：概率空间是一个三元组 <span
+class="math inline">\((\Omega,\mathcal{F},P)\)</span></p>
+<p>（1）<span class="math inline">\(\Omega\)</span>
+表示<strong>样本空间</strong></p>
+<p>（2）<span class="math inline">\(\mathcal{F}\)</span>
+表示<strong>事件集合</strong>，是样本空间 <span
+class="math inline">\(\Omega\)</span> 的子集，是一个 <span
+class="math inline">\(\sigma\)</span> 代数。即满足：</p>
+<ol type="1">
+<li>包含全集：<span class="math inline">\(\Omega\in
+\mathcal{F}\)</span></li>
+<li>补集封闭：<span class="math inline">\(A\in \mathcal{F},\quad A^c\in
+\mathcal{F}\)</span></li>
+<li>可数并运算封闭：<span
+class="math inline">\(A_n\in\mathcal{F},n=1,2,\cdots\)</span></li>
+</ol>
+<p><span class="math display">\[
+\bigcup_{n=1}^\infty A_n\in\mathcal{F}
+\]</span></p>
+<p>在此，空间 <span class="math inline">\((\Omega,\mathcal{F})\)</span>
+是一个<strong>可测空间</strong>，在此空间上定义<strong>测度</strong></p>
+<p>（3）<span class="math inline">\(P\)</span>
+表示<strong>概率测度</strong></p>
+<p>概率测度 <span class="math inline">\(P:\mathcal{F}\to
+\mathbf{R}\)</span> 需要满足以下三个公理</p>
+<ol type="1">
+<li><p>可数可加性： 如果 <span
+class="math inline">\(\{A_i\}_{i=1}^\infty \subset \mathcal{F}\)</span>
+为两两不相交的集合，则 <span class="math display">\[
+P(\bigcup_{i=1}^\infty A_i)=\bigcup_{i=1}^\infty P(A_i)
+\]</span></p></li>
+<li><p>归一性：<span class="math inline">\(P(\Omega)=1\)</span></p></li>
+<li><p>非负性：<span class="math inline">\(P(A)\ge 0\)</span></p></li>
+</ol>
+<h1 id="一大数定律">一、大数定律</h1>
+<ol type="1">
+<li><p>切比雪夫大数定律</p>
+<blockquote>
+<p>强大数定律、一般性强，只要求方差存在且一致有上界</p>
+</blockquote></li>
+<li><p>伯努利大数定律</p>
+<blockquote>
+<p>频率在实验次数趋于无穷的情况下依概率收敛于概率</p>
+</blockquote></li>
+<li><p>辛钦大数定律</p>
+<blockquote>
+<p>独立同分布，期望存在</p>
+</blockquote></li>
+</ol>
+<h1 id="二中心极限定理">二、中心极限定理</h1>
+<ol type="1">
+<li><p>列维-林德伯格定理</p>
+<blockquote>
+<p>独立同分布，相加之后趋于正态分布</p>
+</blockquote></li>
+<li><p>棣莫佛-拉普拉斯定理</p>
+<blockquote>
+<p>二项分布，n越大，趋于正态分布</p>
+</blockquote></li>
+</ol>
+<h1 id="三数理统计">三、数理统计</h1>
+<ol type="1">
+<li><span class="math inline">\(E(\bar{\mathbf{X}})=\mu\)</span></li>
+</ol>
+<h1 id="四数字特征">四、数字特征</h1>
+<p>特殊结论：</p>
+<p>亚当公式（全期望公式）：</p>
+<p><span class="math inline">\(E(X)=E(E(X\mid Y))\)</span></p>
+<p>夏娃公式（总方差公式）：</p>
+<p><span class="math inline">\(D(X)=E(D(X\mid Y))+D(E(X\mid
+Y))\)</span></p>
+<p>丢出去公式：</p>
+<p><span class="math inline">\(E(E(XY\mid Y))=YE(X\mid Y)\)</span></p>
+<h1 id="五经典结论">五、经典结论</h1>
+<ol type="1">
+<li>若 <span class="math inline">\(X\)</span> 的分布函数 $F_X(x)
+$<strong>严格单增加</strong>，则 <span
+class="math inline">\(Y=F_X(X)\)</span> 服从 <span
+class="math inline">\(U(0,1)\)</span> <span class="math display">\[
+\begin{align}
+F_Y(y) &amp;=P\{Y\le y\}=P\{F_X(X)\le y\}\\
+&amp;=P\{X\le F_X^{-1}(y)\}\\
+&amp;=F_X(F_X^{-1}(y))\\
+&amp;=y
+\end{align}
+\]</span></li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%95%B0%E5%AD%A6/" class="category-chain-item">数学</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E6%95%B0%E5%AD%A6/%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1/" class="category-chain-item">概率论与数理统计</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Probability/" class="print-no-link">#Probability</a>
+      
+        <a href="/tags/Math/" class="print-no-link">#Math</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>概率论 #0 应试笔记</div>
+      <div>http://blog.kdata.top/2024/10/10/数学/概率论与数理统计/概率论_0_应试笔记/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Louis Liang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年10月10日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/12/20/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/%E5%88%86%E5%B8%83%E5%BC%8F/CAP%E5%AE%9A%E7%90%86%E6%B5%85%E8%B0%88/" title="CAP原则浅谈">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">CAP原则浅谈</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/10/10/%E6%95%B0%E5%AD%A6/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0_0_%E5%BA%94%E8%AF%95%E7%AC%94%E8%AE%B0/" title="Linear Algebra #0 应试笔记">
+                        <span class="hidden-mobile">Linear Algebra #0 应试笔记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"xj3pSmoXkOUNvlam7Ck0Q6L7-MdYXbMMI","appKey":"1H3MIGm9Juy7xDztbm2EBlHb","path":"window.location.pathname","placeholder":"说点什么吧...","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"https://xj3psmox.api.lncldglobal.com","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-left: -1rem">
     
 
 
@@ -514,279 +795,6 @@
     </div>
   
 </div>
-
-
-  </aside>
-
-
-    </div>
-
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div id="board">
-          <article class="post-content mx-auto">
-            <h1 id="seo-header">概率论 #0 应试笔记</h1>
-            
-            
-              <div class="markdown-body">
-                
-                <h1 id="概率公理化">概率公理化</h1>
-<h2 id="概率空间">概率空间</h2>
-<p>定义：概率空间是一个三元组 <span
-class="math inline">\((\Omega,\mathcal{F},P)\)</span></p>
-<p>（1）<span class="math inline">\(\Omega\)</span>
-表示<strong>样本空间</strong></p>
-<p>（2）<span class="math inline">\(\mathcal{F}\)</span>
-表示<strong>事件集合</strong>，是样本空间 <span
-class="math inline">\(\Omega\)</span> 的子集，是一个 <span
-class="math inline">\(\sigma\)</span> 代数。即满足：</p>
-<ol type="1">
-<li>包含全集：<span class="math inline">\(\Omega\in
-\mathcal{F}\)</span></li>
-<li>补集封闭：<span class="math inline">\(A\in \mathcal{F},\quad A^c\in
-\mathcal{F}\)</span></li>
-<li>可数并运算封闭：<span
-class="math inline">\(A_n\in\mathcal{F},n=1,2,\cdots\)</span></li>
-</ol>
-<p><span class="math display">\[
-\bigcup_{n=1}^\infty A_n\in\mathcal{F}
-\]</span></p>
-<p>在此，空间 <span class="math inline">\((\Omega,\mathcal{F})\)</span>
-是一个<strong>可测空间</strong>，在此空间上定义<strong>测度</strong></p>
-<p>（3）<span class="math inline">\(P\)</span>
-表示<strong>概率测度</strong></p>
-<p>概率测度 <span class="math inline">\(P:\mathcal{F}\to
-\mathbf{R}\)</span> 需要满足以下三个公理</p>
-<ol type="1">
-<li><p>可数可加性： 如果 <span
-class="math inline">\(\{A_i\}_{i=1}^\infty \subset \mathcal{F}\)</span>
-为两两不相交的集合，则 <span class="math display">\[
-P(\bigcup_{i=1}^\infty A_i)=\bigcup_{i=1}^\infty P(A_i)
-\]</span></p></li>
-<li><p>归一性：<span class="math inline">\(P(\Omega)=1\)</span></p></li>
-<li><p>非负性：<span class="math inline">\(P(A)\ge 0\)</span></p></li>
-</ol>
-<h1 id="一大数定律">一、大数定律</h1>
-<ol type="1">
-<li><p>切比雪夫大数定律</p>
-<blockquote>
-<p>强大数定律、一般性强，只要求方差存在且一致有上界</p>
-</blockquote></li>
-<li><p>伯努利大数定律</p>
-<blockquote>
-<p>频率在实验次数趋于无穷的情况下依概率收敛于概率</p>
-</blockquote></li>
-<li><p>辛钦大数定律</p>
-<blockquote>
-<p>独立同分布，期望存在</p>
-</blockquote></li>
-</ol>
-<h1 id="二中心极限定理">二、中心极限定理</h1>
-<ol type="1">
-<li><p>列维-林德伯格定理</p>
-<blockquote>
-<p>独立同分布，相加之后趋于正态分布</p>
-</blockquote></li>
-<li><p>棣莫佛-拉普拉斯定理</p>
-<blockquote>
-<p>二项分布，n越大，趋于正态分布</p>
-</blockquote></li>
-</ol>
-<h1 id="三数理统计">三、数理统计</h1>
-<ol type="1">
-<li><span class="math inline">\(E(\bar{\mathbf{X}})=\mu\)</span></li>
-</ol>
-<h1 id="四数字特征">四、数字特征</h1>
-<p>特殊结论：</p>
-<p>亚当公式（全期望公式）：</p>
-<p><span class="math inline">\(E(X)=E(E(X\mid Y))\)</span></p>
-<p>夏娃公式（总方差公式）：</p>
-<p><span class="math inline">\(D(X)=E(D(X\mid Y))+D(E(X\mid
-Y))\)</span></p>
-<p>丢出去公式：</p>
-<p><span class="math inline">\(E(E(XY\mid Y))=YE(X\mid Y)\)</span></p>
-<h1 id="五经典结论">五、经典结论</h1>
-<ol type="1">
-<li>若 <span class="math inline">\(X\)</span> 的分布函数 $F_X(x)
-$<strong>严格单增加</strong>，则 <span
-class="math inline">\(Y=F_X(X)\)</span> 服从 <span
-class="math inline">\(U(0,1)\)</span> <span class="math display">\[
-\begin{align}
-F_Y(y) &amp;=P\{Y\le y\}=P\{F_X(X)\le y\}\\
-&amp;=P\{X\le F_X^{-1}(y)\}\\
-&amp;=F_X(F_X^{-1}(y))\\
-&amp;=y
-\end{align}
-\]</span></li>
-</ol>
-
-                
-              </div>
-            
-            <hr/>
-            <div>
-              <div class="post-metas my-3">
-  
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E6%95%B0%E5%AD%A6/" class="category-chain-item">数学</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E6%95%B0%E5%AD%A6/%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1/" class="category-chain-item">概率论与数理统计</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
-  
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/Probability/" class="print-no-link">#Probability</a>
-      
-        <a href="/tags/Math/" class="print-no-link">#Math</a>
-      
-    </div>
-  
-</div>
-
-
-              
-  
-
-  <div class="license-box my-3">
-    <div class="license-title">
-      <div>概率论 #0 应试笔记</div>
-      <div>http://blog.kdata.top/2024/10/10/数学/概率论与数理统计/概率论_0_应试笔记/</div>
-    </div>
-    <div class="license-meta">
-      
-        <div class="license-meta-item">
-          <div>作者</div>
-          <div>Louis Liang</div>
-        </div>
-      
-      
-        <div class="license-meta-item license-meta-date">
-          <div>发布于</div>
-          <div>2024年10月10日</div>
-        </div>
-      
-      
-      
-        <div class="license-meta-item">
-          <div>许可协议</div>
-          <div>
-            
-              
-              
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
-                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
-                    <i class="iconfont icon-cc-by"></i>
-                  </span>
-                </a>
-              
-            
-          </div>
-        </div>
-      
-    </div>
-    <div class="license-icon iconfont"></div>
-  </div>
-
-
-
-              
-                <div class="post-prevnext my-3">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2024/12/20/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/%E5%88%86%E5%B8%83%E5%BC%8F/CAP%E5%AE%9A%E7%90%86%E6%B5%85%E8%B0%88/" title="CAP原则浅谈">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">CAP原则浅谈</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2024/10/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E7%BC%96%E7%A0%81/%E7%BC%96%E7%A0%81_0_base64/" title="编码 #0 Base64">
-                        <span class="hidden-mobile">编码 #0 Base64</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
-  
-  
-    <article id="comments" lazyload>
-      
-  <div id="valine"></div>
-  <script type="text/javascript">
-    Fluid.utils.loadComments('#valine', function() {
-      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
-        var options = Object.assign(
-          {"appId":"xj3pSmoXkOUNvlam7Ck0Q6L7-MdYXbMMI","appKey":"1H3MIGm9Juy7xDztbm2EBlHb","path":"window.location.pathname","placeholder":"说点什么吧...","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"https://xj3psmox.api.lncldglobal.com","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
-          {
-            el: "#valine",
-            path: window.location.pathname
-          }
-        )
-        new Valine(options);
-        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
-          var imgSelector = '#valine .vcontent img:not(.vemoji)';
-          Fluid.plugins.imageCaption(imgSelector);
-          Fluid.plugins.fancyBox(imgSelector);
-        })
-      });
-    });
-  </script>
-  <noscript>Please enable JavaScript to view the comments</noscript>
-
-
-    </article>
-  
-
-
-          </article>
-        </div>
-      </div>
-    </div>
-
-    <div class="side-col d-none d-lg-block col-lg-2">
-      
-  <aside class="sidebar" style="margin-left: -1rem">
-    <div id="toc">
-  <p class="toc-header">
-    <i class="iconfont icon-list"></i>
-    <span>目录</span>
-  </p>
-  <div class="toc-body" id="toc-body"></div>
-</div>
-
 
 
   </aside>

@@ -81,7 +81,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"blog.kdata.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"jaYO9kMjXPLXHSqIxztIklMO-MdYXbMMI","app_key":"SdZwfj7e4KZk7Qr42DotllfP","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"blog.kdata.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"jaYO9kMjXPLXHSqIxztIklMO-MdYXbMMI","app_key":"SdZwfj7e4KZk7Qr42DotllfP","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -298,7 +298,365 @@
   <div class="row nomargin-x">
     <div class="side-col d-none d-lg-block col-lg-2">
       
-  <aside class="sidebar category-bar" style="margin-right: -1rem">
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Java #1 基础</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2025年4月24日 晚上
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="一历史">一、历史</h1>
+<h2 id="历史版本">1.1 历史版本</h2>
+<ol type="1">
+<li><p><strong>JDK Alpha 和 Beta</strong></p></li>
+<li><p><strong>JDK 1.0</strong></p>
+<blockquote>
+<p><strong>Released: January 23, 1996</strong></p>
+</blockquote></li>
+<li><p><strong>JDK 1.1</strong></p>
+<blockquote>
+<p><strong>Released: February 19, 1997</strong></p>
+</blockquote></li>
+<li><p><strong>J2SE 1.2</strong></p>
+<blockquote>
+<p><strong>Released: December 8, 1998</strong></p>
+<p><strong>Codename: Playground</strong></p>
+<p>The release on December 8, 1998 and subsequent releases through J2SE
+5.0 were rebranded retrospectively <strong>Java 2</strong> and the
+version name "J2SE" replaced JDK to distinguish the base platform from
+J2EE and J2ME.</p>
+<p>This was a very significant release of Java as it tripled the size of
+the Java platform to 1520 classes in 59 packages.</p>
+</blockquote></li>
+<li><p><strong>J2SE 1.3</strong></p>
+<blockquote>
+<p><strong>Released: May 8, 2000</strong></p>
+<p><strong>Codename: Kestrel</strong></p>
+</blockquote></li>
+<li><p><strong>J2SE 1.4</strong></p>
+<blockquote>
+<p><strong>Released: February 6, 2002</strong></p>
+<p><strong>Codename: Merlin</strong></p>
+</blockquote></li>
+<li><p><strong>J2SE 5.0</strong></p>
+<blockquote>
+<p><strong>Released: September 30, 2004</strong></p>
+<p><strong>Codename: Tiger</strong></p>
+<p>The release on September 30, 2004 was originally numbered 1.5, which
+is still used as the internal version number.</p>
+<p>The number was changed to "better reflect the level of maturity,
+stability, scalability and security of the J2SE"</p>
+<p>Both version numbers "1.5.0" and "5.0" are used to identify this
+release of the Java 2 Platform Standard Edition.</p>
+<p>Version "5.0" is the product version, while "1.5.0" is the developer
+version.</p>
+<p>This correspondence continued through later releases (Java 6 = JDK
+1.6, Java 7 = JDK 1.7, and so on).</p>
+</blockquote></li>
+<li><p><strong>Java SE 6</strong></p>
+<blockquote>
+<p><strong>Released: November 11, 2006</strong></p>
+<p><strong>Codename: Mustang</strong></p>
+<p>As of the version released on December 11, 2006, Sun replaced the
+name "J2SE" with <strong>Java SE</strong> and dropped the ".0" from the
+version number.</p>
+<p>Internal numbering for developers remains 1.6.0.</p>
+</blockquote></li>
+<li><p><strong>Java SE 7</strong></p>
+<blockquote>
+<p><strong>Released: July 28, 2011</strong></p>
+<p><strong>Codename: Dolphin</strong></p>
+<p>Lambda (Java's implementation of lambda functions), Jigsaw (Java's
+implementation of modules), and part of Coin were dropped from Java 7,
+and released as part of Java 8</p>
+</blockquote></li>
+<li><p><strong>Java SE 8</strong></p>
+<blockquote>
+<p><strong>Released: March 18, 2014</strong></p>
+<p>Java 8 was released on March 18, 2014, and included some features
+that were planned for Java 7 but later deferred.</p>
+</blockquote></li>
+</ol>
+<h1 id="二基础">二、基础</h1>
+<h2 id="java-基本类型">2.1 Java 基本类型</h2>
+<blockquote>
+<p>[!NOTE]</p>
+<p>从 Java 7
+开始，可以给数字字面量加下划线，编译器会去除这些下划线。</p>
+</blockquote>
+<p>Java 有<strong>8</strong>种基本类型（primitive type）</p>
+<ul>
+<li><p><strong>整型</strong></p>
+<ol type="1">
+<li>int</li>
+<li>long</li>
+<li>short</li>
+<li>byte</li>
+</ol></li>
+<li><p><strong>浮点型</strong></p>
+<ol type="1">
+<li>float</li>
+<li>double</li>
+</ol></li>
+<li><p><strong>字符型</strong></p>
+<ul>
+<li><p>char</p>
+<blockquote>
+<p>[!NOTE]</p>
+<p>转义序列 <code>\u</code>
+除了可以出现在单双引号内，还可以出现在其外，Unicode
+转义序列会在解析代码之前得到处理</p>
+</blockquote></li>
+</ul></li>
+<li><p><strong>布尔型</strong></p>
+<ul>
+<li><p>boolean</p>
+<blockquote>
+<p>[!WARNING]</p>
+<p>C++ 中值 0 相当于 false，非 0 值相当于 true</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">if</span>( x=<span class="hljs-number">0</span> )<br></code></pre></td></tr></table></figure>
+<p>C++ 可以通过编译运行，而 Java 中整型表达式不能转换成布尔值</p>
+</blockquote></li>
+</ul></li>
+</ul>
+<h2 id="字符串">2.2 字符串</h2>
+<blockquote>
+<p>[!NOTE]</p>
+<p>java 没有提供内置的字符串数据类型，但是标准库提供了一个预定义类
+<code>String</code>
+，每一个用双引号引起来的字符串都是该类的一个对象。</p>
+</blockquote>
+<h3 id="子串">子串</h3>
+<p>String 类提供了一个方法
+<code>substring</code>，第二个参数是不想复制的第一个位置，优点是容易计算子串长度。</p>
+<h3 id="拼接">拼接</h3>
+<ol type="1">
+<li>静态方法
+<code>String.join()</code>：将多个字符串用界定符拼接起来</li>
+<li>实例方法 <code>repeat()</code>：重复拼接字符串该实例，由 Java
+11提供</li>
+</ol>
+<h3 id="不可变字符串">不可变字符串</h3>
+<blockquote>
+<p>[!IMPORTANT]</p>
+<p>优点：编译器可以让字符串共享，在复制一个字符串变量时，原始字符串和复制字符串共享相同的字符</p>
+</blockquote>
+<blockquote>
+<p>[!NOTE]</p>
+<p>ANSI C++ 定义了 String
+类型，也可以自动进行内存分配和回收，但可以修改字符串中的单个字符。</p>
+</blockquote>
+<h3 id="检测字符串是否相等">检测字符串是否相等</h3>
+<ol type="1">
+<li>实例方法 <code>equals()</code>，判断两个字符串是否相等</li>
+<li>忽略大小写 <code>equalsIgnoreCase()</code></li>
+<li>实例方法 <code>compareTo()</code></li>
+</ol>
+<blockquote>
+<p>[!WARNING]</p>
+<p><code>==</code>
+只能确定两个字符串是否放在同一位置上，事实上，只有字符串字面量是共享的</p>
+<p><code>+</code> 和 <code>substring</code> 得到的都不是共享的</p>
+<p>但在 c++ 中，重载了运算符 <code>==</code>，可以用它进行相等性测试</p>
+</blockquote>
+<blockquote>
+<p>[!NOTE]</p>
+<p>C 程序员用 <code>==</code> 进行字符串内容相等性检测，而是用
+<code>strcmp()</code> 函数，java 的 <code>compareTo</code>
+方法完全类似于它。</p>
+</blockquote>
+<h3 id="构建字符串">构建字符串</h3>
+<p>每次字符串拼接时，都会构建一个新的 <code>String</code>
+对象，既耗时，又费空间</p>
+<p><code>StringBuilder</code> 类（在 Java 5 引入）可以避免这个问题</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java">StringBuilder builder=<span class="hljs-keyword">new</span> <span class="hljs-title class_">StringBuilder</span>();<br>builder.add(ch);<br>builder.add(str);<br>String completedString=builder.toString();<br></code></pre></td></tr></table></figure>
+<h2 id="输入输出流">输入输出流</h2>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/" class="category-chain-item">计算机技术</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" class="category-chain-item">编程语言</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Technology/" class="print-no-link">#Technology</a>
+      
+        <a href="/tags/Java/" class="print-no-link">#Java</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Java #1 基础</div>
+      <div>http://blog.kdata.top/2024/10/10/计算机技术/编程语言/Java/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Louis Liang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年10月10日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/10/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E8%AE%A1%E7%BB%84_2_Cache/" title="计组应试笔记 #2 Cache">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">计组应试笔记 #2 Cache</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/10/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JavaScript/" title="JavaScript #1 基础">
+                        <span class="hidden-mobile">JavaScript #1 基础</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"xj3pSmoXkOUNvlam7Ck0Q6L7-MdYXbMMI","appKey":"1H3MIGm9Juy7xDztbm2EBlHb","path":"window.location.pathname","placeholder":"说点什么吧...","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"https://xj3psmox.api.lncldglobal.com","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-left: -1rem">
     
 
 
@@ -901,356 +1259,6 @@
     </div>
   
 </div>
-
-
-  </aside>
-
-
-    </div>
-
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div id="board">
-          <article class="post-content mx-auto">
-            <h1 id="seo-header">Java #1 基础</h1>
-            
-            
-              <div class="markdown-body">
-                
-                <h1 id="一历史">一、历史</h1>
-<h2 id="历史版本">1.1 历史版本</h2>
-<ol type="1">
-<li><p><strong>JDK Alpha 和 Beta</strong></p></li>
-<li><p><strong>JDK 1.0</strong></p>
-<blockquote>
-<p><strong>Released: January 23, 1996</strong></p>
-</blockquote></li>
-<li><p><strong>JDK 1.1</strong></p>
-<blockquote>
-<p><strong>Released: February 19, 1997</strong></p>
-</blockquote></li>
-<li><p><strong>J2SE 1.2</strong></p>
-<blockquote>
-<p><strong>Released: December 8, 1998</strong></p>
-<p><strong>Codename: Playground</strong></p>
-<p>The release on December 8, 1998 and subsequent releases through J2SE
-5.0 were rebranded retrospectively <strong>Java 2</strong> and the
-version name "J2SE" replaced JDK to distinguish the base platform from
-J2EE and J2ME.</p>
-<p>This was a very significant release of Java as it tripled the size of
-the Java platform to 1520 classes in 59 packages.</p>
-</blockquote></li>
-<li><p><strong>J2SE 1.3</strong></p>
-<blockquote>
-<p><strong>Released: May 8, 2000</strong></p>
-<p><strong>Codename: Kestrel</strong></p>
-</blockquote></li>
-<li><p><strong>J2SE 1.4</strong></p>
-<blockquote>
-<p><strong>Released: February 6, 2002</strong></p>
-<p><strong>Codename: Merlin</strong></p>
-</blockquote></li>
-<li><p><strong>J2SE 5.0</strong></p>
-<blockquote>
-<p><strong>Released: September 30, 2004</strong></p>
-<p><strong>Codename: Tiger</strong></p>
-<p>The release on September 30, 2004 was originally numbered 1.5, which
-is still used as the internal version number.</p>
-<p>The number was changed to "better reflect the level of maturity,
-stability, scalability and security of the J2SE"</p>
-<p>Both version numbers "1.5.0" and "5.0" are used to identify this
-release of the Java 2 Platform Standard Edition.</p>
-<p>Version "5.0" is the product version, while "1.5.0" is the developer
-version.</p>
-<p>This correspondence continued through later releases (Java 6 = JDK
-1.6, Java 7 = JDK 1.7, and so on).</p>
-</blockquote></li>
-<li><p><strong>Java SE 6</strong></p>
-<blockquote>
-<p><strong>Released: November 11, 2006</strong></p>
-<p><strong>Codename: Mustang</strong></p>
-<p>As of the version released on December 11, 2006, Sun replaced the
-name "J2SE" with <strong>Java SE</strong> and dropped the ".0" from the
-version number.</p>
-<p>Internal numbering for developers remains 1.6.0.</p>
-</blockquote></li>
-<li><p><strong>Java SE 7</strong></p>
-<blockquote>
-<p><strong>Released: July 28, 2011</strong></p>
-<p><strong>Codename: Dolphin</strong></p>
-<p>Lambda (Java's implementation of lambda functions), Jigsaw (Java's
-implementation of modules), and part of Coin were dropped from Java 7,
-and released as part of Java 8</p>
-</blockquote></li>
-<li><p><strong>Java SE 8</strong></p>
-<blockquote>
-<p><strong>Released: March 18, 2014</strong></p>
-<p>Java 8 was released on March 18, 2014, and included some features
-that were planned for Java 7 but later deferred.</p>
-</blockquote></li>
-</ol>
-<h1 id="二基础">二、基础</h1>
-<h2 id="java-基本类型">2.1 Java 基本类型</h2>
-<blockquote>
-<p>[!NOTE]</p>
-<p>从 Java 7
-开始，可以给数字字面量加下划线，编译器会去除这些下划线。</p>
-</blockquote>
-<p>Java 有<strong>8</strong>种基本类型（primitive type）</p>
-<ul>
-<li><p><strong>整型</strong></p>
-<ol type="1">
-<li>int</li>
-<li>long</li>
-<li>short</li>
-<li>byte</li>
-</ol></li>
-<li><p><strong>浮点型</strong></p>
-<ol type="1">
-<li>float</li>
-<li>double</li>
-</ol></li>
-<li><p><strong>字符型</strong></p>
-<ul>
-<li><p>char</p>
-<blockquote>
-<p>[!NOTE]</p>
-<p>转义序列 <code>\u</code>
-除了可以出现在单双引号内，还可以出现在其外，Unicode
-转义序列会在解析代码之前得到处理</p>
-</blockquote></li>
-</ul></li>
-<li><p><strong>布尔型</strong></p>
-<ul>
-<li><p>boolean</p>
-<blockquote>
-<p>[!WARNING]</p>
-<p>C++ 中值 0 相当于 false，非 0 值相当于 true</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">if</span>( x=<span class="hljs-number">0</span> )<br></code></pre></td></tr></table></figure>
-<p>C++ 可以通过编译运行，而 Java 中整型表达式不能转换成布尔值</p>
-</blockquote></li>
-</ul></li>
-</ul>
-<h2 id="字符串">2.2 字符串</h2>
-<blockquote>
-<p>[!NOTE]</p>
-<p>java 没有提供内置的字符串数据类型，但是标准库提供了一个预定义类
-<code>String</code>
-，每一个用双引号引起来的字符串都是该类的一个对象。</p>
-</blockquote>
-<h3 id="子串">子串</h3>
-<p>String 类提供了一个方法
-<code>substring</code>，第二个参数是不想复制的第一个位置，优点是容易计算子串长度。</p>
-<h3 id="拼接">拼接</h3>
-<ol type="1">
-<li>静态方法
-<code>String.join()</code>：将多个字符串用界定符拼接起来</li>
-<li>实例方法 <code>repeat()</code>：重复拼接字符串该实例，由 Java
-11提供</li>
-</ol>
-<h3 id="不可变字符串">不可变字符串</h3>
-<blockquote>
-<p>[!IMPORTANT]</p>
-<p>优点：编译器可以让字符串共享，在复制一个字符串变量时，原始字符串和复制字符串共享相同的字符</p>
-</blockquote>
-<blockquote>
-<p>[!NOTE]</p>
-<p>ANSI C++ 定义了 String
-类型，也可以自动进行内存分配和回收，但可以修改字符串中的单个字符。</p>
-</blockquote>
-<h3 id="检测字符串是否相等">检测字符串是否相等</h3>
-<ol type="1">
-<li>实例方法 <code>equals()</code>，判断两个字符串是否相等</li>
-<li>忽略大小写 <code>equalsIgnoreCase()</code></li>
-<li>实例方法 <code>compareTo()</code></li>
-</ol>
-<blockquote>
-<p>[!WARNING]</p>
-<p><code>==</code>
-只能确定两个字符串是否放在同一位置上，事实上，只有字符串字面量是共享的</p>
-<p><code>+</code> 和 <code>substring</code> 得到的都不是共享的</p>
-<p>但在 c++ 中，重载了运算符 <code>==</code>，可以用它进行相等性测试</p>
-</blockquote>
-<blockquote>
-<p>[!NOTE]</p>
-<p>C 程序员用 <code>==</code> 进行字符串内容相等性检测，而是用
-<code>strcmp()</code> 函数，java 的 <code>compareTo</code>
-方法完全类似于它。</p>
-</blockquote>
-<h3 id="构建字符串">构建字符串</h3>
-<p>每次字符串拼接时，都会构建一个新的 <code>String</code>
-对象，既耗时，又费空间</p>
-<p><code>StringBuilder</code> 类（在 Java 5 引入）可以避免这个问题</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java">StringBuilder builder=<span class="hljs-keyword">new</span> <span class="hljs-title class_">StringBuilder</span>();<br>builder.add(ch);<br>builder.add(str);<br>String completedString=builder.toString();<br></code></pre></td></tr></table></figure>
-<h2 id="输入输出流">输入输出流</h2>
-
-                
-              </div>
-            
-            <hr/>
-            <div>
-              <div class="post-metas my-3">
-  
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/" class="category-chain-item">计算机技术</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" class="category-chain-item">编程语言</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
-  
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/Technology/" class="print-no-link">#Technology</a>
-      
-        <a href="/tags/Java/" class="print-no-link">#Java</a>
-      
-    </div>
-  
-</div>
-
-
-              
-  
-
-  <div class="license-box my-3">
-    <div class="license-title">
-      <div>Java #1 基础</div>
-      <div>http://blog.kdata.top/2024/10/10/计算机技术/编程语言/Java/</div>
-    </div>
-    <div class="license-meta">
-      
-        <div class="license-meta-item">
-          <div>作者</div>
-          <div>Louis Liang</div>
-        </div>
-      
-      
-        <div class="license-meta-item license-meta-date">
-          <div>发布于</div>
-          <div>2024年10月10日</div>
-        </div>
-      
-      
-      
-        <div class="license-meta-item">
-          <div>许可协议</div>
-          <div>
-            
-              
-              
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
-                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
-                    <i class="iconfont icon-cc-by"></i>
-                  </span>
-                </a>
-              
-            
-          </div>
-        </div>
-      
-    </div>
-    <div class="license-icon iconfont"></div>
-  </div>
-
-
-
-              
-                <div class="post-prevnext my-3">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2024/10/10/%E6%95%B0%E5%AD%A6/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6_4_%E9%BD%90%E6%AC%A1%E5%87%BD%E6%95%B0/" title="高等数学 #4 Homogenous Function">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">高等数学 #4 Homogenous Function</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2024/10/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JavaScript/" title="JavaScript #1 基础">
-                        <span class="hidden-mobile">JavaScript #1 基础</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
-  
-  
-    <article id="comments" lazyload>
-      
-  <div id="valine"></div>
-  <script type="text/javascript">
-    Fluid.utils.loadComments('#valine', function() {
-      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
-        var options = Object.assign(
-          {"appId":"xj3pSmoXkOUNvlam7Ck0Q6L7-MdYXbMMI","appKey":"1H3MIGm9Juy7xDztbm2EBlHb","path":"window.location.pathname","placeholder":"说点什么吧...","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"https://xj3psmox.api.lncldglobal.com","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
-          {
-            el: "#valine",
-            path: window.location.pathname
-          }
-        )
-        new Valine(options);
-        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
-          var imgSelector = '#valine .vcontent img:not(.vemoji)';
-          Fluid.plugins.imageCaption(imgSelector);
-          Fluid.plugins.fancyBox(imgSelector);
-        })
-      });
-    });
-  </script>
-  <noscript>Please enable JavaScript to view the comments</noscript>
-
-
-    </article>
-  
-
-
-          </article>
-        </div>
-      </div>
-    </div>
-
-    <div class="side-col d-none d-lg-block col-lg-2">
-      
-  <aside class="sidebar" style="margin-left: -1rem">
-    <div id="toc">
-  <p class="toc-header">
-    <i class="iconfont icon-list"></i>
-    <span>目录</span>
-  </p>
-  <div class="toc-body" id="toc-body"></div>
-</div>
-
 
 
   </aside>

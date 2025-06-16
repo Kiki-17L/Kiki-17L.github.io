@@ -81,7 +81,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"blog.kdata.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"jaYO9kMjXPLXHSqIxztIklMO-MdYXbMMI","app_key":"SdZwfj7e4KZk7Qr42DotllfP","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"blog.kdata.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"jaYO9kMjXPLXHSqIxztIklMO-MdYXbMMI","app_key":"SdZwfj7e4KZk7Qr42DotllfP","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -298,7 +298,301 @@
   <div class="row nomargin-x">
     <div class="side-col d-none d-lg-block col-lg-2">
       
-  <aside class="sidebar category-bar" style="margin-right: -1rem">
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Spring 笔记</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2025年4月24日 晚上
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="一装配">一、装配</h1>
+<blockquote>
+<p>创建应用组件之间协作的行为，通常称为<strong>装配</strong>（<strong><em>wiring</em></strong>）</p>
+</blockquote>
+<h2 id="三种装配机制">1.1 三种装配机制</h2>
+<ul>
+<li><h4 id="xml显示装配">XML显示装配</h4></li>
+<li><h4 id="在java中进行显示装配">在Java中进行显示装配</h4>
+<blockquote>
+<p>通过<strong><span class="citation"
+data-cites="Configuration">@Configuration</span></strong>
+注解声明一个<strong>Spring配置类</strong>。</p>
+<h6 id="组件命名">组件命名</h6>
+<ol type="1">
+<li>通过<strong><span class="citation"
+data-cites="Component">@Component</span>( beanID
+)</strong>注解给组件设置<strong>ID</strong></li>
+<li>通过<strong><span class="citation" data-cites="Named">@Named</span>(
+beanID )</strong>注解设置组件<strong>ID</strong> (这个<strong><span
+class="citation"
+data-cites="Named">@Named</span></strong>注解是在<strong>Java依赖注入规范</strong>中定义的，不是Spring框架特有的)。</li>
+<li>通过<strong><span class="citation" data-cites="Bean">@Bean</span>(
+name="")</strong>注解的name属性设置组件ID</li>
+</ol>
+<p><strong>JavaConfig</strong>配置类中，<strong>bean</strong>的ID默认与<strong><span
+class="citation"
+data-cites="Bean">@Bean</span></strong>注解的方法名一致。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Bean(name=&quot;test&quot;)</span>				<span class="hljs-comment">//这个Bean默认的ID是方法名knight,但是在@Bean注解中设置了name值为test</span><br><span class="hljs-keyword">public</span> Knight <span class="hljs-title function_">knight</span><span class="hljs-params">()</span>&#123;			<span class="hljs-comment">//此时BeanID就是test</span><br>	<span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Knight</span>()<br>&#125;<br></code></pre></td></tr></table></figure>
+<h5 id="javaconfig实现注入">JavaConfig实现注入</h5>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//若Quest依赖Knight,则借助@Bean注解方法knight实现注入</span><br><span class="hljs-meta">@Bean</span><br><span class="hljs-keyword">public</span> Quest <span class="hljs-title function_">quest</span><span class="hljs-params">()</span>&#123;<br>	<span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Quest</span>(knight())<br>&#125;<br></code></pre></td></tr></table></figure>
+</blockquote></li>
+<li><h4
+id="隐式的bean发现机制和自动装配">隐式的bean发现机制和自动装配</h4>
+<blockquote>
+<h5 id="启用组件扫描的方式">启用组件扫描的方式</h5>
+<ul>
+<li><p>隐式装配Config类需要使用<strong><span class="citation"
+data-cites="ComponentScan">@ComponentScan</span></strong>注解，<strong><span
+class="citation"
+data-cites="ComponentScan">@ComponentScan</span></strong>默认会扫描与
+<strong><em>配置类相同的包</em></strong>，在这个包及其子包下，查找带有<strong><span
+class="citation"
+data-cites="Component">@Component</span></strong>注解的类，并且会在Spring中自动为其创建一个_<strong>Bean</strong>_</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Configuration</span><br><span class="hljs-meta">@ComponentScan</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Config</span>&#123;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>同时，可以通过<strong><span class="citation"
+data-cites="ComponentScan">@ComponentScan</span>( packageName
+)</strong>注解，设置组件扫描的<strong>基础包</strong>。</p>
+<p>如果需要配置多个<strong>基础包</strong>，则设置<strong><span
+class="citation" data-cites="ComponentScan">@ComponentScan</span>(
+basePackages={"","",""})</strong>的属性basePackages的值为一个包名数组。</p>
+<p>然而，由于basePackages值为<strong>String</strong>类型，显然，只是类型不安全的
+(<strong>not type safe</strong>)。</p>
+<p>可以通过设置<strong>basePackageClasses</strong>属性，传入一个或多个<strong>Class</strong>对象，基础包将被设置为这些类所在的包。</p></li>
+<li><p>显示通过__配置XML__，启动组件扫描</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">context:component-scan</span> <span class="hljs-attr">base-package</span>=<span class="hljs-string">&quot;....&quot;</span>/&gt;</span>  <br></code></pre></td></tr></table></figure></li>
+</ul>
+<h5 id="自动装配">自动装配</h5>
+<p>​ 通过<strong><span class="citation"
+data-cites="Autowired">@Autowired</span></strong>注解，修饰字段，或者成员方法，将声明的所需依赖，在bean实例化时，自动装配。</p>
+</blockquote></li>
+</ul>
+<h2 id="单例性">1.2 单例性</h2>
+<p><strong>Spring</strong> 中的<strong>Bean</strong>都是单例的。</p>
+<p>Spring会拦截对<strong><span class="citation"
+data-cites="Bean注解方法">@Bean注解方法</span></strong>的调用，确保返回的是<strong>Spring</strong>所创建的<strong>Bean</strong>，也就是Spring在调用<strong><span
+class="citation"
+data-cites="Bean注解方法">@Bean注解方法</span></strong>时所创建的实例</p>
+<h1 id="二controller">二、Controller</h1>
+<blockquote>
+<p>若 Controller
+方法返回自定义对象，会默认以<code>Content-Type=application/json</code>的形式返回数据。</p>
+</blockquote>
+<h2 id="restcontroller">2.1 <span class="citation"
+data-cites="RestController">@RestController</span></h2>
+<p>被注解修饰的类是一个<strong>RESTful</strong>风格的<strong>Controller</strong>。主要用于<strong>前后端分离项目</strong>。返回纯数据。</p>
+<h2 id="requestmapping">2.2 <span class="citation"
+data-cites="RequestMapping">@RequestMapping</span></h2>
+<p>这个注解修饰一个<strong>控制器方法</strong>，默认参数<strong>value</strong>为该方法的<strong>路由路径</strong>，<strong>method</strong>参数指明该方法的接受的<strong>请求类型</strong>。</p>
+<h2 id="requestparam">2.3 <span class="citation"
+data-cites="RequestParam">@RequestParam</span></h2>
+<p>这个注解修饰<strong>控制器方法的参数</strong>，作用是<strong>将该参数映射到前端请求路径中</strong>的一个具体字段，默认参数值为请求路径中的字段名。</p>
+<h2 id="requestbody">2.4 <span class="citation"
+data-cites="RequestBody">@RequestBody</span></h2>
+<p>这个注解修饰<strong>控制器方法的参数</strong>，作用是<strong>将被修饰的参数（通常是一个对象）的字段与请求体中的<code>application/json</code>数据建立一一映射关系</strong>。</p>
+<p>当请求体的数据是<code>x-www-urlencoded</code>形式时，<strong><span
+class="citation"
+data-cites="RequestBody">@RequestBody</span></strong>会将整个body的数据映射到它修饰的参数上面。</p>
+<p>当请求体的数据是<code>multipart/form-data</code>形式时，<strong><span
+class="citation"
+data-cites="RequestBody">@RequestBody</span></strong>映射会报错。</p>
+<h2 id="pathvariable">2.5 <span class="citation"
+data-cites="PathVariable">@PathVariable</span></h2>
+<p>这个注解修饰<strong>控制器方法的参数</strong>，作用是<strong>动态获取请求路径中的参数，使之映射到同名的方法参数。</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@GetMapping(&quot;/user/&#123;id&#125;&quot;)</span><br><span class="hljs-keyword">public</span> String <span class="hljs-title function_">getUser</span><span class="hljs-params">( <span class="hljs-meta">@PathVariable</span> <span class="hljs-type">int</span> id)</span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;根据ID获取用户&quot;</span>;    <br>&#125;<br></code></pre></td></tr></table></figure>
+<h1 id="三spring-boot-devtools">三、Spring-Boot-Devtools</h1>
+<p>这是一个Spring Boot提供的<strong>开发时</strong>组件。</p>
+<h2 id="解决什么问题">3.1 解决什么问题</h2>
+<p>在实际的项目开发调试过程中，会频繁地修改后台类文件，导致需要重新编译，重新启动，整个过程十分麻烦，影响开发效率。</p>
+<h2 id="基本实现">3.2 基本实现</h2>
+<p>spring-boot-devtool会监听<strong>classpath</strong>下的文件变动，触发<strong>Restart</strong>类加载器重新加载该类，从而实现类文件和属性文件的热部署。</p>
+<h2 id="基本配置">3.3 基本配置</h2>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs properties"><span class="hljs-comment">#热部署生效</span><br><span class="hljs-attr">spring.devtools.restart.enable</span>=<span class="hljs-string">true</span><br><span class="hljs-comment">#设置重启目录</span><br><span class="hljs-attr">spring.devtools.restart.additional-paths</span>=<span class="hljs-string">src/main/java</span><br><span class="hljs-comment">#设置classpath下的WEB-INF目录下的修改不重启</span><br><span class="hljs-attr">spring.devtools.restart.exclude</span>=<span class="hljs-string">static/**</span><br></code></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/" class="category-chain-item">计算机技术</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Spring/" class="category-chain-item">Spring</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Technology/" class="print-no-link">#Technology</a>
+      
+        <a href="/tags/Spring/" class="print-no-link">#Spring</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Spring 笔记</div>
+      <div>http://blog.kdata.top/2024/05/08/计算机技术/Spring/Spring 笔记/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Louis Liang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年5月8日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/05/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Redis/Redis/" title="Redis #0 学习笔记">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Redis #0 学习笔记</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/05/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Vue/VueRouter%20%E7%AC%94%E8%AE%B0/" title="Vue Router 笔记">
+                        <span class="hidden-mobile">Vue Router 笔记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"xj3pSmoXkOUNvlam7Ck0Q6L7-MdYXbMMI","appKey":"1H3MIGm9Juy7xDztbm2EBlHb","path":"window.location.pathname","placeholder":"说点什么吧...","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"https://xj3psmox.api.lncldglobal.com","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-left: -1rem">
     
 
 
@@ -901,292 +1195,6 @@
     </div>
   
 </div>
-
-
-  </aside>
-
-
-    </div>
-
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div id="board">
-          <article class="post-content mx-auto">
-            <h1 id="seo-header">Spring 笔记</h1>
-            
-            
-              <div class="markdown-body">
-                
-                <h1 id="一装配">一、装配</h1>
-<blockquote>
-<p>创建应用组件之间协作的行为，通常称为<strong>装配</strong>（<strong><em>wiring</em></strong>）</p>
-</blockquote>
-<h2 id="三种装配机制">1.1 三种装配机制</h2>
-<ul>
-<li><h4 id="xml显示装配">XML显示装配</h4></li>
-<li><h4 id="在java中进行显示装配">在Java中进行显示装配</h4>
-<blockquote>
-<p>通过<strong><span class="citation"
-data-cites="Configuration">@Configuration</span></strong>
-注解声明一个<strong>Spring配置类</strong>。</p>
-<h6 id="组件命名">组件命名</h6>
-<ol type="1">
-<li>通过<strong><span class="citation"
-data-cites="Component">@Component</span>( beanID
-)</strong>注解给组件设置<strong>ID</strong></li>
-<li>通过<strong><span class="citation" data-cites="Named">@Named</span>(
-beanID )</strong>注解设置组件<strong>ID</strong> (这个<strong><span
-class="citation"
-data-cites="Named">@Named</span></strong>注解是在<strong>Java依赖注入规范</strong>中定义的，不是Spring框架特有的)。</li>
-<li>通过<strong><span class="citation" data-cites="Bean">@Bean</span>(
-name="")</strong>注解的name属性设置组件ID</li>
-</ol>
-<p><strong>JavaConfig</strong>配置类中，<strong>bean</strong>的ID默认与<strong><span
-class="citation"
-data-cites="Bean">@Bean</span></strong>注解的方法名一致。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Bean(name=&quot;test&quot;)</span>				<span class="hljs-comment">//这个Bean默认的ID是方法名knight,但是在@Bean注解中设置了name值为test</span><br><span class="hljs-keyword">public</span> Knight <span class="hljs-title function_">knight</span><span class="hljs-params">()</span>&#123;			<span class="hljs-comment">//此时BeanID就是test</span><br>	<span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Knight</span>()<br>&#125;<br></code></pre></td></tr></table></figure>
-<h5 id="javaconfig实现注入">JavaConfig实现注入</h5>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//若Quest依赖Knight,则借助@Bean注解方法knight实现注入</span><br><span class="hljs-meta">@Bean</span><br><span class="hljs-keyword">public</span> Quest <span class="hljs-title function_">quest</span><span class="hljs-params">()</span>&#123;<br>	<span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Quest</span>(knight())<br>&#125;<br></code></pre></td></tr></table></figure>
-</blockquote></li>
-<li><h4
-id="隐式的bean发现机制和自动装配">隐式的bean发现机制和自动装配</h4>
-<blockquote>
-<h5 id="启用组件扫描的方式">启用组件扫描的方式</h5>
-<ul>
-<li><p>隐式装配Config类需要使用<strong><span class="citation"
-data-cites="ComponentScan">@ComponentScan</span></strong>注解，<strong><span
-class="citation"
-data-cites="ComponentScan">@ComponentScan</span></strong>默认会扫描与
-<strong><em>配置类相同的包</em></strong>，在这个包及其子包下，查找带有<strong><span
-class="citation"
-data-cites="Component">@Component</span></strong>注解的类，并且会在Spring中自动为其创建一个_<strong>Bean</strong>_</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Configuration</span><br><span class="hljs-meta">@ComponentScan</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Config</span>&#123;<br><br>&#125;<br></code></pre></td></tr></table></figure>
-<p>同时，可以通过<strong><span class="citation"
-data-cites="ComponentScan">@ComponentScan</span>( packageName
-)</strong>注解，设置组件扫描的<strong>基础包</strong>。</p>
-<p>如果需要配置多个<strong>基础包</strong>，则设置<strong><span
-class="citation" data-cites="ComponentScan">@ComponentScan</span>(
-basePackages={"","",""})</strong>的属性basePackages的值为一个包名数组。</p>
-<p>然而，由于basePackages值为<strong>String</strong>类型，显然，只是类型不安全的
-(<strong>not type safe</strong>)。</p>
-<p>可以通过设置<strong>basePackageClasses</strong>属性，传入一个或多个<strong>Class</strong>对象，基础包将被设置为这些类所在的包。</p></li>
-<li><p>显示通过__配置XML__，启动组件扫描</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">context:component-scan</span> <span class="hljs-attr">base-package</span>=<span class="hljs-string">&quot;....&quot;</span>/&gt;</span>  <br></code></pre></td></tr></table></figure></li>
-</ul>
-<h5 id="自动装配">自动装配</h5>
-<p>​ 通过<strong><span class="citation"
-data-cites="Autowired">@Autowired</span></strong>注解，修饰字段，或者成员方法，将声明的所需依赖，在bean实例化时，自动装配。</p>
-</blockquote></li>
-</ul>
-<h2 id="单例性">1.2 单例性</h2>
-<p><strong>Spring</strong> 中的<strong>Bean</strong>都是单例的。</p>
-<p>Spring会拦截对<strong><span class="citation"
-data-cites="Bean注解方法">@Bean注解方法</span></strong>的调用，确保返回的是<strong>Spring</strong>所创建的<strong>Bean</strong>，也就是Spring在调用<strong><span
-class="citation"
-data-cites="Bean注解方法">@Bean注解方法</span></strong>时所创建的实例</p>
-<h1 id="二controller">二、Controller</h1>
-<blockquote>
-<p>若 Controller
-方法返回自定义对象，会默认以<code>Content-Type=application/json</code>的形式返回数据。</p>
-</blockquote>
-<h2 id="restcontroller">2.1 <span class="citation"
-data-cites="RestController">@RestController</span></h2>
-<p>被注解修饰的类是一个<strong>RESTful</strong>风格的<strong>Controller</strong>。主要用于<strong>前后端分离项目</strong>。返回纯数据。</p>
-<h2 id="requestmapping">2.2 <span class="citation"
-data-cites="RequestMapping">@RequestMapping</span></h2>
-<p>这个注解修饰一个<strong>控制器方法</strong>，默认参数<strong>value</strong>为该方法的<strong>路由路径</strong>，<strong>method</strong>参数指明该方法的接受的<strong>请求类型</strong>。</p>
-<h2 id="requestparam">2.3 <span class="citation"
-data-cites="RequestParam">@RequestParam</span></h2>
-<p>这个注解修饰<strong>控制器方法的参数</strong>，作用是<strong>将该参数映射到前端请求路径中</strong>的一个具体字段，默认参数值为请求路径中的字段名。</p>
-<h2 id="requestbody">2.4 <span class="citation"
-data-cites="RequestBody">@RequestBody</span></h2>
-<p>这个注解修饰<strong>控制器方法的参数</strong>，作用是<strong>将被修饰的参数（通常是一个对象）的字段与请求体中的<code>application/json</code>数据建立一一映射关系</strong>。</p>
-<p>当请求体的数据是<code>x-www-urlencoded</code>形式时，<strong><span
-class="citation"
-data-cites="RequestBody">@RequestBody</span></strong>会将整个body的数据映射到它修饰的参数上面。</p>
-<p>当请求体的数据是<code>multipart/form-data</code>形式时，<strong><span
-class="citation"
-data-cites="RequestBody">@RequestBody</span></strong>映射会报错。</p>
-<h2 id="pathvariable">2.5 <span class="citation"
-data-cites="PathVariable">@PathVariable</span></h2>
-<p>这个注解修饰<strong>控制器方法的参数</strong>，作用是<strong>动态获取请求路径中的参数，使之映射到同名的方法参数。</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@GetMapping(&quot;/user/&#123;id&#125;&quot;)</span><br><span class="hljs-keyword">public</span> String <span class="hljs-title function_">getUser</span><span class="hljs-params">( <span class="hljs-meta">@PathVariable</span> <span class="hljs-type">int</span> id)</span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;根据ID获取用户&quot;</span>;    <br>&#125;<br></code></pre></td></tr></table></figure>
-<h1 id="三spring-boot-devtools">三、Spring-Boot-Devtools</h1>
-<p>这是一个Spring Boot提供的<strong>开发时</strong>组件。</p>
-<h2 id="解决什么问题">3.1 解决什么问题</h2>
-<p>在实际的项目开发调试过程中，会频繁地修改后台类文件，导致需要重新编译，重新启动，整个过程十分麻烦，影响开发效率。</p>
-<h2 id="基本实现">3.2 基本实现</h2>
-<p>spring-boot-devtool会监听<strong>classpath</strong>下的文件变动，触发<strong>Restart</strong>类加载器重新加载该类，从而实现类文件和属性文件的热部署。</p>
-<h2 id="基本配置">3.3 基本配置</h2>
-<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs properties"><span class="hljs-comment">#热部署生效</span><br><span class="hljs-attr">spring.devtools.restart.enable</span>=<span class="hljs-string">true</span><br><span class="hljs-comment">#设置重启目录</span><br><span class="hljs-attr">spring.devtools.restart.additional-paths</span>=<span class="hljs-string">src/main/java</span><br><span class="hljs-comment">#设置classpath下的WEB-INF目录下的修改不重启</span><br><span class="hljs-attr">spring.devtools.restart.exclude</span>=<span class="hljs-string">static/**</span><br></code></pre></td></tr></table></figure>
-
-                
-              </div>
-            
-            <hr/>
-            <div>
-              <div class="post-metas my-3">
-  
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/" class="category-chain-item">计算机技术</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Spring/" class="category-chain-item">Spring</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
-  
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/Technology/" class="print-no-link">#Technology</a>
-      
-        <a href="/tags/Spring/" class="print-no-link">#Spring</a>
-      
-    </div>
-  
-</div>
-
-
-              
-  
-
-  <div class="license-box my-3">
-    <div class="license-title">
-      <div>Spring 笔记</div>
-      <div>http://blog.kdata.top/2024/05/08/计算机技术/Spring/Spring 笔记/</div>
-    </div>
-    <div class="license-meta">
-      
-        <div class="license-meta-item">
-          <div>作者</div>
-          <div>Louis Liang</div>
-        </div>
-      
-      
-        <div class="license-meta-item license-meta-date">
-          <div>发布于</div>
-          <div>2024年5月8日</div>
-        </div>
-      
-      
-      
-        <div class="license-meta-item">
-          <div>许可协议</div>
-          <div>
-            
-              
-              
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
-                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
-                    <i class="iconfont icon-cc-by"></i>
-                  </span>
-                </a>
-              
-            
-          </div>
-        </div>
-      
-    </div>
-    <div class="license-icon iconfont"></div>
-  </div>
-
-
-
-              
-                <div class="post-prevnext my-3">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2024/05/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Mybatis/Mybatis%20%E7%AC%94%E8%AE%B0/" title="Mybatis 笔记">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Mybatis 笔记</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2024/05/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/%E4%BA%92%E8%81%94%E7%BD%91%E6%A0%87%E5%87%86/JWT/" title="JWT 笔记">
-                        <span class="hidden-mobile">JWT 笔记</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
-  
-  
-    <article id="comments" lazyload>
-      
-  <div id="valine"></div>
-  <script type="text/javascript">
-    Fluid.utils.loadComments('#valine', function() {
-      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
-        var options = Object.assign(
-          {"appId":"xj3pSmoXkOUNvlam7Ck0Q6L7-MdYXbMMI","appKey":"1H3MIGm9Juy7xDztbm2EBlHb","path":"window.location.pathname","placeholder":"说点什么吧...","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"https://xj3psmox.api.lncldglobal.com","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
-          {
-            el: "#valine",
-            path: window.location.pathname
-          }
-        )
-        new Valine(options);
-        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
-          var imgSelector = '#valine .vcontent img:not(.vemoji)';
-          Fluid.plugins.imageCaption(imgSelector);
-          Fluid.plugins.fancyBox(imgSelector);
-        })
-      });
-    });
-  </script>
-  <noscript>Please enable JavaScript to view the comments</noscript>
-
-
-    </article>
-  
-
-
-          </article>
-        </div>
-      </div>
-    </div>
-
-    <div class="side-col d-none d-lg-block col-lg-2">
-      
-  <aside class="sidebar" style="margin-left: -1rem">
-    <div id="toc">
-  <p class="toc-header">
-    <i class="iconfont icon-list"></i>
-    <span>目录</span>
-  </p>
-  <div class="toc-body" id="toc-body"></div>
-</div>
-
 
 
   </aside>

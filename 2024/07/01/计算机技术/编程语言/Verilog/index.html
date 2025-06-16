@@ -81,7 +81,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"blog.kdata.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"jaYO9kMjXPLXHSqIxztIklMO-MdYXbMMI","app_key":"SdZwfj7e4KZk7Qr42DotllfP","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"blog.kdata.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"jaYO9kMjXPLXHSqIxztIklMO-MdYXbMMI","app_key":"SdZwfj7e4KZk7Qr42DotllfP","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -298,7 +298,322 @@
   <div class="row nomargin-x">
     <div class="side-col d-none d-lg-block col-lg-2">
       
-  <aside class="sidebar category-bar" style="margin-right: -1rem">
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Verilog 笔记</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2024年12月30日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="特性">特性</h1>
+<h2 id="三种建模方式">三种建模方式</h2>
+<ol type="1">
+<li>行为级描述——使用过程化结构描述</li>
+<li>数据流描述——使用连续赋值语句建模</li>
+<li>结构化方式——使用门和模块例化语句描述</li>
+</ol>
+<h2 id="两类数据类型">两类数据类型</h2>
+<pre><code class=" mermaid">mindmap
+	))数据类型((
+		(wire)
+		(reg)
+			[integer]
+			[real]
+			[time]
+			[paramater]
+</code></pre>
+<ol type="1">
+<li><p>线网（wire）——物理元件之间的连线</p></li>
+<li><p>寄存器（reg）——数据存储元件</p>
+<ul>
+<li><p>integer</p>
+<blockquote>
+<p>声明时不用指明位宽，位宽和编译器有关，一般为32 bit。reg
+型变量为无符号数，而 integer 型变量为有符号数。</p>
+</blockquote></li>
+<li><p>real</p>
+<blockquote>
+<p>实数用关键字 real
+来声明，可用十进制或科学计数法来表示。实数声明不能带有范围，默认值为
+0。如果将一个实数赋值给一个整数，则只有实数的整数部分会赋值给整数。</p>
+</blockquote></li>
+<li><p>time</p>
+<blockquote>
+<p>Verilog 使用特殊的时间寄存器 time
+型变量，对仿真时间进行保存。其宽度一般为 64 bit，通过调用系统函数 $time
+获取当前仿真时间。</p>
+</blockquote></li>
+<li><p>paramater</p>
+<blockquote>
+<p>常用于定义常数</p>
+</blockquote></li>
+<li><p>数组</p></li>
+<li><p>存储器</p></li>
+<li><p>字符串</p></li>
+</ul></li>
+</ol>
+<p>Verilog 支持可变的向量域选择</p>
+<p><strong>Verillog 还支持指定 bit
+位后固定位宽的向量域选择访问。</strong></p>
+<ul>
+<li><strong>[bit+: width]</strong> : 从起始 bit 位开始递增，位宽为
+width。</li>
+<li><strong>[bit-: width]</strong> : 从起始 bit 位开始递减，位宽为
+width。</li>
+</ul>
+<h1 id="连续赋值">连续赋值</h1>
+<p>连续赋值语句是 Verilog 数据流建模的基本语句，用于对 wire
+型变量进行赋值。：</p>
+<p>格式如下</p>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs abnf">assign     LHS_target <span class="hljs-operator">=</span> RHS_expression  ；<br></code></pre></td></tr></table></figure>
+<p>LHS（left hand side） 指赋值操作的左侧，RHS（right hand
+side）指赋值操作的右侧。</p>
+<p>assign 为关键词，任何已经声明 wire 变量的连续赋值语句都是以 assign
+开头，例如：</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">wire      Cout, A, <span class="hljs-keyword">B </span>;<br>assign    Cout  = A &amp; <span class="hljs-keyword">B </span><span class="hljs-comment">;     //实现计算A与B的功能</span><br></code></pre></td></tr></table></figure>
+<p>需要说明的是：</p>
+<ul>
+<li>LHS_target 必须是一个标量或者线型向量，而不能是寄存器类型。</li>
+<li>RHS_expression
+的类型没有要求，可以是标量或线型或存器向量，也可以是函数调用。</li>
+<li>只要 RHS_expression
+表达式的操作数有事件发生（值的变化）时，RHS_expression
+就会立刻重新计算，同时赋值给 LHS_target。</li>
+</ul>
+<p>Verilog 还提供了另一种对 wire 型赋值的简单方法，即在 wire
+型变量声明的时候同时对其赋值。wire
+型变量只能被赋值一次，因此该种连续赋值方式也只能有一次。例如下面赋值方式和上面的赋值例子的赋值方式，效果都是一致的。</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs armasm"><span class="hljs-symbol">wire</span>      A, <span class="hljs-keyword">B</span> <span class="hljs-comment">;</span><br><span class="hljs-symbol">wire</span>      Cout = A &amp; <span class="hljs-keyword">B</span> <span class="hljs-comment">;</span><br></code></pre></td></tr></table></figure>
+<h1 id="时延">时延</h1>
+<p>连续赋值时延一般可分为普通赋值时延、隐式时延、声明时延。</p>
+<pre><code class=" mermaid">mindmap
+	))时延((
+		[普通时延]
+		[隐式时延]
+		[声明时延]
+</code></pre>
+<p>下面 3 个例子实现的功能是等效的，分别对应 3
+种不同连续赋值时延的写法。</p>
+<p>（1）普通时延，A&amp;B计算结果延时10个时间单位赋值给Z
+<strong>wire</strong> Z, A, B ; <strong>assign</strong> #10 Z = A &amp;
+B ;</p>
+<p>（2）隐式时延，声明一个wire型变量时对其进行包含一定时延的连续赋值。
+<strong>wire</strong> A, B; <strong>wire</strong> #10 Z = A &amp; B;</p>
+<p>（3）声明时延，声明一个wire型变量是指定一个时延。因此对该变量所有的连续赋值都会被推迟到指定的时间。除非门级建模中，一般不推荐使用此类方法建模。
+<strong>wire</strong> A, B; <strong>wire</strong> #10 Z ;
+<strong>assign</strong> Z =A &amp; B</p>
+<h2 id="惯性时延">惯性时延</h2>
+<p>在上述例子中，A 或 B 任意一个变量发生变化，那么在 Z
+得到新的值之前，会有 10 个时间单位的时延。如果在这 10 个时间单位内，即在
+Z 获取新的值之前，A 或 B 任意一个值又发生了变化，那么计算 Z 的新值时会取
+A 或 B
+当前的新值。所以称之为惯性时延，即信号脉冲宽度小于时延时，对输出没有影响。</p>
+<h1 id="过程结构">过程结构</h1>
+<p>（1）initial 语句</p>
+<p>initial 语句从 0 时刻开始执行，只执行一次，多个 initial
+块之间是相互独立的。</p>
+<p>如果 initial 块内包含多个语句，需要使用关键字 begin 和 end
+组成一个块语句。</p>
+<p>如果 initial 块内只要一条语句，关键字 begin 和 end
+可使用也可不使用。</p>
+<p>initial 理论上来讲是不可综合的，多用于初始化、信号检测等。</p>
+<p>（2）always 语句</p>
+<p>与 initial 语句相反，always 语句是重复执行的。always 语句块从 0
+时刻开始执行其中的行为语句；当执行完最后一条语句后，便再次执行语句块中的第一条语句，如此循环反复。</p>
+<p>由于循环执行的特点，always
+语句多用于仿真时钟的产生，信号行为的检测等。</p>
+<h1 id="过程赋值">过程赋值</h1>
+<p>过程性赋值是在 initial 或 always
+语句块里的赋值，赋值对象是寄存器、整数、实数等类型。</p>
+<p>这些变量在被赋值后，其值将保持不变，直到重新被赋予新值。</p>
+<p>连续性赋值总是处于激活状态，任何操作数的改变都会影响表达式的结果；过程赋值只有在语句执行的时候，才会起作用。这是连续性赋值与过程性赋值的区别。</p>
+<p>Verilog 过程赋值包括 2 种语句：阻塞赋值与非阻塞赋值。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/" class="category-chain-item">计算机技术</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" class="category-chain-item">编程语言</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Technology/" class="print-no-link">#Technology</a>
+      
+        <a href="/tags/Verilog/" class="print-no-link">#Verilog</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Verilog 笔记</div>
+      <div>http://blog.kdata.top/2024/07/01/计算机技术/编程语言/Verilog/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Louis Liang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年7月1日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/07/14/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Shell/" title="Shell 笔记">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Shell 笔记</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/06/28/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/%E6%B1%87%E7%BC%96_0_%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="汇编语言 #0 学习笔记">
+                        <span class="hidden-mobile">汇编语言 #0 学习笔记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"xj3pSmoXkOUNvlam7Ck0Q6L7-MdYXbMMI","appKey":"1H3MIGm9Juy7xDztbm2EBlHb","path":"window.location.pathname","placeholder":"说点什么吧...","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"https://xj3psmox.api.lncldglobal.com","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-left: -1rem">
     
 
 
@@ -901,313 +1216,6 @@
     </div>
   
 </div>
-
-
-  </aside>
-
-
-    </div>
-
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div id="board">
-          <article class="post-content mx-auto">
-            <h1 id="seo-header">Verilog 笔记</h1>
-            
-            
-              <div class="markdown-body">
-                
-                <h1 id="特性">特性</h1>
-<h2 id="三种建模方式">三种建模方式</h2>
-<ol type="1">
-<li>行为级描述——使用过程化结构描述</li>
-<li>数据流描述——使用连续赋值语句建模</li>
-<li>结构化方式——使用门和模块例化语句描述</li>
-</ol>
-<h2 id="两类数据类型">两类数据类型</h2>
-<pre><code class=" mermaid">mindmap
-	))数据类型((
-		(wire)
-		(reg)
-			[integer]
-			[real]
-			[time]
-			[paramater]
-</code></pre>
-<ol type="1">
-<li><p>线网（wire）——物理元件之间的连线</p></li>
-<li><p>寄存器（reg）——数据存储元件</p>
-<ul>
-<li><p>integer</p>
-<blockquote>
-<p>声明时不用指明位宽，位宽和编译器有关，一般为32 bit。reg
-型变量为无符号数，而 integer 型变量为有符号数。</p>
-</blockquote></li>
-<li><p>real</p>
-<blockquote>
-<p>实数用关键字 real
-来声明，可用十进制或科学计数法来表示。实数声明不能带有范围，默认值为
-0。如果将一个实数赋值给一个整数，则只有实数的整数部分会赋值给整数。</p>
-</blockquote></li>
-<li><p>time</p>
-<blockquote>
-<p>Verilog 使用特殊的时间寄存器 time
-型变量，对仿真时间进行保存。其宽度一般为 64 bit，通过调用系统函数 $time
-获取当前仿真时间。</p>
-</blockquote></li>
-<li><p>paramater</p>
-<blockquote>
-<p>常用于定义常数</p>
-</blockquote></li>
-<li><p>数组</p></li>
-<li><p>存储器</p></li>
-<li><p>字符串</p></li>
-</ul></li>
-</ol>
-<p>Verilog 支持可变的向量域选择</p>
-<p><strong>Verillog 还支持指定 bit
-位后固定位宽的向量域选择访问。</strong></p>
-<ul>
-<li><strong>[bit+: width]</strong> : 从起始 bit 位开始递增，位宽为
-width。</li>
-<li><strong>[bit-: width]</strong> : 从起始 bit 位开始递减，位宽为
-width。</li>
-</ul>
-<h1 id="连续赋值">连续赋值</h1>
-<p>连续赋值语句是 Verilog 数据流建模的基本语句，用于对 wire
-型变量进行赋值。：</p>
-<p>格式如下</p>
-<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs abnf">assign     LHS_target <span class="hljs-operator">=</span> RHS_expression  ；<br></code></pre></td></tr></table></figure>
-<p>LHS（left hand side） 指赋值操作的左侧，RHS（right hand
-side）指赋值操作的右侧。</p>
-<p>assign 为关键词，任何已经声明 wire 变量的连续赋值语句都是以 assign
-开头，例如：</p>
-<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">wire      Cout, A, <span class="hljs-keyword">B </span>;<br>assign    Cout  = A &amp; <span class="hljs-keyword">B </span><span class="hljs-comment">;     //实现计算A与B的功能</span><br></code></pre></td></tr></table></figure>
-<p>需要说明的是：</p>
-<ul>
-<li>LHS_target 必须是一个标量或者线型向量，而不能是寄存器类型。</li>
-<li>RHS_expression
-的类型没有要求，可以是标量或线型或存器向量，也可以是函数调用。</li>
-<li>只要 RHS_expression
-表达式的操作数有事件发生（值的变化）时，RHS_expression
-就会立刻重新计算，同时赋值给 LHS_target。</li>
-</ul>
-<p>Verilog 还提供了另一种对 wire 型赋值的简单方法，即在 wire
-型变量声明的时候同时对其赋值。wire
-型变量只能被赋值一次，因此该种连续赋值方式也只能有一次。例如下面赋值方式和上面的赋值例子的赋值方式，效果都是一致的。</p>
-<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs armasm"><span class="hljs-symbol">wire</span>      A, <span class="hljs-keyword">B</span> <span class="hljs-comment">;</span><br><span class="hljs-symbol">wire</span>      Cout = A &amp; <span class="hljs-keyword">B</span> <span class="hljs-comment">;</span><br></code></pre></td></tr></table></figure>
-<h1 id="时延">时延</h1>
-<p>连续赋值时延一般可分为普通赋值时延、隐式时延、声明时延。</p>
-<pre><code class=" mermaid">mindmap
-	))时延((
-		[普通时延]
-		[隐式时延]
-		[声明时延]
-</code></pre>
-<p>下面 3 个例子实现的功能是等效的，分别对应 3
-种不同连续赋值时延的写法。</p>
-<p>（1）普通时延，A&amp;B计算结果延时10个时间单位赋值给Z
-<strong>wire</strong> Z, A, B ; <strong>assign</strong> #10 Z = A &amp;
-B ;</p>
-<p>（2）隐式时延，声明一个wire型变量时对其进行包含一定时延的连续赋值。
-<strong>wire</strong> A, B; <strong>wire</strong> #10 Z = A &amp; B;</p>
-<p>（3）声明时延，声明一个wire型变量是指定一个时延。因此对该变量所有的连续赋值都会被推迟到指定的时间。除非门级建模中，一般不推荐使用此类方法建模。
-<strong>wire</strong> A, B; <strong>wire</strong> #10 Z ;
-<strong>assign</strong> Z =A &amp; B</p>
-<h2 id="惯性时延">惯性时延</h2>
-<p>在上述例子中，A 或 B 任意一个变量发生变化，那么在 Z
-得到新的值之前，会有 10 个时间单位的时延。如果在这 10 个时间单位内，即在
-Z 获取新的值之前，A 或 B 任意一个值又发生了变化，那么计算 Z 的新值时会取
-A 或 B
-当前的新值。所以称之为惯性时延，即信号脉冲宽度小于时延时，对输出没有影响。</p>
-<h1 id="过程结构">过程结构</h1>
-<p>（1）initial 语句</p>
-<p>initial 语句从 0 时刻开始执行，只执行一次，多个 initial
-块之间是相互独立的。</p>
-<p>如果 initial 块内包含多个语句，需要使用关键字 begin 和 end
-组成一个块语句。</p>
-<p>如果 initial 块内只要一条语句，关键字 begin 和 end
-可使用也可不使用。</p>
-<p>initial 理论上来讲是不可综合的，多用于初始化、信号检测等。</p>
-<p>（2）always 语句</p>
-<p>与 initial 语句相反，always 语句是重复执行的。always 语句块从 0
-时刻开始执行其中的行为语句；当执行完最后一条语句后，便再次执行语句块中的第一条语句，如此循环反复。</p>
-<p>由于循环执行的特点，always
-语句多用于仿真时钟的产生，信号行为的检测等。</p>
-<h1 id="过程赋值">过程赋值</h1>
-<p>过程性赋值是在 initial 或 always
-语句块里的赋值，赋值对象是寄存器、整数、实数等类型。</p>
-<p>这些变量在被赋值后，其值将保持不变，直到重新被赋予新值。</p>
-<p>连续性赋值总是处于激活状态，任何操作数的改变都会影响表达式的结果；过程赋值只有在语句执行的时候，才会起作用。这是连续性赋值与过程性赋值的区别。</p>
-<p>Verilog 过程赋值包括 2 种语句：阻塞赋值与非阻塞赋值。</p>
-
-                
-              </div>
-            
-            <hr/>
-            <div>
-              <div class="post-metas my-3">
-  
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/" class="category-chain-item">计算机技术</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" class="category-chain-item">编程语言</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
-  
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/Technology/" class="print-no-link">#Technology</a>
-      
-        <a href="/tags/Verilog/" class="print-no-link">#Verilog</a>
-      
-    </div>
-  
-</div>
-
-
-              
-  
-
-  <div class="license-box my-3">
-    <div class="license-title">
-      <div>Verilog 笔记</div>
-      <div>http://blog.kdata.top/2024/07/01/计算机技术/编程语言/Verilog/</div>
-    </div>
-    <div class="license-meta">
-      
-        <div class="license-meta-item">
-          <div>作者</div>
-          <div>Louis Liang</div>
-        </div>
-      
-      
-        <div class="license-meta-item license-meta-date">
-          <div>发布于</div>
-          <div>2024年7月1日</div>
-        </div>
-      
-      
-      
-        <div class="license-meta-item">
-          <div>许可协议</div>
-          <div>
-            
-              
-              
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
-                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
-                    <i class="iconfont icon-cc-by"></i>
-                  </span>
-                </a>
-              
-            
-          </div>
-        </div>
-      
-    </div>
-    <div class="license-icon iconfont"></div>
-  </div>
-
-
-
-              
-                <div class="post-prevnext my-3">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2024/07/14/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Shell/" title="Shell 笔记">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Shell 笔记</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2024/06/28/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/%E6%B1%87%E7%BC%96_0_%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="汇编语言 #0 学习笔记">
-                        <span class="hidden-mobile">汇编语言 #0 学习笔记</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
-  
-  
-    <article id="comments" lazyload>
-      
-  <div id="valine"></div>
-  <script type="text/javascript">
-    Fluid.utils.loadComments('#valine', function() {
-      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
-        var options = Object.assign(
-          {"appId":"xj3pSmoXkOUNvlam7Ck0Q6L7-MdYXbMMI","appKey":"1H3MIGm9Juy7xDztbm2EBlHb","path":"window.location.pathname","placeholder":"说点什么吧...","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"https://xj3psmox.api.lncldglobal.com","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
-          {
-            el: "#valine",
-            path: window.location.pathname
-          }
-        )
-        new Valine(options);
-        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
-          var imgSelector = '#valine .vcontent img:not(.vemoji)';
-          Fluid.plugins.imageCaption(imgSelector);
-          Fluid.plugins.fancyBox(imgSelector);
-        })
-      });
-    });
-  </script>
-  <noscript>Please enable JavaScript to view the comments</noscript>
-
-
-    </article>
-  
-
-
-          </article>
-        </div>
-      </div>
-    </div>
-
-    <div class="side-col d-none d-lg-block col-lg-2">
-      
-  <aside class="sidebar" style="margin-left: -1rem">
-    <div id="toc">
-  <p class="toc-header">
-    <i class="iconfont icon-list"></i>
-    <span>目录</span>
-  </p>
-  <div class="toc-body" id="toc-body"></div>
-</div>
-
 
 
   </aside>

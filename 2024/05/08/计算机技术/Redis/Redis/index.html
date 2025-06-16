@@ -81,7 +81,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"blog.kdata.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"jaYO9kMjXPLXHSqIxztIklMO-MdYXbMMI","app_key":"SdZwfj7e4KZk7Qr42DotllfP","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"blog.kdata.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"jaYO9kMjXPLXHSqIxztIklMO-MdYXbMMI","app_key":"SdZwfj7e4KZk7Qr42DotllfP","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -298,7 +298,314 @@
   <div class="row nomargin-x">
     <div class="side-col d-none d-lg-block col-lg-2">
       
-  <aside class="sidebar category-bar" style="margin-right: -1rem">
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Redis #0 学习笔记</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2025年4月24日 晚上
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="一数据类型">一、数据类型</h1>
+<table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>描述</th>
+<th>阈值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>String</td>
+<td>基本类型，二进制安全的字符串</td>
+<td>最大 512MB</td>
+</tr>
+<tr>
+<td>Hash</td>
+<td>String类型的键值对集合，存储对象</td>
+<td><span class="math inline">\(2^{32}-1\)</span> 个键值对</td>
+</tr>
+<tr>
+<td>List</td>
+<td>String类型的列表，按插入顺序排序</td>
+<td><span class="math inline">\(2^{32}-1\)</span> 个元素</td>
+</tr>
+<tr>
+<td>Set</td>
+<td>String类型的无序集合</td>
+<td><span class="math inline">\(2^{32}-1\)</span> 个成员</td>
+</tr>
+<tr>
+<td>Zset</td>
+<td>String类型的有序集合</td>
+<td><span class="math inline">\(2^{32}-1\)</span> 个成员</td>
+</tr>
+</tbody>
+</table>
+<h1 id="二springboot-集成">二、SpringBoot 集成</h1>
+<h2 id="redistemplatekv">2.1 RedisTemplate&lt;K,V&gt;</h2>
+<h3 id="operations">2.1.2 Operations</h3>
+<table>
+
+<thead>
+<tr>
+<th>操作类</th>
+<th>获取</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ValueOperations</td>
+<td>opssForValue()</td>
+<td>提供 Redis String API 操作</td>
+</tr>
+<tr>
+<td>HashOperations</td>
+<td>opsForHash()</td>
+<td>提供 Redis Hash API 操作</td>
+</tr>
+<tr>
+<td>ListOperations</td>
+<td>opsForList()</td>
+<td>提供 Redis List API 操作</td>
+</tr>
+<tr>
+<td>SetOperations</td>
+<td>opsForSet()</td>
+<td>提供 Redis Set API 操作</td>
+</tr>
+<tr>
+<td>ZsetOperations</td>
+<td>opsForZset()</td>
+<td>提供 Redis ZSet(Sorted Set) API 操作</td>
+</tr>
+<tr>
+<td>GeoOperations</td>
+<td>opsForGeo()</td>
+<td>提供 Redis Geo API 操作</td>
+</tr>
+<tr>
+<td>HyperLogLogOperations</td>
+<td>opsForHyperLogLog()</td>
+<td>提供 Redis HyperLogLog API 操作</td>
+</tr>
+</tbody>
+</table>
+<h2 id="redisserializer">2.2 RedisSerializer</h2>
+<table>
+
+<thead>
+<tr>
+<th>序列化方式</th>
+<th>备注</th>
+<th>获取</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>JdkSerializationRedisSerializer</td>
+<td>jdk序列化，是默认的序列化方式</td>
+<td>RedisSerializer.java()</td>
+</tr>
+<tr>
+<td>StringRedisSerializer</td>
+<td>String序列化，<strong>StringRedisTemplate</strong>的key和value采用的就是这种序列化方案。</td>
+<td>RedisSerializer.string()</td>
+</tr>
+<tr>
+<td>GenericJackson2JsonRedisSerializer</td>
+<td>JSON序列化，对所有类通用</td>
+<td>RedisSerializer.json()</td>
+</tr>
+</tbody>
+</table>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/" class="category-chain-item">计算机技术</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Redis/" class="category-chain-item">Redis</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Technology/" class="print-no-link">#Technology</a>
+      
+        <a href="/tags/Redis/" class="print-no-link">#Redis</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Redis #0 学习笔记</div>
+      <div>http://blog.kdata.top/2024/05/08/计算机技术/Redis/Redis/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Louis Liang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年5月8日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/05/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Mysql/Mysql/" title="Mysql #0 学习笔记">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Mysql #0 学习笔记</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/05/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Spring/Spring%20%E7%AC%94%E8%AE%B0/" title="Spring 笔记">
+                        <span class="hidden-mobile">Spring 笔记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"xj3pSmoXkOUNvlam7Ck0Q6L7-MdYXbMMI","appKey":"1H3MIGm9Juy7xDztbm2EBlHb","path":"window.location.pathname","placeholder":"说点什么吧...","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"https://xj3psmox.api.lncldglobal.com","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-left: -1rem">
     
 
 
@@ -901,299 +1208,6 @@
     </div>
   
 </div>
-
-
-  </aside>
-
-
-    </div>
-
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div id="board">
-          <article class="post-content mx-auto">
-            <h1 id="seo-header">Redis #0 学习笔记</h1>
-            
-            
-              <div class="markdown-body">
-                
-                <h1 id="一数据类型">一、数据类型</h1>
-<table>
-<thead>
-<tr>
-<th>数据类型</th>
-<th>描述</th>
-<th>阈值</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>String</td>
-<td>基本类型，二进制安全的字符串</td>
-<td>最大 512MB</td>
-</tr>
-<tr>
-<td>Hash</td>
-<td>String类型的键值对集合，存储对象</td>
-<td><span class="math inline">\(2^{32}-1\)</span> 个键值对</td>
-</tr>
-<tr>
-<td>List</td>
-<td>String类型的列表，按插入顺序排序</td>
-<td><span class="math inline">\(2^{32}-1\)</span> 个元素</td>
-</tr>
-<tr>
-<td>Set</td>
-<td>String类型的无序集合</td>
-<td><span class="math inline">\(2^{32}-1\)</span> 个成员</td>
-</tr>
-<tr>
-<td>Zset</td>
-<td>String类型的有序集合</td>
-<td><span class="math inline">\(2^{32}-1\)</span> 个成员</td>
-</tr>
-</tbody>
-</table>
-<h1 id="二springboot-集成">二、SpringBoot 集成</h1>
-<h2 id="redistemplatekv">2.1 RedisTemplate&lt;K,V&gt;</h2>
-<h3 id="operations">2.1.2 Operations</h3>
-<table>
-
-<thead>
-<tr>
-<th>操作类</th>
-<th>获取</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>ValueOperations</td>
-<td>opssForValue()</td>
-<td>提供 Redis String API 操作</td>
-</tr>
-<tr>
-<td>HashOperations</td>
-<td>opsForHash()</td>
-<td>提供 Redis Hash API 操作</td>
-</tr>
-<tr>
-<td>ListOperations</td>
-<td>opsForList()</td>
-<td>提供 Redis List API 操作</td>
-</tr>
-<tr>
-<td>SetOperations</td>
-<td>opsForSet()</td>
-<td>提供 Redis Set API 操作</td>
-</tr>
-<tr>
-<td>ZsetOperations</td>
-<td>opsForZset()</td>
-<td>提供 Redis ZSet(Sorted Set) API 操作</td>
-</tr>
-<tr>
-<td>GeoOperations</td>
-<td>opsForGeo()</td>
-<td>提供 Redis Geo API 操作</td>
-</tr>
-<tr>
-<td>HyperLogLogOperations</td>
-<td>opsForHyperLogLog()</td>
-<td>提供 Redis HyperLogLog API 操作</td>
-</tr>
-</tbody>
-</table>
-<h2 id="redisserializer">2.2 RedisSerializer</h2>
-<table>
-
-<thead>
-<tr>
-<th>序列化方式</th>
-<th>备注</th>
-<th>获取</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>JdkSerializationRedisSerializer</td>
-<td>jdk序列化，是默认的序列化方式</td>
-<td>RedisSerializer.java()</td>
-</tr>
-<tr>
-<td>StringRedisSerializer</td>
-<td>String序列化，<strong>StringRedisTemplate</strong>的key和value采用的就是这种序列化方案。</td>
-<td>RedisSerializer.string()</td>
-</tr>
-<tr>
-<td>GenericJackson2JsonRedisSerializer</td>
-<td>JSON序列化，对所有类通用</td>
-<td>RedisSerializer.json()</td>
-</tr>
-</tbody>
-</table>
-
-                
-              </div>
-            
-            <hr/>
-            <div>
-              <div class="post-metas my-3">
-  
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/" class="category-chain-item">计算机技术</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Redis/" class="category-chain-item">Redis</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
-  
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/Technology/" class="print-no-link">#Technology</a>
-      
-        <a href="/tags/Redis/" class="print-no-link">#Redis</a>
-      
-    </div>
-  
-</div>
-
-
-              
-  
-
-  <div class="license-box my-3">
-    <div class="license-title">
-      <div>Redis #0 学习笔记</div>
-      <div>http://blog.kdata.top/2024/05/08/计算机技术/Redis/Redis/</div>
-    </div>
-    <div class="license-meta">
-      
-        <div class="license-meta-item">
-          <div>作者</div>
-          <div>Louis Liang</div>
-        </div>
-      
-      
-        <div class="license-meta-item license-meta-date">
-          <div>发布于</div>
-          <div>2024年5月8日</div>
-        </div>
-      
-      
-      
-        <div class="license-meta-item">
-          <div>许可协议</div>
-          <div>
-            
-              
-              
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
-                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
-                    <i class="iconfont icon-cc-by"></i>
-                  </span>
-                </a>
-              
-            
-          </div>
-        </div>
-      
-    </div>
-    <div class="license-icon iconfont"></div>
-  </div>
-
-
-
-              
-                <div class="post-prevnext my-3">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2024/05/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Vue/VueRouter%20%E7%AC%94%E8%AE%B0/" title="Vue Router 笔记">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Vue Router 笔记</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
-  
-  
-    <article id="comments" lazyload>
-      
-  <div id="valine"></div>
-  <script type="text/javascript">
-    Fluid.utils.loadComments('#valine', function() {
-      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
-        var options = Object.assign(
-          {"appId":"xj3pSmoXkOUNvlam7Ck0Q6L7-MdYXbMMI","appKey":"1H3MIGm9Juy7xDztbm2EBlHb","path":"window.location.pathname","placeholder":"说点什么吧...","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"https://xj3psmox.api.lncldglobal.com","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
-          {
-            el: "#valine",
-            path: window.location.pathname
-          }
-        )
-        new Valine(options);
-        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
-          var imgSelector = '#valine .vcontent img:not(.vemoji)';
-          Fluid.plugins.imageCaption(imgSelector);
-          Fluid.plugins.fancyBox(imgSelector);
-        })
-      });
-    });
-  </script>
-  <noscript>Please enable JavaScript to view the comments</noscript>
-
-
-    </article>
-  
-
-
-          </article>
-        </div>
-      </div>
-    </div>
-
-    <div class="side-col d-none d-lg-block col-lg-2">
-      
-  <aside class="sidebar" style="margin-left: -1rem">
-    <div id="toc">
-  <p class="toc-header">
-    <i class="iconfont icon-list"></i>
-    <span>目录</span>
-  </p>
-  <div class="toc-body" id="toc-body"></div>
-</div>
-
 
 
   </aside>

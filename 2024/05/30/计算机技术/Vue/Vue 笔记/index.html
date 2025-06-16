@@ -82,7 +82,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"blog.kdata.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"jaYO9kMjXPLXHSqIxztIklMO-MdYXbMMI","app_key":"SdZwfj7e4KZk7Qr42DotllfP","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"blog.kdata.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"jaYO9kMjXPLXHSqIxztIklMO-MdYXbMMI","app_key":"SdZwfj7e4KZk7Qr42DotllfP","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -299,7 +299,241 @@
   <div class="row nomargin-x">
     <div class="side-col d-none d-lg-block col-lg-2">
       
-  <aside class="sidebar category-bar" style="margin-right: -1rem">
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Vue 笔记</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2025年4月24日 晚上
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="一基础">一、基础</h1>
+<h2 id="实例">1.实例</h2>
+<h2 id="模板语法">2.模板语法</h2>
+<h3 id="指令">指令</h3>
+<p>指令，是带有<strong>v-</strong>前缀的特殊<strong>attribute</strong>。</p>
+<h3 id="指令参数">指令参数</h3>
+<p>在指令名后面以 <strong>：</strong>隔开做标识</p>
+<p>：后面跟 <strong>[js表达式]</strong>可以做动态参数</p>
+<h3 id="常用指令">常用指令</h3>
+<h4 id="v-bind">v-bind</h4>
+<p>如果要将组件数据绑定到<strong>DOM</strong>的<strong>Attribute</strong>上，可以使用<strong>v-bind:attribute</strong>指令,简写为<strong>:attribute</strong>。</p>
+<p>这个指令是单向数据绑定。从model到view。</p>
+<h4 id="v-model">v-model</h4>
+<p>这个指令是双向数据绑定。<strong>model的改变影响view；view的改变也可以影响model</strong>。</p>
+<h4 id="v-if">v-if</h4>
+<p>如果指令值为<strong>false</strong>，则该标签不会被创建，被注释掉。</p>
+<h4 id="v-show">v-show</h4>
+<p>如果指令值为<strong>false</strong>，该标签会被创建，但是采用css样式的方式不显示。<code>display: none;</code>
+，对于频繁切换的，使用<strong>v-show</strong>性能更高。</p>
+<h4 id="v-for">v-for</h4>
+<p>Vue默认按照 <strong>就地更新</strong>
+的策略来更新用<code>v-for</code>来渲染的元素列表。</p>
+<p>用过给定唯一的<code>key</code>属性，给每个元素一个唯一标识，从而重新排序现有的元素。</p>
+<h1 id="二组件">二、组件</h1>
+<h3 id="组件导出">1、组件导出</h3>
+<h3 id="组件引入">2、组件引入</h3>
+<h1 id="三差异">三、差异</h1>
+<h4 id="vue2-vs-vue3">Vue2 VS Vue3</h4>
+<ol type="1">
+<li>Vue2中多个组件必须放一个根组件下。</li>
+<li>Vue3中有了<strong>createApp </strong>API。</li>
+</ol>
+<h1 id="组合式api">组合式API</h1>
+<p>## ref</p>
+<p><code>ref()</code> 接收参数，并将其包裹在一个带有 <code>.value</code>
+属性的 ref 对象中返回，Ref 会使它的值具有深层响应性</p>
+<h2 id="reactive">reactive</h2>
+<p><code>reactive()</code>，接受一个对象类型参数，返回该对象的一个代理对象<code>proxy</code>，通过<code>proxy</code>操作才具有响应性，对象属性结构为本地变量之后，失去响应性连接</p>
+<h2 id="computed">computed</h2>
+<h2 id="watch">watch</h2>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/" class="category-chain-item">计算机技术</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Vue/" class="category-chain-item">Vue</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Technology/" class="print-no-link">#Technology</a>
+      
+        <a href="/tags/Vue/" class="print-no-link">#Vue</a>
+      
+        <a href="/tags/Js/" class="print-no-link">#Js</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Vue 笔记</div>
+      <div>http://blog.kdata.top/2024/05/30/计算机技术/Vue/Vue 笔记/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Louis Liang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年5月30日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/06/28/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/%E6%B1%87%E7%BC%96_0_%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="汇编语言 #0 学习笔记">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">汇编语言 #0 学习笔记</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/05/25/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Spring/SpringCloud/" title="Spring Cloud">
+                        <span class="hidden-mobile">Spring Cloud</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"xj3pSmoXkOUNvlam7Ck0Q6L7-MdYXbMMI","appKey":"1H3MIGm9Juy7xDztbm2EBlHb","path":"window.location.pathname","placeholder":"说点什么吧...","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"https://xj3psmox.api.lncldglobal.com","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-left: -1rem">
     
 
 
@@ -902,232 +1136,6 @@
     </div>
   
 </div>
-
-
-  </aside>
-
-
-    </div>
-
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div id="board">
-          <article class="post-content mx-auto">
-            <h1 id="seo-header">Vue 笔记</h1>
-            
-            
-              <div class="markdown-body">
-                
-                <h1 id="一基础">一、基础</h1>
-<h2 id="实例">1.实例</h2>
-<h2 id="模板语法">2.模板语法</h2>
-<h3 id="指令">指令</h3>
-<p>指令，是带有<strong>v-</strong>前缀的特殊<strong>attribute</strong>。</p>
-<h3 id="指令参数">指令参数</h3>
-<p>在指令名后面以 <strong>：</strong>隔开做标识</p>
-<p>：后面跟 <strong>[js表达式]</strong>可以做动态参数</p>
-<h3 id="常用指令">常用指令</h3>
-<h4 id="v-bind">v-bind</h4>
-<p>如果要将组件数据绑定到<strong>DOM</strong>的<strong>Attribute</strong>上，可以使用<strong>v-bind:attribute</strong>指令,简写为<strong>:attribute</strong>。</p>
-<p>这个指令是单向数据绑定。从model到view。</p>
-<h4 id="v-model">v-model</h4>
-<p>这个指令是双向数据绑定。<strong>model的改变影响view；view的改变也可以影响model</strong>。</p>
-<h4 id="v-if">v-if</h4>
-<p>如果指令值为<strong>false</strong>，则该标签不会被创建，被注释掉。</p>
-<h4 id="v-show">v-show</h4>
-<p>如果指令值为<strong>false</strong>，该标签会被创建，但是采用css样式的方式不显示。<code>display: none;</code>
-，对于频繁切换的，使用<strong>v-show</strong>性能更高。</p>
-<h4 id="v-for">v-for</h4>
-<p>Vue默认按照 <strong>就地更新</strong>
-的策略来更新用<code>v-for</code>来渲染的元素列表。</p>
-<p>用过给定唯一的<code>key</code>属性，给每个元素一个唯一标识，从而重新排序现有的元素。</p>
-<h1 id="二组件">二、组件</h1>
-<h3 id="组件导出">1、组件导出</h3>
-<h3 id="组件引入">2、组件引入</h3>
-<h1 id="三差异">三、差异</h1>
-<h4 id="vue2-vs-vue3">Vue2 VS Vue3</h4>
-<ol type="1">
-<li>Vue2中多个组件必须放一个根组件下。</li>
-<li>Vue3中有了<strong>createApp </strong>API。</li>
-</ol>
-<h1 id="组合式api">组合式API</h1>
-<p>## ref</p>
-<p><code>ref()</code> 接收参数，并将其包裹在一个带有 <code>.value</code>
-属性的 ref 对象中返回，Ref 会使它的值具有深层响应性</p>
-<h2 id="reactive">reactive</h2>
-<p><code>reactive()</code>，接受一个对象类型参数，返回该对象的一个代理对象<code>proxy</code>，通过<code>proxy</code>操作才具有响应性，对象属性结构为本地变量之后，失去响应性连接</p>
-<h2 id="computed">computed</h2>
-<h2 id="watch">watch</h2>
-
-                
-              </div>
-            
-            <hr/>
-            <div>
-              <div class="post-metas my-3">
-  
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/" class="category-chain-item">计算机技术</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Vue/" class="category-chain-item">Vue</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
-  
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/Technology/" class="print-no-link">#Technology</a>
-      
-        <a href="/tags/Vue/" class="print-no-link">#Vue</a>
-      
-        <a href="/tags/Js/" class="print-no-link">#Js</a>
-      
-    </div>
-  
-</div>
-
-
-              
-  
-
-  <div class="license-box my-3">
-    <div class="license-title">
-      <div>Vue 笔记</div>
-      <div>http://blog.kdata.top/2024/05/30/计算机技术/Vue/Vue 笔记/</div>
-    </div>
-    <div class="license-meta">
-      
-        <div class="license-meta-item">
-          <div>作者</div>
-          <div>Louis Liang</div>
-        </div>
-      
-      
-        <div class="license-meta-item license-meta-date">
-          <div>发布于</div>
-          <div>2024年5月30日</div>
-        </div>
-      
-      
-      
-        <div class="license-meta-item">
-          <div>许可协议</div>
-          <div>
-            
-              
-              
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
-                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
-                    <i class="iconfont icon-cc-by"></i>
-                  </span>
-                </a>
-              
-            
-          </div>
-        </div>
-      
-    </div>
-    <div class="license-icon iconfont"></div>
-  </div>
-
-
-
-              
-                <div class="post-prevnext my-3">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2024/06/28/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/%E6%B1%87%E7%BC%96_0_%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="汇编语言 #0 学习笔记">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">汇编语言 #0 学习笔记</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2024/05/25/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Spring/SpringCloud/" title="Spring Cloud">
-                        <span class="hidden-mobile">Spring Cloud</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
-  
-  
-    <article id="comments" lazyload>
-      
-  <div id="valine"></div>
-  <script type="text/javascript">
-    Fluid.utils.loadComments('#valine', function() {
-      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
-        var options = Object.assign(
-          {"appId":"xj3pSmoXkOUNvlam7Ck0Q6L7-MdYXbMMI","appKey":"1H3MIGm9Juy7xDztbm2EBlHb","path":"window.location.pathname","placeholder":"说点什么吧...","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"https://xj3psmox.api.lncldglobal.com","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
-          {
-            el: "#valine",
-            path: window.location.pathname
-          }
-        )
-        new Valine(options);
-        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
-          var imgSelector = '#valine .vcontent img:not(.vemoji)';
-          Fluid.plugins.imageCaption(imgSelector);
-          Fluid.plugins.fancyBox(imgSelector);
-        })
-      });
-    });
-  </script>
-  <noscript>Please enable JavaScript to view the comments</noscript>
-
-
-    </article>
-  
-
-
-          </article>
-        </div>
-      </div>
-    </div>
-
-    <div class="side-col d-none d-lg-block col-lg-2">
-      
-  <aside class="sidebar" style="margin-left: -1rem">
-    <div id="toc">
-  <p class="toc-header">
-    <i class="iconfont icon-list"></i>
-    <span>目录</span>
-  </p>
-  <div class="toc-body" id="toc-body"></div>
-</div>
-
 
 
   </aside>

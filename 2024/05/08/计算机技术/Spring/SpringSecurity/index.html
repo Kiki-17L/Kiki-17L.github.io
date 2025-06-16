@@ -82,7 +82,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"blog.kdata.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"jaYO9kMjXPLXHSqIxztIklMO-MdYXbMMI","app_key":"SdZwfj7e4KZk7Qr42DotllfP","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"blog.kdata.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"jaYO9kMjXPLXHSqIxztIklMO-MdYXbMMI","app_key":"SdZwfj7e4KZk7Qr42DotllfP","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -299,7 +299,526 @@
   <div class="row nomargin-x">
     <div class="side-col d-none d-lg-block col-lg-2">
       
-  <aside class="sidebar category-bar" style="margin-right: -1rem">
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Spring Security</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2025年4月24日 晚上
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="一基础">一、基础</h1>
+<h2 id="处理步骤">1.1 处理步骤</h2>
+<p>如果一个请求到来，<strong>SpringSecurity</strong>
+会按照以处理步骤。</p>
+<pre><code class=" mermaid">graph LR
+A(Http Request)--&gt;B(Filter)--&gt;C(AuthenticationManager)--&gt;D(AuthenticationProvider)--&gt;E(UserDetailsService)
+</code></pre>
+<ol type="1">
+<li><p><strong>Filter</strong></p>
+<blockquote>
+<p>拦截Http请求，获取用户名和秘密等认证信息</p>
+<p>关键方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> Authentication <span class="hljs-title function_">attemptAuthentication</span><span class="hljs-params">(HttpServletRequest request, HttpServletResponse response)</span><br>        <span class="hljs-keyword">throws</span> AuthenticationException, IOException, ServletException;<br></code></pre></td></tr></table></figure>
+</blockquote></li>
+<li><p><strong>AuthenticationManager</strong></p>
+<blockquote>
+<p>从filter中获取认证信息，然后查找合适的AuthenticationProvider来发起认证流程</p>
+<p>关键方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">Authentication <span class="hljs-title function_">authenticate</span><span class="hljs-params">(Authentication authentication)</span> <span class="hljs-keyword">throws</span> AuthenticationException;<br></code></pre></td></tr></table></figure>
+</blockquote></li>
+<li><p><strong>AuthenticationProvider</strong></p>
+<blockquote>
+<p>调用UserDetailsService来查询已经保存的用户信息并与从http请求中获取的认证信息比对。如果成功则返回，否则则抛出异常。</p>
+<p>关键方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">abstract</span> UserDetails <span class="hljs-title function_">retrieveUser</span><span class="hljs-params">(String username, UsernamePasswordAuthenticationToken authentication)</span><br>            <span class="hljs-keyword">throws</span> AuthenticationException;<br></code></pre></td></tr></table></figure>
+</blockquote></li>
+<li><p><strong>UserDetailsService</strong></p>
+<blockquote>
+<p>负责获取用户保存的认证信息，例如查询数据库。</p>
+<p>关键方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">UserDetails <span class="hljs-title function_">loadUserByUsername</span><span class="hljs-params">(String username)</span> <span class="hljs-keyword">throws</span> UsernameNotFoundException;<br></code></pre></td></tr></table></figure>
+</blockquote></li>
+</ol>
+<p>默认实现：</p>
+<ul>
+<li><strong>Filter：</strong> UsernamePasswordAuthenticationFilter</li>
+<li><strong>AuthenticationManager：</strong> ProviderManager</li>
+<li><strong>AuthenticationProvider：</strong>
+DaoAuthenticationProvider</li>
+<li><strong>UserDetailsService：</strong>
+InMemoryUserDetailsManager</li>
+</ul>
+<h2 id="过滤器链">1.2 过滤器链</h2>
+<h3 id="速览">1.2.1 速览</h3>
+<table>
+
+<thead>
+<tr>
+<th>次序</th>
+<th>过滤器</th>
+<th>描述</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>DisableEncodeUrlFilter</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td>ForceEagerSessionCreationFilter</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td>ChannelProcessingFilter</td>
+<td>通常是用来过滤哪些请求必须用 <code>https</code> 协议，
+哪些请求必须用 <code>http</code> 协议， 哪些请求随便用哪个协议都行</td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td>WebAsyncManagerIntegrationFilter</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>5</td>
+<td>SecurityContextHolderFilter</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>6</td>
+<td>SecurityContextPersistenceFilter</td>
+<td>主要控制 <code>SecurityContext</code> 的在一次请求中的生命周期
+。请求来临时，创建<code>SecurityContext</code>
+安全上下文信息，请求结束时清空 <code>SecurityContextHolder</code></td>
+<td></td>
+</tr>
+<tr>
+<td>7</td>
+<td>HeaderWriterFilter</td>
+<td>HeaderWriterFilter<code>用来给</code>http<code>响应添加一些</code>Header<code>,比如</code>X-Frame-Options<code>,</code>X-XSS-Protection<code>，</code>X-Content-Type-Options</td>
+<td></td>
+</tr>
+<tr>
+<td>8</td>
+<td>CorsFilter</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>9</td>
+<td>CsrfFilter</td>
+<td><code>CsrfFilter</code>
+用于防止<code>csrf</code>攻击，前后端使用json交互需要注意的一个问题。</td>
+<td></td>
+</tr>
+<tr>
+<td>10</td>
+<td>LogoutFilter</td>
+<td><code>LogoutFilter</code> 很明显这是处理注销的过滤器。你可以通过
+<code>HttpSecurity.logout()</code> 来定制注销逻辑，非常有用。</td>
+<td></td>
+</tr>
+<tr>
+<td>11</td>
+<td>X509AuthenticationFilter</td>
+<td><code>X509</code> 认证过滤器。你可以通过
+<code>HttpSecurity#X509()</code> 来启用和配置相关功能。</td>
+<td></td>
+</tr>
+<tr>
+<td>12</td>
+<td>AbstractPreAuthenticatedProcessingFilter</td>
+<td><code>AbstractPreAuthenticatedProcessingFilter</code>
+处理处理经过预先认证的身份验证请求的过滤器的基类，其中认证主体已经由外部系统进行了身份验证。目的只是从传入请求中提取主体上的必要信息，而不是对它们进行身份验证。</td>
+<td></td>
+</tr>
+<tr>
+<td>13</td>
+<td>UsernamePasswordAuthenticationFilter</td>
+<td>处理用户以及密码认证的核心过滤器。认证请求提交的<code>username</code>和
+<code>password</code>，被封装成<code>token</code>进行一系列的认证，便是主要通过这个过滤器完成的，在表单认证的方法中，这是最最关键的过滤器。</td>
+<td></td>
+</tr>
+<tr>
+<td>14</td>
+<td>DefaultLoginPageGeneratingFilter</td>
+<td>生成默认的登录页。默认 <code>/login</code></td>
+<td></td>
+</tr>
+<tr>
+<td>15</td>
+<td>DefaultLoginPageGeneratingFilter</td>
+<td>生成默认的退出页。默认 <code>/logout</code> 。</td>
+<td></td>
+</tr>
+<tr>
+<td>16</td>
+<td>ConcurrentSessionFilter</td>
+<td>主要用来判断<code>session</code>是否过期以及更新最新的访问时间</td>
+<td></td>
+</tr>
+<tr>
+<td>17</td>
+<td>DigestAuthenticationFilter</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>18</td>
+<td>BasicAuthenticationFilter</td>
+<td>和<code>Digest</code>身份验证一样都是<code>Web</code>
+应用程序中流行的可选的身份验证机制 。
+<code>BasicAuthenticationFilter</code> 负责处理 <code>HTTP</code>
+头中显示的基本身份验证凭据。这个 <strong>Spring Security</strong> 的
+<strong>Spring Boot</strong> 自动配置默认是启用的 。</td>
+<td></td>
+</tr>
+<tr>
+<td>19</td>
+<td>RequestCacheAwareFilter</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>20</td>
+<td>SecurityContextHolderAwareRequestFilter</td>
+<td>用来 实现<code>j2ee</code>中 <code>Servlet Api</code> 一些接口方法,
+比如 <code>getRemoteUser</code> 方法、<code>isUserInRole</code>
+方法，在使用 <strong>Spring Security</strong>
+时其实就是通过这个过滤器来实现的。</td>
+<td></td>
+</tr>
+<tr>
+<td>21</td>
+<td>JaasApiIntegrationFilter</td>
+<td>适用于<code>JAAS</code> （<code>Java</code> 认证授权服务）。如果
+<code>SecurityContextHolder</code> 中拥有的 <code>Authentication</code>
+是一个 <code>JaasAuthenticationToken</code>，那么该
+<code>JaasApiIntegrationFilter</code> 将使用包含在
+<code>JaasAuthenticationToken</code> 中的 <code>Subject</code> 继续执行
+<code>FilterChain</code>。</td>
+<td></td>
+</tr>
+<tr>
+<td>22</td>
+<td>RememberMeAuthenticationFilter</td>
+<td>处理 <strong><code>记住我</code></strong> 功能的过滤器。</td>
+<td></td>
+</tr>
+<tr>
+<td>23</td>
+<td>AnonymousAuthenticationFilter</td>
+<td>匿名认证过滤器。<strong>对于 <code>Spring Security</code>
+来说，所有对资源的访问都是有 <code>Authentication</code>
+的。对于无需登录（<code>UsernamePasswordAuthenticationFilter</code>
+）直接可以访问的资源，会授予其匿名用户身份</strong>。</td>
+<td></td>
+</tr>
+<tr>
+<td>24</td>
+<td>SessionManagementFilter</td>
+<td><code>Session</code> 管理器过滤器，内部维护了一个
+<code>SessionAuthenticationStrategy</code> 用于管理 <code>Session</code>
+。</td>
+<td></td>
+</tr>
+<tr>
+<td>25</td>
+<td>ExceptionTranslationFilter</td>
+<td>主要来传输异常事件</td>
+<td></td>
+</tr>
+<tr>
+<td>26</td>
+<td>FilterSecurityInterceptor</td>
+<td>这个过滤器决定了访问特定路径应该具备的权限，访问的用户的角色，权限是什么？访问的路径需要什么样的角色和权限？这些判断和处理都是由该类进行的。<strong>如果你要实现动态权限控制就必须研究该类</strong>
+。</td>
+<td></td>
+</tr>
+<tr>
+<td>27</td>
+<td>AuthorizationFilter</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>28</td>
+<td>SwitchUserFilter</td>
+<td><code>SwitchUserFilter</code>
+是用来做账户切换的。默认的切换账号的<code>url</code>为<code>/login/impersonate</code>，默认注销切换账号的<code>url</code>为<code>/logout/impersonate</code>，默认的账号参数为<code>username</code>
+。</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="默认启动过滤器">1.2.2 默认启动过滤器</h3>
+<ol type="1">
+<li>DisableEncodeUrlFilter</li>
+<li>WebAsyncManagerIntegrationFilter</li>
+<li>SecurityContextHolderFilter</li>
+<li>HeaderWriterFilter</li>
+<li>CsrfFilter</li>
+<li>LogoutFilter</li>
+<li>UsernamePasswordAuthenticationFilter</li>
+<li>DefaultLoginPageGeneratingFilter</li>
+<li>DefaultLoginPageGeneratingFilter</li>
+<li>BasicAuthenticationFilter</li>
+<li>RequestCacheAwareFilter</li>
+<li>SecurityContextHolderAwareRequestFilter</li>
+<li>AnonymousAuthenticationFilter</li>
+<li>ExceptionTranslationFilter</li>
+<li>AuthorizationFilter</li>
+</ol>
+<h1 id="二配置">二、配置</h1>
+<h2 id="websecurityconfigureradaptor">2.1
+WebSecurityConfigurerAdaptor</h2>
+<ol type="1">
+<li><p>anyRequest</p>
+<blockquote>
+<p>匹配所有请求路径</p>
+</blockquote></li>
+<li><p>access</p>
+<blockquote>
+<p>SpringEl表达式结果为true时可以访问</p>
+</blockquote></li>
+<li><p>anonymous</p>
+<blockquote>
+<p>匿名可以访问</p>
+</blockquote></li>
+<li><p>denyAll</p>
+<blockquote>
+<p>用户不能访问</p>
+</blockquote></li>
+<li><p>fullyAuthenticated</p>
+<blockquote>
+<p>用户完全认证可以访问（非remember-me下自动登录）</p>
+</blockquote></li>
+<li><p>hasAnyAuthority</p>
+<blockquote>
+<p>如果有参数，参数表示权限，则其中任何一个权限可以访问</p>
+</blockquote></li>
+<li><p>hasAnyRole</p>
+<blockquote>
+<p>如果有参数，参数表示角色，则其中任何一个角色可以访问</p>
+</blockquote></li>
+<li><p>hasAuthority</p>
+<blockquote>
+<p>如果有参数，参数表示权限，则其权限可以访问</p>
+</blockquote></li>
+<li><p>hasIpAddress</p>
+<blockquote>
+<p>如果有参数，参数表示IP地址，如果用户IP和参数匹配，则可以访问</p>
+</blockquote></li>
+<li><p>hasRole</p>
+<blockquote>
+<p>如果有参数，参数表示角色，则其角色可以访问</p>
+</blockquote></li>
+<li><p>permitAll</p>
+<blockquote>
+<p>用户可以任意访问</p>
+</blockquote></li>
+<li><p>rememberMe</p>
+<blockquote>
+<p>允许通过remember-me登录的用户访问</p>
+</blockquote></li>
+<li><p>authenticated</p>
+<blockquote>
+<p>用户登录后可访问</p>
+</blockquote></li>
+</ol>
+<h1 id="三配置6.0">三、配置（6.0）</h1>
+<h2 id="配置类">3.1 配置类</h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@EnableWebSecurity</span><br><span class="hljs-meta">@Configuration</span><br><span class="hljs-meta">@EnableMethodSecurity</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SecurityConfiguration</span> &#123;<br><br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-keyword">public</span> SecurityFilterChain <span class="hljs-title function_">filterChain</span><span class="hljs-params">(HttpSecurity httpSecurity)</span> <span class="hljs-keyword">throws</span> Exception&#123;<br>        <span class="hljs-keyword">return</span> httpSecurity.authorizeHttpRequests(authorize-&gt; &#123;<br>                    <span class="hljs-keyword">try</span> &#123;<br>                        authorize<br>                                <span class="hljs-comment">// 放行登录接口</span><br>                                .requestMatchers(<span class="hljs-string">&quot;/login&quot;</span>).permitAll()<br>                                <span class="hljs-comment">// 其余的都需要权限校验</span><br>                                .anyRequest().authenticated()<br>                                <span class="hljs-comment">// 防跨站请求伪造</span><br>                                .and().csrf(csrf -&gt; csrf.disable());<br>                    &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>                        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RuntimeException</span>(e);<br>                    &#125;<br>                &#125;<br>        ).build();<br><br>    &#125;<br>    <br>    <span class="hljs-comment">// 密码编码器</span><br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-keyword">public</span> PasswordEncoder <span class="hljs-title function_">passwordEncoder</span><span class="hljs-params">()</span>&#123;<br><br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BCryptPasswordEncoder</span>();<br>    &#125;<br><br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/" class="category-chain-item">计算机技术</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Spring/" class="category-chain-item">Spring</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Technology/" class="print-no-link">#Technology</a>
+      
+        <a href="/tags/Spring/" class="print-no-link">#Spring</a>
+      
+        <a href="/tags/Spring-Security/" class="print-no-link">#Spring Security</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Spring Security</div>
+      <div>http://blog.kdata.top/2024/05/08/计算机技术/Spring/SpringSecurity/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Louis Liang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年5月8日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/05/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/%E4%BA%92%E8%81%94%E7%BD%91%E6%A0%87%E5%87%86/JWT/" title="JWT 笔记">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">JWT 笔记</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"xj3pSmoXkOUNvlam7Ck0Q6L7-MdYXbMMI","appKey":"1H3MIGm9Juy7xDztbm2EBlHb","path":"window.location.pathname","placeholder":"说点什么吧...","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"https://xj3psmox.api.lncldglobal.com","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-left: -1rem">
     
 
 
@@ -902,523 +1421,6 @@
     </div>
   
 </div>
-
-
-  </aside>
-
-
-    </div>
-
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div id="board">
-          <article class="post-content mx-auto">
-            <h1 id="seo-header">Spring Security</h1>
-            
-            
-              <div class="markdown-body">
-                
-                <h1 id="一基础">一、基础</h1>
-<h2 id="处理步骤">1.1 处理步骤</h2>
-<p>如果一个请求到来，<strong>SpringSecurity</strong>
-会按照以处理步骤。</p>
-<pre><code class=" mermaid">graph LR
-A(Http Request)--&gt;B(Filter)--&gt;C(AuthenticationManager)--&gt;D(AuthenticationProvider)--&gt;E(UserDetailsService)
-</code></pre>
-<ol type="1">
-<li><p><strong>Filter</strong></p>
-<blockquote>
-<p>拦截Http请求，获取用户名和秘密等认证信息</p>
-<p>关键方法：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> Authentication <span class="hljs-title function_">attemptAuthentication</span><span class="hljs-params">(HttpServletRequest request, HttpServletResponse response)</span><br>        <span class="hljs-keyword">throws</span> AuthenticationException, IOException, ServletException;<br></code></pre></td></tr></table></figure>
-</blockquote></li>
-<li><p><strong>AuthenticationManager</strong></p>
-<blockquote>
-<p>从filter中获取认证信息，然后查找合适的AuthenticationProvider来发起认证流程</p>
-<p>关键方法：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">Authentication <span class="hljs-title function_">authenticate</span><span class="hljs-params">(Authentication authentication)</span> <span class="hljs-keyword">throws</span> AuthenticationException;<br></code></pre></td></tr></table></figure>
-</blockquote></li>
-<li><p><strong>AuthenticationProvider</strong></p>
-<blockquote>
-<p>调用UserDetailsService来查询已经保存的用户信息并与从http请求中获取的认证信息比对。如果成功则返回，否则则抛出异常。</p>
-<p>关键方法：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">abstract</span> UserDetails <span class="hljs-title function_">retrieveUser</span><span class="hljs-params">(String username, UsernamePasswordAuthenticationToken authentication)</span><br>            <span class="hljs-keyword">throws</span> AuthenticationException;<br></code></pre></td></tr></table></figure>
-</blockquote></li>
-<li><p><strong>UserDetailsService</strong></p>
-<blockquote>
-<p>负责获取用户保存的认证信息，例如查询数据库。</p>
-<p>关键方法：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">UserDetails <span class="hljs-title function_">loadUserByUsername</span><span class="hljs-params">(String username)</span> <span class="hljs-keyword">throws</span> UsernameNotFoundException;<br></code></pre></td></tr></table></figure>
-</blockquote></li>
-</ol>
-<p>默认实现：</p>
-<ul>
-<li><strong>Filter：</strong> UsernamePasswordAuthenticationFilter</li>
-<li><strong>AuthenticationManager：</strong> ProviderManager</li>
-<li><strong>AuthenticationProvider：</strong>
-DaoAuthenticationProvider</li>
-<li><strong>UserDetailsService：</strong>
-InMemoryUserDetailsManager</li>
-</ul>
-<h2 id="过滤器链">1.2 过滤器链</h2>
-<h3 id="速览">1.2.1 速览</h3>
-<table>
-
-<thead>
-<tr>
-<th>次序</th>
-<th>过滤器</th>
-<th>描述</th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>DisableEncodeUrlFilter</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>2</td>
-<td>ForceEagerSessionCreationFilter</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>3</td>
-<td>ChannelProcessingFilter</td>
-<td>通常是用来过滤哪些请求必须用 <code>https</code> 协议，
-哪些请求必须用 <code>http</code> 协议， 哪些请求随便用哪个协议都行</td>
-<td></td>
-</tr>
-<tr>
-<td>4</td>
-<td>WebAsyncManagerIntegrationFilter</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>5</td>
-<td>SecurityContextHolderFilter</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>6</td>
-<td>SecurityContextPersistenceFilter</td>
-<td>主要控制 <code>SecurityContext</code> 的在一次请求中的生命周期
-。请求来临时，创建<code>SecurityContext</code>
-安全上下文信息，请求结束时清空 <code>SecurityContextHolder</code></td>
-<td></td>
-</tr>
-<tr>
-<td>7</td>
-<td>HeaderWriterFilter</td>
-<td>HeaderWriterFilter<code>用来给</code>http<code>响应添加一些</code>Header<code>,比如</code>X-Frame-Options<code>,</code>X-XSS-Protection<code>，</code>X-Content-Type-Options</td>
-<td></td>
-</tr>
-<tr>
-<td>8</td>
-<td>CorsFilter</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>9</td>
-<td>CsrfFilter</td>
-<td><code>CsrfFilter</code>
-用于防止<code>csrf</code>攻击，前后端使用json交互需要注意的一个问题。</td>
-<td></td>
-</tr>
-<tr>
-<td>10</td>
-<td>LogoutFilter</td>
-<td><code>LogoutFilter</code> 很明显这是处理注销的过滤器。你可以通过
-<code>HttpSecurity.logout()</code> 来定制注销逻辑，非常有用。</td>
-<td></td>
-</tr>
-<tr>
-<td>11</td>
-<td>X509AuthenticationFilter</td>
-<td><code>X509</code> 认证过滤器。你可以通过
-<code>HttpSecurity#X509()</code> 来启用和配置相关功能。</td>
-<td></td>
-</tr>
-<tr>
-<td>12</td>
-<td>AbstractPreAuthenticatedProcessingFilter</td>
-<td><code>AbstractPreAuthenticatedProcessingFilter</code>
-处理处理经过预先认证的身份验证请求的过滤器的基类，其中认证主体已经由外部系统进行了身份验证。目的只是从传入请求中提取主体上的必要信息，而不是对它们进行身份验证。</td>
-<td></td>
-</tr>
-<tr>
-<td>13</td>
-<td>UsernamePasswordAuthenticationFilter</td>
-<td>处理用户以及密码认证的核心过滤器。认证请求提交的<code>username</code>和
-<code>password</code>，被封装成<code>token</code>进行一系列的认证，便是主要通过这个过滤器完成的，在表单认证的方法中，这是最最关键的过滤器。</td>
-<td></td>
-</tr>
-<tr>
-<td>14</td>
-<td>DefaultLoginPageGeneratingFilter</td>
-<td>生成默认的登录页。默认 <code>/login</code></td>
-<td></td>
-</tr>
-<tr>
-<td>15</td>
-<td>DefaultLoginPageGeneratingFilter</td>
-<td>生成默认的退出页。默认 <code>/logout</code> 。</td>
-<td></td>
-</tr>
-<tr>
-<td>16</td>
-<td>ConcurrentSessionFilter</td>
-<td>主要用来判断<code>session</code>是否过期以及更新最新的访问时间</td>
-<td></td>
-</tr>
-<tr>
-<td>17</td>
-<td>DigestAuthenticationFilter</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>18</td>
-<td>BasicAuthenticationFilter</td>
-<td>和<code>Digest</code>身份验证一样都是<code>Web</code>
-应用程序中流行的可选的身份验证机制 。
-<code>BasicAuthenticationFilter</code> 负责处理 <code>HTTP</code>
-头中显示的基本身份验证凭据。这个 <strong>Spring Security</strong> 的
-<strong>Spring Boot</strong> 自动配置默认是启用的 。</td>
-<td></td>
-</tr>
-<tr>
-<td>19</td>
-<td>RequestCacheAwareFilter</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>20</td>
-<td>SecurityContextHolderAwareRequestFilter</td>
-<td>用来 实现<code>j2ee</code>中 <code>Servlet Api</code> 一些接口方法,
-比如 <code>getRemoteUser</code> 方法、<code>isUserInRole</code>
-方法，在使用 <strong>Spring Security</strong>
-时其实就是通过这个过滤器来实现的。</td>
-<td></td>
-</tr>
-<tr>
-<td>21</td>
-<td>JaasApiIntegrationFilter</td>
-<td>适用于<code>JAAS</code> （<code>Java</code> 认证授权服务）。如果
-<code>SecurityContextHolder</code> 中拥有的 <code>Authentication</code>
-是一个 <code>JaasAuthenticationToken</code>，那么该
-<code>JaasApiIntegrationFilter</code> 将使用包含在
-<code>JaasAuthenticationToken</code> 中的 <code>Subject</code> 继续执行
-<code>FilterChain</code>。</td>
-<td></td>
-</tr>
-<tr>
-<td>22</td>
-<td>RememberMeAuthenticationFilter</td>
-<td>处理 <strong><code>记住我</code></strong> 功能的过滤器。</td>
-<td></td>
-</tr>
-<tr>
-<td>23</td>
-<td>AnonymousAuthenticationFilter</td>
-<td>匿名认证过滤器。<strong>对于 <code>Spring Security</code>
-来说，所有对资源的访问都是有 <code>Authentication</code>
-的。对于无需登录（<code>UsernamePasswordAuthenticationFilter</code>
-）直接可以访问的资源，会授予其匿名用户身份</strong>。</td>
-<td></td>
-</tr>
-<tr>
-<td>24</td>
-<td>SessionManagementFilter</td>
-<td><code>Session</code> 管理器过滤器，内部维护了一个
-<code>SessionAuthenticationStrategy</code> 用于管理 <code>Session</code>
-。</td>
-<td></td>
-</tr>
-<tr>
-<td>25</td>
-<td>ExceptionTranslationFilter</td>
-<td>主要来传输异常事件</td>
-<td></td>
-</tr>
-<tr>
-<td>26</td>
-<td>FilterSecurityInterceptor</td>
-<td>这个过滤器决定了访问特定路径应该具备的权限，访问的用户的角色，权限是什么？访问的路径需要什么样的角色和权限？这些判断和处理都是由该类进行的。<strong>如果你要实现动态权限控制就必须研究该类</strong>
-。</td>
-<td></td>
-</tr>
-<tr>
-<td>27</td>
-<td>AuthorizationFilter</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>28</td>
-<td>SwitchUserFilter</td>
-<td><code>SwitchUserFilter</code>
-是用来做账户切换的。默认的切换账号的<code>url</code>为<code>/login/impersonate</code>，默认注销切换账号的<code>url</code>为<code>/logout/impersonate</code>，默认的账号参数为<code>username</code>
-。</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<h3 id="默认启动过滤器">1.2.2 默认启动过滤器</h3>
-<ol type="1">
-<li>DisableEncodeUrlFilter</li>
-<li>WebAsyncManagerIntegrationFilter</li>
-<li>SecurityContextHolderFilter</li>
-<li>HeaderWriterFilter</li>
-<li>CsrfFilter</li>
-<li>LogoutFilter</li>
-<li>UsernamePasswordAuthenticationFilter</li>
-<li>DefaultLoginPageGeneratingFilter</li>
-<li>DefaultLoginPageGeneratingFilter</li>
-<li>BasicAuthenticationFilter</li>
-<li>RequestCacheAwareFilter</li>
-<li>SecurityContextHolderAwareRequestFilter</li>
-<li>AnonymousAuthenticationFilter</li>
-<li>ExceptionTranslationFilter</li>
-<li>AuthorizationFilter</li>
-</ol>
-<h1 id="二配置">二、配置</h1>
-<h2 id="websecurityconfigureradaptor">2.1
-WebSecurityConfigurerAdaptor</h2>
-<ol type="1">
-<li><p>anyRequest</p>
-<blockquote>
-<p>匹配所有请求路径</p>
-</blockquote></li>
-<li><p>access</p>
-<blockquote>
-<p>SpringEl表达式结果为true时可以访问</p>
-</blockquote></li>
-<li><p>anonymous</p>
-<blockquote>
-<p>匿名可以访问</p>
-</blockquote></li>
-<li><p>denyAll</p>
-<blockquote>
-<p>用户不能访问</p>
-</blockquote></li>
-<li><p>fullyAuthenticated</p>
-<blockquote>
-<p>用户完全认证可以访问（非remember-me下自动登录）</p>
-</blockquote></li>
-<li><p>hasAnyAuthority</p>
-<blockquote>
-<p>如果有参数，参数表示权限，则其中任何一个权限可以访问</p>
-</blockquote></li>
-<li><p>hasAnyRole</p>
-<blockquote>
-<p>如果有参数，参数表示角色，则其中任何一个角色可以访问</p>
-</blockquote></li>
-<li><p>hasAuthority</p>
-<blockquote>
-<p>如果有参数，参数表示权限，则其权限可以访问</p>
-</blockquote></li>
-<li><p>hasIpAddress</p>
-<blockquote>
-<p>如果有参数，参数表示IP地址，如果用户IP和参数匹配，则可以访问</p>
-</blockquote></li>
-<li><p>hasRole</p>
-<blockquote>
-<p>如果有参数，参数表示角色，则其角色可以访问</p>
-</blockquote></li>
-<li><p>permitAll</p>
-<blockquote>
-<p>用户可以任意访问</p>
-</blockquote></li>
-<li><p>rememberMe</p>
-<blockquote>
-<p>允许通过remember-me登录的用户访问</p>
-</blockquote></li>
-<li><p>authenticated</p>
-<blockquote>
-<p>用户登录后可访问</p>
-</blockquote></li>
-</ol>
-<h1 id="三配置6.0">三、配置（6.0）</h1>
-<h2 id="配置类">3.1 配置类</h2>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@EnableWebSecurity</span><br><span class="hljs-meta">@Configuration</span><br><span class="hljs-meta">@EnableMethodSecurity</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SecurityConfiguration</span> &#123;<br><br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-keyword">public</span> SecurityFilterChain <span class="hljs-title function_">filterChain</span><span class="hljs-params">(HttpSecurity httpSecurity)</span> <span class="hljs-keyword">throws</span> Exception&#123;<br>        <span class="hljs-keyword">return</span> httpSecurity.authorizeHttpRequests(authorize-&gt; &#123;<br>                    <span class="hljs-keyword">try</span> &#123;<br>                        authorize<br>                                <span class="hljs-comment">// 放行登录接口</span><br>                                .requestMatchers(<span class="hljs-string">&quot;/login&quot;</span>).permitAll()<br>                                <span class="hljs-comment">// 其余的都需要权限校验</span><br>                                .anyRequest().authenticated()<br>                                <span class="hljs-comment">// 防跨站请求伪造</span><br>                                .and().csrf(csrf -&gt; csrf.disable());<br>                    &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>                        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RuntimeException</span>(e);<br>                    &#125;<br>                &#125;<br>        ).build();<br><br>    &#125;<br>    <br>    <span class="hljs-comment">// 密码编码器</span><br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-keyword">public</span> PasswordEncoder <span class="hljs-title function_">passwordEncoder</span><span class="hljs-params">()</span>&#123;<br><br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BCryptPasswordEncoder</span>();<br>    &#125;<br><br><br>&#125;<br></code></pre></td></tr></table></figure>
-
-                
-              </div>
-            
-            <hr/>
-            <div>
-              <div class="post-metas my-3">
-  
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/" class="category-chain-item">计算机技术</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Spring/" class="category-chain-item">Spring</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
-  
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/Technology/" class="print-no-link">#Technology</a>
-      
-        <a href="/tags/Spring/" class="print-no-link">#Spring</a>
-      
-        <a href="/tags/Spring-Security/" class="print-no-link">#Spring Security</a>
-      
-    </div>
-  
-</div>
-
-
-              
-  
-
-  <div class="license-box my-3">
-    <div class="license-title">
-      <div>Spring Security</div>
-      <div>http://blog.kdata.top/2024/05/08/计算机技术/Spring/SpringSecurity/</div>
-    </div>
-    <div class="license-meta">
-      
-        <div class="license-meta-item">
-          <div>作者</div>
-          <div>Louis Liang</div>
-        </div>
-      
-      
-        <div class="license-meta-item license-meta-date">
-          <div>发布于</div>
-          <div>2024年5月8日</div>
-        </div>
-      
-      
-      
-        <div class="license-meta-item">
-          <div>许可协议</div>
-          <div>
-            
-              
-              
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
-                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
-                    <i class="iconfont icon-cc-by"></i>
-                  </span>
-                </a>
-              
-            
-          </div>
-        </div>
-      
-    </div>
-    <div class="license-icon iconfont"></div>
-  </div>
-
-
-
-              
-                <div class="post-prevnext my-3">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2024/05/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/%E4%BA%92%E8%81%94%E7%BD%91%E6%A0%87%E5%87%86/JWT/" title="JWT 笔记">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">JWT 笔记</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2024/05/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Vue/VueRouter%20%E7%AC%94%E8%AE%B0/" title="Vue Router 笔记">
-                        <span class="hidden-mobile">Vue Router 笔记</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
-  
-  
-    <article id="comments" lazyload>
-      
-  <div id="valine"></div>
-  <script type="text/javascript">
-    Fluid.utils.loadComments('#valine', function() {
-      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
-        var options = Object.assign(
-          {"appId":"xj3pSmoXkOUNvlam7Ck0Q6L7-MdYXbMMI","appKey":"1H3MIGm9Juy7xDztbm2EBlHb","path":"window.location.pathname","placeholder":"说点什么吧...","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"https://xj3psmox.api.lncldglobal.com","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
-          {
-            el: "#valine",
-            path: window.location.pathname
-          }
-        )
-        new Valine(options);
-        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
-          var imgSelector = '#valine .vcontent img:not(.vemoji)';
-          Fluid.plugins.imageCaption(imgSelector);
-          Fluid.plugins.fancyBox(imgSelector);
-        })
-      });
-    });
-  </script>
-  <noscript>Please enable JavaScript to view the comments</noscript>
-
-
-    </article>
-  
-
-
-          </article>
-        </div>
-      </div>
-    </div>
-
-    <div class="side-col d-none d-lg-block col-lg-2">
-      
-  <aside class="sidebar" style="margin-left: -1rem">
-    <div id="toc">
-  <p class="toc-header">
-    <i class="iconfont icon-list"></i>
-    <span>目录</span>
-  </p>
-  <div class="toc-body" id="toc-body"></div>
-</div>
-
 
 
   </aside>

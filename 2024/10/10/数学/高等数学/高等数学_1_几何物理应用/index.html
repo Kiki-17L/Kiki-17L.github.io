@@ -80,7 +80,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"blog.kdata.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"jaYO9kMjXPLXHSqIxztIklMO-MdYXbMMI","app_key":"SdZwfj7e4KZk7Qr42DotllfP","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"blog.kdata.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"jaYO9kMjXPLXHSqIxztIklMO-MdYXbMMI","app_key":"SdZwfj7e4KZk7Qr42DotllfP","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -297,7 +297,286 @@
   <div class="row nomargin-x">
     <div class="side-col d-none d-lg-block col-lg-2">
       
-  <aside class="sidebar category-bar" style="margin-right: -1rem">
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">高等数学 #1 几何物理应用</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2025年3月3日 晚上
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="一元积分学几何应用">一元积分学几何应用</h1>
+<h2 id="平面图形面积">平面图形面积</h2>
+<p>（1）直角坐标系</p>
+<p><span class="math inline">\(f(x),\ g(x),\ x=a,\ x=b\)</span>
+围城的平面图形面积 <span class="math display">\[
+\int_a^b|f(x)-g(x)|\,\mathrm{d}x
+\]</span> （2）极坐标系</p>
+<p><span class="math inline">\(r_1(\theta),\ r_2(\theta),\
+\theta=\alpha,\ \theta=\beta\)</span> 围城的平面扇形面积 <span
+class="math display">\[
+\frac{1}{2}\int_\alpha^\beta|r_1^2(\theta)-r_2^2(\theta)|\,
+\mathrm{d}\theta
+\]</span></p>
+<h2 id="旋转体体积">旋转体体积</h2>
+<p>（1）曲线绕 <span class="math inline">\(x\)</span> 轴</p>
+<p>解法：<span class="math inline">\(\text{Shell Method}\)</span> <span
+class="math display">\[
+\frac{\pi}{2}\int_a^bf^2(x)\,\mathrm{d}x
+\]</span> （2）曲线绕 <span class="math inline">\(y\)</span> 轴</p>
+<p>解法：<span class="math inline">\(\text{Disc Method}\)</span> <span
+class="math display">\[
+2\pi\int_a^bx|f(x)|\,\mathrm{d}x
+\]</span> （3）曲线绕任意直线</p>
+<p>解法： <span class="math display">\[
+V=\frac{\pi}{(A^2+B^2)^{\frac{3}{2}}}\int_a^b(A(x)+Bf(x)+C)^2|Af&#39;(x)-B|\,\mathrm{d}x
+\]</span> （4）区域绕任意直线（<strong>一般问题</strong>）</p>
+<p>解法：<strong>古鲁金定理</strong>求体积，由此可以上升到<strong>二重积分</strong></p>
+<p>等于该区域面积与几何中心经过的距离的乘积 <span
+class="math display">\[
+V=Sd_1
+\]</span> 即 <span class="math display">\[
+V=2\pi pS
+\]</span> 一般公式 <span class="math display">\[
+2\pi\iint_{D} r(x,y)\,\mathrm{d}\sigma
+\]</span></p>
+<h2 id="旋转曲面侧面积">旋转曲面侧面积</h2>
+<p>依据：曲线绕 <span class="math inline">\(x\)</span>
+轴旋转一周后，每个小区间会对应形成<strong>小环带</strong>，这个小环带的面积就是所需累计的微元</p>
+<p>面积微元所含的是 <span class="math inline">\(\mathrm{d}s\)</span>
+而不是 <span class="math inline">\(\mathrm{d}x\)</span>
+，是因为<strong>微元法的基本原理</strong>，即不能保证误差为 <span
+class="math inline">\(dx\)</span> 高阶无穷小</p>
+<p>（1）直角坐标系 <span class="math inline">\(y(x)\)</span> 绕 <span
+class="math inline">\(x\)</span> 轴转一圈</p>
+<p><strong>古鲁金定理求表面积</strong>： <span class="math display">\[
+A=sd_2
+\]</span> 即 <span class="math display">\[
+A=2\pi ps
+\]</span></p>
+<p><span class="math display">\[
+2\pi\int_a^b|y(x)|\,\sqrt{1+y&#39;(x)^2}\mathrm{d}x
+\]</span> （2）参数方程 <span class="math display">\[
+2\pi\int_\alpha^\beta |y(t)|\sqrt{x&#39;(t)^2+y&#39;(t)^2}\,\mathrm{d}t
+\]</span> （3）极坐标 <span class="math display">\[
+2\pi\int_\alpha^\beta|\rho(\theta)\sin\theta|\sqrt{\rho^2+\rho&#39;^2}\,\mathrm{d}\theta
+\]</span></p>
+<h2 id="平面曲边梯形的形心">平面曲边梯形的形心</h2>
+<p><span class="math display">\[
+\bar x=\frac{\iint_D
+x\,\mathrm{d}\sigma}{\iint_D\mathrm{d}\sigma},\qquad \bar
+y=\frac{\iint_D y\,\mathrm{d}\sigma}{\iint_D\mathrm{d}\sigma}
+\]</span></p>
+<h2 id="平面曲线弧长">平面曲线弧长</h2>
+<p>（1）直角坐标系 <span class="math display">\[
+S=\int_a^b\sqrt{1+f&#39;(x)^2}\,\mathrm{d}x
+\]</span> （2）参数方程 <span class="math display">\[
+S=\int_a^b\sqrt{x&#39;(t)^2+y&#39;(t)^2}\,\mathrm{d}t
+\]</span> （3）极坐标 <span class="math display">\[
+S=\int_a^b\sqrt{r(\theta)^2+r&#39;(\theta)^2}\,\mathrm{d}\theta
+\]</span></p>
+<h1 id="一元积分学物理应用">一元积分学物理应用</h1>
+<h2 id="变力沿直线做功">变力沿直线做功</h2>
+<p>沿 <span class="math inline">\(x\)</span> 轴正向的力函数 <span
+class="math inline">\(y=F(x)(a\le x\le b)\)</span>，设物体从 <span
+class="math inline">\(a\)</span> 点到 <span
+class="math inline">\(b\)</span> 点时，变力 <span
+class="math inline">\(F(x)\)</span> 所做的功</p>
+<p><span class="math display">\[
+W=\int_a^b F(x)\,\mathrm{d}x
+\]</span></p>
+<h2 id="抽水做功">抽水做功</h2>
+<p>微元法：将容器截面的一层水抽上来做功的累计 <span
+class="math display">\[
+W=\rho g\int_a^bxA(x)\,\mathrm{d}x
+\]</span></p>
+<h2 id="静水压力">静水压力</h2>
+<p><span class="math display">\[
+W=\rho g\int_a^b x[f(x)-g(x)]\,\mathrm{d}x
+\]</span></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%95%B0%E5%AD%A6/" class="category-chain-item">数学</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E6%95%B0%E5%AD%A6/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/" class="category-chain-item">高等数学</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Math/" class="print-no-link">#Math</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>高等数学 #1 几何物理应用</div>
+      <div>http://blog.kdata.top/2024/10/10/数学/高等数学/高等数学_1_几何物理应用/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Louis Liang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年10月10日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/10/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E7%BC%96%E7%A0%81/%E7%BC%96%E7%A0%81_0_base64/" title="编码 #0 Base64">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">编码 #0 Base64</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/10/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/DataStructure/" title="数据结构 简明教程">
+                        <span class="hidden-mobile">数据结构 简明教程</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"xj3pSmoXkOUNvlam7Ck0Q6L7-MdYXbMMI","appKey":"1H3MIGm9Juy7xDztbm2EBlHb","path":"window.location.pathname","placeholder":"说点什么吧...","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"https://xj3psmox.api.lncldglobal.com","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-left: -1rem">
     
 
 
@@ -513,277 +792,6 @@
     </div>
   
 </div>
-
-
-  </aside>
-
-
-    </div>
-
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div id="board">
-          <article class="post-content mx-auto">
-            <h1 id="seo-header">高等数学 #1 几何物理应用</h1>
-            
-            
-              <div class="markdown-body">
-                
-                <h1 id="一元积分学几何应用">一元积分学几何应用</h1>
-<h2 id="平面图形面积">平面图形面积</h2>
-<p>（1）直角坐标系</p>
-<p><span class="math inline">\(f(x),\ g(x),\ x=a,\ x=b\)</span>
-围城的平面图形面积 <span class="math display">\[
-\int_a^b|f(x)-g(x)|\,\mathrm{d}x
-\]</span> （2）极坐标系</p>
-<p><span class="math inline">\(r_1(\theta),\ r_2(\theta),\
-\theta=\alpha,\ \theta=\beta\)</span> 围城的平面扇形面积 <span
-class="math display">\[
-\frac{1}{2}\int_\alpha^\beta|r_1^2(\theta)-r_2^2(\theta)|\,
-\mathrm{d}\theta
-\]</span></p>
-<h2 id="旋转体体积">旋转体体积</h2>
-<p>（1）曲线绕 <span class="math inline">\(x\)</span> 轴</p>
-<p>解法：<span class="math inline">\(\text{Shell Method}\)</span> <span
-class="math display">\[
-\frac{\pi}{2}\int_a^bf^2(x)\,\mathrm{d}x
-\]</span> （2）曲线绕 <span class="math inline">\(y\)</span> 轴</p>
-<p>解法：<span class="math inline">\(\text{Disc Method}\)</span> <span
-class="math display">\[
-2\pi\int_a^bx|f(x)|\,\mathrm{d}x
-\]</span> （3）曲线绕任意直线</p>
-<p>解法： <span class="math display">\[
-V=\frac{\pi}{(A^2+B^2)^{\frac{3}{2}}}\int_a^b(A(x)+Bf(x)+C)^2|Af&#39;(x)-B|\,\mathrm{d}x
-\]</span> （4）区域绕任意直线（<strong>一般问题</strong>）</p>
-<p>解法：<strong>古鲁金定理</strong>求体积，由此可以上升到<strong>二重积分</strong></p>
-<p>等于该区域面积与几何中心经过的距离的乘积 <span
-class="math display">\[
-V=Sd_1
-\]</span> 即 <span class="math display">\[
-V=2\pi pS
-\]</span> 一般公式 <span class="math display">\[
-2\pi\iint_{D} r(x,y)\,\mathrm{d}\sigma
-\]</span></p>
-<h2 id="旋转曲面侧面积">旋转曲面侧面积</h2>
-<p>依据：曲线绕 <span class="math inline">\(x\)</span>
-轴旋转一周后，每个小区间会对应形成<strong>小环带</strong>，这个小环带的面积就是所需累计的微元</p>
-<p>面积微元所含的是 <span class="math inline">\(\mathrm{d}s\)</span>
-而不是 <span class="math inline">\(\mathrm{d}x\)</span>
-，是因为<strong>微元法的基本原理</strong>，即不能保证误差为 <span
-class="math inline">\(dx\)</span> 高阶无穷小</p>
-<p>（1）直角坐标系 <span class="math inline">\(y(x)\)</span> 绕 <span
-class="math inline">\(x\)</span> 轴转一圈</p>
-<p><strong>古鲁金定理求表面积</strong>： <span class="math display">\[
-A=sd_2
-\]</span> 即 <span class="math display">\[
-A=2\pi ps
-\]</span></p>
-<p><span class="math display">\[
-2\pi\int_a^b|y(x)|\,\sqrt{1+y&#39;(x)^2}\mathrm{d}x
-\]</span> （2）参数方程 <span class="math display">\[
-2\pi\int_\alpha^\beta |y(t)|\sqrt{x&#39;(t)^2+y&#39;(t)^2}\,\mathrm{d}t
-\]</span> （3）极坐标 <span class="math display">\[
-2\pi\int_\alpha^\beta|\rho(\theta)\sin\theta|\sqrt{\rho^2+\rho&#39;^2}\,\mathrm{d}\theta
-\]</span></p>
-<h2 id="平面曲边梯形的形心">平面曲边梯形的形心</h2>
-<p><span class="math display">\[
-\bar x=\frac{\iint_D
-x\,\mathrm{d}\sigma}{\iint_D\mathrm{d}\sigma},\qquad \bar
-y=\frac{\iint_D y\,\mathrm{d}\sigma}{\iint_D\mathrm{d}\sigma}
-\]</span></p>
-<h2 id="平面曲线弧长">平面曲线弧长</h2>
-<p>（1）直角坐标系 <span class="math display">\[
-S=\int_a^b\sqrt{1+f&#39;(x)^2}\,\mathrm{d}x
-\]</span> （2）参数方程 <span class="math display">\[
-S=\int_a^b\sqrt{x&#39;(t)^2+y&#39;(t)^2}\,\mathrm{d}t
-\]</span> （3）极坐标 <span class="math display">\[
-S=\int_a^b\sqrt{r(\theta)^2+r&#39;(\theta)^2}\,\mathrm{d}\theta
-\]</span></p>
-<h1 id="一元积分学物理应用">一元积分学物理应用</h1>
-<h2 id="变力沿直线做功">变力沿直线做功</h2>
-<p>沿 <span class="math inline">\(x\)</span> 轴正向的力函数 <span
-class="math inline">\(y=F(x)(a\le x\le b)\)</span>，设物体从 <span
-class="math inline">\(a\)</span> 点到 <span
-class="math inline">\(b\)</span> 点时，变力 <span
-class="math inline">\(F(x)\)</span> 所做的功</p>
-<p><span class="math display">\[
-W=\int_a^b F(x)\,\mathrm{d}x
-\]</span></p>
-<h2 id="抽水做功">抽水做功</h2>
-<p>微元法：将容器截面的一层水抽上来做功的累计 <span
-class="math display">\[
-W=\rho g\int_a^bxA(x)\,\mathrm{d}x
-\]</span></p>
-<h2 id="静水压力">静水压力</h2>
-<p><span class="math display">\[
-W=\rho g\int_a^b x[f(x)-g(x)]\,\mathrm{d}x
-\]</span></p>
-
-                
-              </div>
-            
-            <hr/>
-            <div>
-              <div class="post-metas my-3">
-  
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E6%95%B0%E5%AD%A6/" class="category-chain-item">数学</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E6%95%B0%E5%AD%A6/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/" class="category-chain-item">高等数学</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
-  
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/Math/" class="print-no-link">#Math</a>
-      
-    </div>
-  
-</div>
-
-
-              
-  
-
-  <div class="license-box my-3">
-    <div class="license-title">
-      <div>高等数学 #1 几何物理应用</div>
-      <div>http://blog.kdata.top/2024/10/10/数学/高等数学/高等数学_1_几何物理应用/</div>
-    </div>
-    <div class="license-meta">
-      
-        <div class="license-meta-item">
-          <div>作者</div>
-          <div>Louis Liang</div>
-        </div>
-      
-      
-        <div class="license-meta-item license-meta-date">
-          <div>发布于</div>
-          <div>2024年10月10日</div>
-        </div>
-      
-      
-      
-        <div class="license-meta-item">
-          <div>许可协议</div>
-          <div>
-            
-              
-              
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
-                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
-                    <i class="iconfont icon-cc-by"></i>
-                  </span>
-                </a>
-              
-            
-          </div>
-        </div>
-      
-    </div>
-    <div class="license-icon iconfont"></div>
-  </div>
-
-
-
-              
-                <div class="post-prevnext my-3">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2024/10/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F_0_%E5%BA%94%E8%AF%95%E7%AC%94%E8%AE%B0/" title="操作系统 #0 应试笔记">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">操作系统 #0 应试笔记</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2024/10/10/%E6%95%B0%E5%AD%A6/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6_0_%E5%BA%94%E8%AF%95%E7%AC%94%E8%AE%B0/" title="高等数学 #0 应试笔记">
-                        <span class="hidden-mobile">高等数学 #0 应试笔记</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
-  
-  
-    <article id="comments" lazyload>
-      
-  <div id="valine"></div>
-  <script type="text/javascript">
-    Fluid.utils.loadComments('#valine', function() {
-      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
-        var options = Object.assign(
-          {"appId":"xj3pSmoXkOUNvlam7Ck0Q6L7-MdYXbMMI","appKey":"1H3MIGm9Juy7xDztbm2EBlHb","path":"window.location.pathname","placeholder":"说点什么吧...","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"https://xj3psmox.api.lncldglobal.com","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
-          {
-            el: "#valine",
-            path: window.location.pathname
-          }
-        )
-        new Valine(options);
-        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
-          var imgSelector = '#valine .vcontent img:not(.vemoji)';
-          Fluid.plugins.imageCaption(imgSelector);
-          Fluid.plugins.fancyBox(imgSelector);
-        })
-      });
-    });
-  </script>
-  <noscript>Please enable JavaScript to view the comments</noscript>
-
-
-    </article>
-  
-
-
-          </article>
-        </div>
-      </div>
-    </div>
-
-    <div class="side-col d-none d-lg-block col-lg-2">
-      
-  <aside class="sidebar" style="margin-left: -1rem">
-    <div id="toc">
-  <p class="toc-header">
-    <i class="iconfont icon-list"></i>
-    <span>目录</span>
-  </p>
-  <div class="toc-body" id="toc-body"></div>
-</div>
-
 
 
   </aside>

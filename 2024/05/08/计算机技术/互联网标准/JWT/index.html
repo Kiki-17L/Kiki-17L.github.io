@@ -80,7 +80,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"blog.kdata.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"jaYO9kMjXPLXHSqIxztIklMO-MdYXbMMI","app_key":"SdZwfj7e4KZk7Qr42DotllfP","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"blog.kdata.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"jaYO9kMjXPLXHSqIxztIklMO-MdYXbMMI","app_key":"SdZwfj7e4KZk7Qr42DotllfP","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -297,7 +297,340 @@
   <div class="row nomargin-x">
     <div class="side-col d-none d-lg-block col-lg-2">
       
-  <aside class="sidebar category-bar" style="margin-right: -1rem">
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">JWT 笔记</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2025年4月24日 晚上
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="一abstract">一、Abstract</h1>
+<p><strong>JSON Web Token</strong> (<strong>JWT</strong>, suggested
+pronunciation <strong>[/dʒɒt/]</strong>, same as the word "jot") is a
+proposed Internet standard for creating data with optional</p>
+<p>signature and/or optional encryption whose payload holds JSON that
+asserts some number of claims. The tokens are signed either using a
+private</p>
+<p>secret or a public/private key.</p>
+<h1 id="二structure">二、Structure</h1>
+<h2 id="header">2.1 Header</h2>
+<p>Identifies which algorithm is used to generate the signature. In the
+below example, <code>HS256</code> indicates that this token is signed
+using HMAC-SHA256.</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;alg&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;HS256&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;typ&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;JWT&quot;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+<h2 id="payload">2.2 Payload</h2>
+<p>Contains a set of claims. The JWT specification defines seven
+Registered Claim Names, which are the standard fields commonly included
+in tokens.</p>
+<p>Custom claims are usually also included, depending on the purpose of
+the token.</p>
+<p>This example has the standard Issued At Time claim (<code>iat</code>)
+and a custom claim (<code>loggedInAs</code>).</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;loggedInAs&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;admin&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;iat&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1422779638</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+<h2 id="signature">2.3 Signature</h2>
+<p>Securely validates the token. The signature is calculated by encoding
+the header and payload using Base64url Encoding RFC 4648 and
+concatenating the</p>
+<p>two together with a period separator. That string is then run through
+the cryptographic algorithm specified in the header. This example uses
+HMAC-</p>
+<p>SHA256 with a shared secret (public key algorithms are also defined).
+The <em>Base64url Encoding</em> is similar to base64, but uses different
+non-alphanumeric</p>
+<p>characters and omits padding.</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs json">HMAC_SHA256(<br>  secret<span class="hljs-punctuation">,</span><br>  base64urlEncoding(header) + &#x27;.&#x27; +<br>  base64urlEncoding(payload)<br>)<br></code></pre></td></tr></table></figure>
+<p>The three parts are encoded separately using Base64url Encoding RFC
+4648, and concatenated using periods to produce the JWT:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> token = <span class="hljs-title function_">base64urlEncoding</span>(header) + <span class="hljs-string">&#x27;.&#x27;</span> + <span class="hljs-title function_">base64urlEncoding</span>(payload) + <span class="hljs-string">&#x27;.&#x27;</span> + <span class="hljs-title function_">base64urlEncoding</span>(signature)<br></code></pre></td></tr></table></figure>
+<h1 id="三standard-fields">三、Standard Fields</h1>
+<table>
+
+<thead>
+<tr>
+<th>Code</th>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>iss</td>
+<td>Issuer</td>
+<td>Identifies principal that issued the JWT.</td>
+</tr>
+<tr>
+<td>sub</td>
+<td>Subject</td>
+<td>Identifies the subject of the JWT.</td>
+</tr>
+<tr>
+<td>aud</td>
+<td>Audience</td>
+<td></td>
+</tr>
+<tr>
+<td>exp</td>
+<td>Expiration Time</td>
+<td>Identifies the expiration time on and after which the JWT
+<strong>must not</strong> be accepted for processing. The value must be
+a NumericDate: either an integer or decimal, representing seconds past
+1970-01-01 00:00:00Z.</td>
+</tr>
+<tr>
+<td>nbf</td>
+<td>Not Before</td>
+<td>Identifies the time on which the JWT will start to be accepted for
+processing. The value must be a NumericDate.</td>
+</tr>
+<tr>
+<td>iat</td>
+<td>Issued at</td>
+<td>Identifies the time at which the JWT was issued. The value must be a
+NumericDate.</td>
+</tr>
+<tr>
+<td>jti</td>
+<td>JWT ID</td>
+<td>Case-sensitive unique identifier of the token even among different
+issuers.</td>
+</tr>
+</tbody>
+</table>
+<h1 id="四implement">四、Implement</h1>
+<p>在 https://jwt.io/ 网站中收录有各类语言的JWT库实现，java
+目前有6个实现</p>
+<ol type="1">
+<li><p><strong>java-jwt</strong></p>
+<blockquote>
+<p>Auth0实现的--maven: com.auth0 / java-jwt / 3.3.0</p>
+<p>Auth0提供的JWT库简单实用,
+依赖第三方(如JAVA运行环境)提供的证书信息(keypair);有一问题是在
+生成id_token与 校验(verify)id_token时都需要 公钥</p>
+<p>(public key)与密钥(private key),
+个人感觉是一不足(实际上在校验时只需要public key即可)</p>
+</blockquote></li>
+<li><p><strong>jose4j</strong></p>
+<blockquote>
+<p>Brian Campbell实现的--maven: org.bitbucket.b_c / jose4j / 0.6.3</p>
+<p>jose4j提供了完整的JWT实现, 可以不依赖第三方提供的证书信息(keypair,
+库本身自带有RSA的实现),类定义与JWT协议规定匹配度高,易理解与上手对称加</p>
+<p>密与非对称加密都有提供实现</p>
+</blockquote></li>
+<li><p><strong>nimbus-jose-jwt</strong></p>
+<blockquote>
+<p>connect2id实现的--maven: com.nimbusds / nimbus-jose-jwt / 5.7</p>
+<p>nimbus-jose-jwt库类定义清晰,简单易用,易理解 ,
+依赖第三方提供的证书信息(keypair), 对称算法 与非对称算法皆有实现.</p>
+</blockquote></li>
+<li><p><strong>jjwt</strong>　　</p>
+<blockquote>
+<p>Les Haziewood实现的--maven: io.jsonwebtoken / jjwt-root / 0.11.1</p>
+<p>jjwt小巧够用, 但对JWT的一些细节包装不够, 比如 Claims
+(只提供获取header,body)</p>
+<p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">JwtUtils</span> &#123;<br><br>    <span class="hljs-comment">//单位秒</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">long</span> expiration_time=<span class="hljs-number">60</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String key=<span class="hljs-string">&quot;this is louis&quot;</span>;<br><br><br>    <span class="hljs-comment">// 生成token</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title function_">generateToken</span><span class="hljs-params">(String username)</span>&#123;<br><br>        <span class="hljs-type">Date</span> <span class="hljs-variable">now</span> <span class="hljs-operator">=</span><span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>();<br>        <span class="hljs-type">Date</span> <span class="hljs-variable">expire</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>(now.getTime()+expiration_time*<span class="hljs-number">5</span>);<br>        <span class="hljs-keyword">return</span> Jwts.builder()<br>                .setHeaderParam(<span class="hljs-string">&quot;type&quot;</span>,<span class="hljs-string">&quot;JWT&quot;</span>)<br>                .setSubject(username)<br>                .setIssuedAt(now)<br>                .setExpiration(expire)<br>                .signWith(SignatureAlgorithm.HS256,key)<br>                .compact();<br><br>    &#125;<br><br>    <span class="hljs-comment">// 解析token</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Claims <span class="hljs-title function_">getClaimsByToken</span><span class="hljs-params">(String token)</span>&#123;<br><br>        <span class="hljs-keyword">return</span> Jwts.parser()<br>                .setSigningKey(key)<br>                .parseClaimsJws(token)<br>                .getBody();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></p>
+</blockquote></li>
+<li><p><strong>prime-jwt</strong>　　</p>
+<blockquote>
+<p>Inversoft实现的--maven: io.fusionauth / fusionauth-jwt / 3.5.0</p>
+<p>prime jwt库怎么说呢, 有些地方不符合JAVA语言规范, 支持对称算法(HMAC)
+与非对称算法(RSA), 也算容易理解</p>
+</blockquote></li>
+<li><p><strong>vertx-auth-jwt</strong>　　</p>
+<blockquote>
+<p>Vertx实现的--maven: io.vertx / vertx-auth-jwt / 3.5.1</p>
+<p>Vertx Auth Jwt
+库算是最不容易理解的一个库了.花了不少时间才弄通这一示例. 不容易上手.
+并且生成与校验id_token 时都需要公钥与私钥,不足.</p>
+</blockquote></li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/" class="category-chain-item">计算机技术</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/%E4%BA%92%E8%81%94%E7%BD%91%E6%A0%87%E5%87%86/" class="category-chain-item">互联网标准</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Technology/" class="print-no-link">#Technology</a>
+      
+        <a href="/tags/JWT/" class="print-no-link">#JWT</a>
+      
+        <a href="/tags/Web/" class="print-no-link">#Web</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>JWT 笔记</div>
+      <div>http://blog.kdata.top/2024/05/08/计算机技术/互联网标准/JWT/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Louis Liang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年5月8日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/05/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Mybatis/Mybatis%20%E7%AC%94%E8%AE%B0/" title="Mybatis 笔记">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Mybatis 笔记</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/05/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Spring/SpringSecurity/" title="Spring Security">
+                        <span class="hidden-mobile">Spring Security</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"xj3pSmoXkOUNvlam7Ck0Q6L7-MdYXbMMI","appKey":"1H3MIGm9Juy7xDztbm2EBlHb","path":"window.location.pathname","placeholder":"说点什么吧...","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"https://xj3psmox.api.lncldglobal.com","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-left: -1rem">
     
 
 
@@ -900,331 +1233,6 @@
     </div>
   
 </div>
-
-
-  </aside>
-
-
-    </div>
-
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div id="board">
-          <article class="post-content mx-auto">
-            <h1 id="seo-header">JWT 笔记</h1>
-            
-            
-              <div class="markdown-body">
-                
-                <h1 id="一abstract">一、Abstract</h1>
-<p><strong>JSON Web Token</strong> (<strong>JWT</strong>, suggested
-pronunciation <strong>[/dʒɒt/]</strong>, same as the word "jot") is a
-proposed Internet standard for creating data with optional</p>
-<p>signature and/or optional encryption whose payload holds JSON that
-asserts some number of claims. The tokens are signed either using a
-private</p>
-<p>secret or a public/private key.</p>
-<h1 id="二structure">二、Structure</h1>
-<h2 id="header">2.1 Header</h2>
-<p>Identifies which algorithm is used to generate the signature. In the
-below example, <code>HS256</code> indicates that this token is signed
-using HMAC-SHA256.</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;alg&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;HS256&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;typ&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;JWT&quot;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
-<h2 id="payload">2.2 Payload</h2>
-<p>Contains a set of claims. The JWT specification defines seven
-Registered Claim Names, which are the standard fields commonly included
-in tokens.</p>
-<p>Custom claims are usually also included, depending on the purpose of
-the token.</p>
-<p>This example has the standard Issued At Time claim (<code>iat</code>)
-and a custom claim (<code>loggedInAs</code>).</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;loggedInAs&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;admin&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;iat&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1422779638</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
-<h2 id="signature">2.3 Signature</h2>
-<p>Securely validates the token. The signature is calculated by encoding
-the header and payload using Base64url Encoding RFC 4648 and
-concatenating the</p>
-<p>two together with a period separator. That string is then run through
-the cryptographic algorithm specified in the header. This example uses
-HMAC-</p>
-<p>SHA256 with a shared secret (public key algorithms are also defined).
-The <em>Base64url Encoding</em> is similar to base64, but uses different
-non-alphanumeric</p>
-<p>characters and omits padding.</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs json">HMAC_SHA256(<br>  secret<span class="hljs-punctuation">,</span><br>  base64urlEncoding(header) + &#x27;.&#x27; +<br>  base64urlEncoding(payload)<br>)<br></code></pre></td></tr></table></figure>
-<p>The three parts are encoded separately using Base64url Encoding RFC
-4648, and concatenated using periods to produce the JWT:</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> token = <span class="hljs-title function_">base64urlEncoding</span>(header) + <span class="hljs-string">&#x27;.&#x27;</span> + <span class="hljs-title function_">base64urlEncoding</span>(payload) + <span class="hljs-string">&#x27;.&#x27;</span> + <span class="hljs-title function_">base64urlEncoding</span>(signature)<br></code></pre></td></tr></table></figure>
-<h1 id="三standard-fields">三、Standard Fields</h1>
-<table>
-
-<thead>
-<tr>
-<th>Code</th>
-<th>Name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>iss</td>
-<td>Issuer</td>
-<td>Identifies principal that issued the JWT.</td>
-</tr>
-<tr>
-<td>sub</td>
-<td>Subject</td>
-<td>Identifies the subject of the JWT.</td>
-</tr>
-<tr>
-<td>aud</td>
-<td>Audience</td>
-<td></td>
-</tr>
-<tr>
-<td>exp</td>
-<td>Expiration Time</td>
-<td>Identifies the expiration time on and after which the JWT
-<strong>must not</strong> be accepted for processing. The value must be
-a NumericDate: either an integer or decimal, representing seconds past
-1970-01-01 00:00:00Z.</td>
-</tr>
-<tr>
-<td>nbf</td>
-<td>Not Before</td>
-<td>Identifies the time on which the JWT will start to be accepted for
-processing. The value must be a NumericDate.</td>
-</tr>
-<tr>
-<td>iat</td>
-<td>Issued at</td>
-<td>Identifies the time at which the JWT was issued. The value must be a
-NumericDate.</td>
-</tr>
-<tr>
-<td>jti</td>
-<td>JWT ID</td>
-<td>Case-sensitive unique identifier of the token even among different
-issuers.</td>
-</tr>
-</tbody>
-</table>
-<h1 id="四implement">四、Implement</h1>
-<p>在 https://jwt.io/ 网站中收录有各类语言的JWT库实现，java
-目前有6个实现</p>
-<ol type="1">
-<li><p><strong>java-jwt</strong></p>
-<blockquote>
-<p>Auth0实现的--maven: com.auth0 / java-jwt / 3.3.0</p>
-<p>Auth0提供的JWT库简单实用,
-依赖第三方(如JAVA运行环境)提供的证书信息(keypair);有一问题是在
-生成id_token与 校验(verify)id_token时都需要 公钥</p>
-<p>(public key)与密钥(private key),
-个人感觉是一不足(实际上在校验时只需要public key即可)</p>
-</blockquote></li>
-<li><p><strong>jose4j</strong></p>
-<blockquote>
-<p>Brian Campbell实现的--maven: org.bitbucket.b_c / jose4j / 0.6.3</p>
-<p>jose4j提供了完整的JWT实现, 可以不依赖第三方提供的证书信息(keypair,
-库本身自带有RSA的实现),类定义与JWT协议规定匹配度高,易理解与上手对称加</p>
-<p>密与非对称加密都有提供实现</p>
-</blockquote></li>
-<li><p><strong>nimbus-jose-jwt</strong></p>
-<blockquote>
-<p>connect2id实现的--maven: com.nimbusds / nimbus-jose-jwt / 5.7</p>
-<p>nimbus-jose-jwt库类定义清晰,简单易用,易理解 ,
-依赖第三方提供的证书信息(keypair), 对称算法 与非对称算法皆有实现.</p>
-</blockquote></li>
-<li><p><strong>jjwt</strong>　　</p>
-<blockquote>
-<p>Les Haziewood实现的--maven: io.jsonwebtoken / jjwt-root / 0.11.1</p>
-<p>jjwt小巧够用, 但对JWT的一些细节包装不够, 比如 Claims
-(只提供获取header,body)</p>
-<p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">JwtUtils</span> &#123;<br><br>    <span class="hljs-comment">//单位秒</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">long</span> expiration_time=<span class="hljs-number">60</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String key=<span class="hljs-string">&quot;this is louis&quot;</span>;<br><br><br>    <span class="hljs-comment">// 生成token</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title function_">generateToken</span><span class="hljs-params">(String username)</span>&#123;<br><br>        <span class="hljs-type">Date</span> <span class="hljs-variable">now</span> <span class="hljs-operator">=</span><span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>();<br>        <span class="hljs-type">Date</span> <span class="hljs-variable">expire</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>(now.getTime()+expiration_time*<span class="hljs-number">5</span>);<br>        <span class="hljs-keyword">return</span> Jwts.builder()<br>                .setHeaderParam(<span class="hljs-string">&quot;type&quot;</span>,<span class="hljs-string">&quot;JWT&quot;</span>)<br>                .setSubject(username)<br>                .setIssuedAt(now)<br>                .setExpiration(expire)<br>                .signWith(SignatureAlgorithm.HS256,key)<br>                .compact();<br><br>    &#125;<br><br>    <span class="hljs-comment">// 解析token</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Claims <span class="hljs-title function_">getClaimsByToken</span><span class="hljs-params">(String token)</span>&#123;<br><br>        <span class="hljs-keyword">return</span> Jwts.parser()<br>                .setSigningKey(key)<br>                .parseClaimsJws(token)<br>                .getBody();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></p>
-</blockquote></li>
-<li><p><strong>prime-jwt</strong>　　</p>
-<blockquote>
-<p>Inversoft实现的--maven: io.fusionauth / fusionauth-jwt / 3.5.0</p>
-<p>prime jwt库怎么说呢, 有些地方不符合JAVA语言规范, 支持对称算法(HMAC)
-与非对称算法(RSA), 也算容易理解</p>
-</blockquote></li>
-<li><p><strong>vertx-auth-jwt</strong>　　</p>
-<blockquote>
-<p>Vertx实现的--maven: io.vertx / vertx-auth-jwt / 3.5.1</p>
-<p>Vertx Auth Jwt
-库算是最不容易理解的一个库了.花了不少时间才弄通这一示例. 不容易上手.
-并且生成与校验id_token 时都需要公钥与私钥,不足.</p>
-</blockquote></li>
-</ol>
-
-                
-              </div>
-            
-            <hr/>
-            <div>
-              <div class="post-metas my-3">
-  
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/" class="category-chain-item">计算机技术</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/%E4%BA%92%E8%81%94%E7%BD%91%E6%A0%87%E5%87%86/" class="category-chain-item">互联网标准</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
-  
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/Technology/" class="print-no-link">#Technology</a>
-      
-        <a href="/tags/JWT/" class="print-no-link">#JWT</a>
-      
-        <a href="/tags/Web/" class="print-no-link">#Web</a>
-      
-    </div>
-  
-</div>
-
-
-              
-  
-
-  <div class="license-box my-3">
-    <div class="license-title">
-      <div>JWT 笔记</div>
-      <div>http://blog.kdata.top/2024/05/08/计算机技术/互联网标准/JWT/</div>
-    </div>
-    <div class="license-meta">
-      
-        <div class="license-meta-item">
-          <div>作者</div>
-          <div>Louis Liang</div>
-        </div>
-      
-      
-        <div class="license-meta-item license-meta-date">
-          <div>发布于</div>
-          <div>2024年5月8日</div>
-        </div>
-      
-      
-      
-        <div class="license-meta-item">
-          <div>许可协议</div>
-          <div>
-            
-              
-              
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
-                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
-                    <i class="iconfont icon-cc-by"></i>
-                  </span>
-                </a>
-              
-            
-          </div>
-        </div>
-      
-    </div>
-    <div class="license-icon iconfont"></div>
-  </div>
-
-
-
-              
-                <div class="post-prevnext my-3">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2024/05/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Spring/Spring%20%E7%AC%94%E8%AE%B0/" title="Spring 笔记">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Spring 笔记</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2024/05/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Spring/SpringSecurity/" title="Spring Security">
-                        <span class="hidden-mobile">Spring Security</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
-  
-  
-    <article id="comments" lazyload>
-      
-  <div id="valine"></div>
-  <script type="text/javascript">
-    Fluid.utils.loadComments('#valine', function() {
-      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
-        var options = Object.assign(
-          {"appId":"xj3pSmoXkOUNvlam7Ck0Q6L7-MdYXbMMI","appKey":"1H3MIGm9Juy7xDztbm2EBlHb","path":"window.location.pathname","placeholder":"说点什么吧...","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"https://xj3psmox.api.lncldglobal.com","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
-          {
-            el: "#valine",
-            path: window.location.pathname
-          }
-        )
-        new Valine(options);
-        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
-          var imgSelector = '#valine .vcontent img:not(.vemoji)';
-          Fluid.plugins.imageCaption(imgSelector);
-          Fluid.plugins.fancyBox(imgSelector);
-        })
-      });
-    });
-  </script>
-  <noscript>Please enable JavaScript to view the comments</noscript>
-
-
-    </article>
-  
-
-
-          </article>
-        </div>
-      </div>
-    </div>
-
-    <div class="side-col d-none d-lg-block col-lg-2">
-      
-  <aside class="sidebar" style="margin-left: -1rem">
-    <div id="toc">
-  <p class="toc-header">
-    <i class="iconfont icon-list"></i>
-    <span>目录</span>
-  </p>
-  <div class="toc-body" id="toc-body"></div>
-</div>
-
 
 
   </aside>
