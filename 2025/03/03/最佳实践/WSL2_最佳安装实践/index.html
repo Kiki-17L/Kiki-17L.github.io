@@ -19,26 +19,26 @@
   <meta name="author" content="Louis Liang">
   <meta name="keywords" content="">
   
-    <meta name="description" content="命令行安装（推荐） 1&quot;Docker Desktop Installer.exe&quot; install 安装选项： --installation-dir&#x3D;&lt;path&gt;: Changes the default installation --windows-containers-default-data-root&#x3D;&lt;path&gt;: Specifies">
+    <meta name="description" content="参考于 Windows 官方文档  一键安装  [!NOTE] 必须运行 Windows 10 版本 2004 及更高版本（内部版本 19041 及更高版本）或 Windows 11 才能使用以下命令  1wsl --install 这个命令：  启用可选的 WSL 和虚拟机平台组件 下载并安装最新的 Linux 内核 将 WSL 2 设置为默认值  接下来就可以">
 <meta property="og:type" content="article">
-<meta property="og:title" content="最佳安装实践 #2 Docker">
-<meta property="og:url" content="http://blog.kdata.top/2024/12/21/%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/Docker_%E6%9C%80%E4%BD%B3%E5%AE%89%E8%A3%85%E5%AE%9E%E8%B7%B5/index.html">
+<meta property="og:title" content="最佳安装实践 #1 WSL2">
+<meta property="og:url" content="http://blog.kdata.top/2025/03/03/%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/WSL2_%E6%9C%80%E4%BD%B3%E5%AE%89%E8%A3%85%E5%AE%9E%E8%B7%B5/index.html">
 <meta property="og:site_name" content="Louis 的博客空间">
-<meta property="og:description" content="命令行安装（推荐） 1&quot;Docker Desktop Installer.exe&quot; install 安装选项： --installation-dir&#x3D;&lt;path&gt;: Changes the default installation --windows-containers-default-data-root&#x3D;&lt;path&gt;: Specifies">
+<meta property="og:description" content="参考于 Windows 官方文档  一键安装  [!NOTE] 必须运行 Windows 10 版本 2004 及更高版本（内部版本 19041 及更高版本）或 Windows 11 才能使用以下命令  1wsl --install 这个命令：  启用可选的 WSL 和虚拟机平台组件 下载并安装最新的 Linux 内核 将 WSL 2 设置为默认值  接下来就可以">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://blog.kdata.top/img/pt/docker.svg">
-<meta property="article:published_time" content="2024-12-21T13:31:23.000Z">
-<meta property="article:modified_time" content="2024-12-30T12:34:16.929Z">
+<meta property="og:image" content="http://blog.kdata.top/img/pt/linux.svg">
+<meta property="article:published_time" content="2025-03-03T13:59:36.929Z">
+<meta property="article:modified_time" content="2025-06-18T10:25:00.823Z">
 <meta property="article:author" content="Louis Liang">
 <meta property="article:tag" content="Installation">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://blog.kdata.top/img/pt/docker.svg">
+<meta name="twitter:image" content="http://blog.kdata.top/img/pt/linux.svg">
   
   
   
     <meta name="baidu-site-verification" content="codeva-Qg6I8FqWDv" /> <meta name="google-site-verification" content="V5sVDpfhaYzqaJlPmJabZW54pHtZlZrnFhwBBEwwnyA" />
   
-  <title>最佳安装实践 #2 Docker - Louis 的博客空间</title>
+  <title>最佳安装实践 #1 WSL2 - Louis 的博客空间</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -233,7 +233,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="最佳安装实践 #2 Docker"></span>
+            <span id="subtitle" data-typed-text="最佳安装实践 #1 WSL2"></span>
           
         </div>
 
@@ -244,8 +244,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-12-21 21:31" pubdate>
-          2024年12月21日 晚上
+        <time datetime="2025-03-03 21:59" pubdate>
+          2025年3月3日 晚上
         </time>
       </span>
     
@@ -256,7 +256,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          72 字
+          268 字
         
       </span>
     
@@ -267,7 +267,7 @@
         
         
         
-          1 分钟
+          3 分钟
         
       </span>
     
@@ -317,12 +317,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">最佳安装实践 #2 Docker</h1>
+            <h1 id="seo-header">最佳安装实践 #1 WSL2</h1>
             
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2024年12月30日 晚上
+                    本文最后更新于 2025年6月18日 晚上
                   
                 
               </p>
@@ -330,20 +330,49 @@
             
               <div class="markdown-body">
                 
-                <h1 id="命令行安装推荐">命令行安装（推荐）</h1>
-<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd">&quot;Docker Desktop Installer.exe&quot; install<br></code></pre></td></tr></table></figure>
-<p>安装选项：</p>
-<p><code>--installation-dir=&lt;path&gt;</code>: Changes the default
-installation</p>
-<p><code>--windows-containers-default-data-root=&lt;path&gt;</code>:
-Specifies the default location for the Windows containers.</p>
-<p>设置 Windows 容器默认存储路径</p>
-<p><code>--wsl-default-data-root=&lt;path&gt;</code>: Specifies the
-default location for the WSL distribution disk.</p>
-<p>设置 WSL 发行版的磁盘路径</p>
-<p><code>--backend=&lt;backend name&gt;</code>: Selects the default
-backend to use for Docker Desktop, <code>hyper-v</code>,
-<code>windows</code> or <code>wsl-2</code> (default)</p>
+                <blockquote>
+<p>参考于 Windows 官方文档</p>
+</blockquote>
+<h1 id="一键安装">一键安装</h1>
+<blockquote>
+<p>[!NOTE]</p>
+<p>必须运行 Windows 10 版本 2004 及更高版本（内部版本 19041
+及更高版本）或 Windows 11 才能使用以下命令</p>
+</blockquote>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell">wsl <span class="hljs-literal">--install</span><br></code></pre></td></tr></table></figure>
+<p>这个命令：</p>
+<ol type="1">
+<li>启用可选的 WSL 和虚拟机平台组件</li>
+<li>下载并安装最新的 Linux 内核</li>
+<li>将 WSL 2 设置为默认值</li>
+</ol>
+<p>接下来就可以：</p>
+<ul>
+<li>下载并安装 Ubuntu Linux 发行版</li>
+</ul>
+<h1 id="手动安装">手动安装</h1>
+<p>（1）通过 Windows 启用功能面板，启用：</p>
+<ol type="1">
+<li>Windows Subsystem for Linux</li>
+<li>Virtual Machine Platform</li>
+</ol>
+<p>（2）更新到 WSL2</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell">wsl <span class="hljs-literal">--update</span><br></code></pre></td></tr></table></figure>
+<p>（3）配置 WSL2 为默认版本</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell">wsl <span class="hljs-literal">--set-default-version</span> <span class="hljs-number">2</span><br></code></pre></td></tr></table></figure>
+<p>（4）下载 Linux Distro</p>
+<h1 id="常用命令">常用命令</h1>
+<ul>
+<li><code>wsl --list -online</code>：查看可下载的发行版</li>
+<li><code>wsl --unregistry</code>：卸载发行版，移除 VHDX
+文件，删除相关配置，修改注册表（不可逆）</li>
+<li><code>wsl --distrubution</code>：启动发行版</li>
+<li><code>wsl --export &lt;DistroName&gt; &lt;ExportFilePath&gt;</code>：导出发行版。导出
+VHDX 文件等，这个命令只导出文件系统内容，不会导出 WSL
+相关的配置或用户设置（比如 <code>/etc/wsl.conf</code> 文件、Windows
+环境设置等）。一般导出成归档文件。</li>
+<li><code>wsl --import &lt;DistroName&gt; &lt;InstallLocation&gt; &lt;ExportFilePath&gt;</code>：导入发行版。</li>
+</ul>
 
                 
               </div>
@@ -389,8 +418,8 @@ backend to use for Docker Desktop, <code>hyper-v</code>,
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>最佳安装实践 #2 Docker</div>
-      <div>http://blog.kdata.top/2024/12/21/最佳实践/Docker_最佳安装实践/</div>
+      <div>最佳安装实践 #1 WSL2</div>
+      <div>http://blog.kdata.top/2025/03/03/最佳实践/WSL2_最佳安装实践/</div>
     </div>
     <div class="license-meta">
       
@@ -402,7 +431,7 @@ backend to use for Docker Desktop, <code>hyper-v</code>,
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年12月21日</div>
+          <div>2025年3月3日</div>
         </div>
       
       
@@ -434,9 +463,9 @@ backend to use for Docker Desktop, <code>hyper-v</code>,
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/12/26/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/Docker/Docker_%E6%9E%B6%E6%9E%84/" title="Docker #1 架构">
+                      <a href="/2025/03/03/%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/Docker_%E6%9C%80%E4%BD%B3%E5%AE%89%E8%A3%85%E5%AE%9E%E8%B7%B5/" title="最佳安装实践 #2 Docker">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Docker #1 架构</span>
+                        <span class="hidden-mobile">最佳安装实践 #2 Docker</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -444,8 +473,8 @@ backend to use for Docker Desktop, <code>hyper-v</code>,
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/12/21/%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/WSL2_%E6%9C%80%E4%BD%B3%E5%AE%89%E8%A3%85%E5%AE%9E%E8%B7%B5/" title="最佳安装实践 #1 WSL2">
-                        <span class="hidden-mobile">最佳安装实践 #1 WSL2</span>
+                      <a href="/2025/03/03/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/LeNet/" title="LeNet5">
+                        <span class="hidden-mobile">LeNet5</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
