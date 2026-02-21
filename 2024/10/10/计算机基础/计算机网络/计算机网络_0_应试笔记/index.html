@@ -26,13 +26,16 @@
 <meta property="og:site_name" content="Louis 的博客空间">
 <meta property="og:description" content="应试笔记">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Pure_ALOHA1.svg/1920px-Pure_ALOHA1.svg.png">
+<meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Slotted_ALOHA.svg/1920px-Slotted_ALOHA.svg.png">
 <meta property="article:published_time" content="2024-10-10T02:00:00.000Z">
-<meta property="article:modified_time" content="2025-04-24T12:53:35.760Z">
+<meta property="article:modified_time" content="2025-07-27T11:37:57.822Z">
 <meta property="article:author" content="Louis Liang">
 <meta property="article:tag" content="Computer">
 <meta property="article:tag" content="Science">
 <meta property="article:tag" content="Network">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Pure_ALOHA1.svg/1920px-Pure_ALOHA1.svg.png">
   
   
   
@@ -256,7 +259,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.9k 字
+          14k 字
         
       </span>
     
@@ -267,7 +270,7 @@
         
         
         
-          16 分钟
+          117 分钟
         
       </span>
     
@@ -322,7 +325,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年4月24日 晚上
+                    本文最后更新于 2025年7月27日 晚上
                   
                 
               </p>
@@ -330,91 +333,56 @@
             
               <div class="markdown-body">
                 
-                <h1 id="一物理层">一、物理层</h1>
-<h1 id="二数据链路层">二、数据链路层</h1>
+                <h1 id="物理层">1 物理层</h1>
+<h2 id="通信基础">1.1 通信基础</h2>
+<ul>
+<li>信息（Information）：定义不统一，极其复杂，</li>
+<li>信息熵（Entropy）：1948年，香农从热力学引入Entropy，不确定性的度量，常用单位有比特，Nat，Hart</li>
+<li>消息（Message）：消息中包含信息，是信息的载体，有语义性，是具体的、非物理的</li>
+<li>数据（Data）：指传送信息的实体，消息编码为数据，仅作为传输手段</li>
+<li>信号（Signal）：是数据的电气或电磁表现形式，是数据在传输过程中的存在形式</li>
+<li>码元（Symbol）：指固定时间长度内的信号，码元可以有N个离散状态</li>
+</ul>
+<h2 id="信道的极限容量">1.2 信道的极限容量</h2>
+<p><strong>Nyquist's first law</strong></p>
+<p>对于理想低通信道，其最大调制速率 <span class="math display">\[
+B=2W
+\]</span> 单位为 Baud，超过此波特率，会发生码间串扰（ISI）</p>
+<p><strong>Channo Limit</strong></p>
+<p>对于带宽受限且具有高斯噪声干扰的信道，其最大数据传输速率 <span
+class="math display">\[
+W\log_2(1+\frac{S}{N})
+\]</span>
+在这种信道上，不超过香农极限传输数据，可以找到某种方法实现无差错的传输</p>
+<p>信噪比（dB）<span
+class="math inline">\(=10\log_{10}(\frac{S}{N})\)</span></p>
+<h2 id="编码与调制">1.3 编码与调制</h2>
+<p>编码（Encoding）：</p>
+<ul>
+<li>NRZ</li>
+<li>RZ</li>
+<li>NRZI</li>
+<li>曼彻斯特编码</li>
+<li>差分曼彻斯特编码</li>
+</ul>
+<p>调制（Modulation）：</p>
+<ul>
+<li>AM</li>
+<li>FM</li>
+<li>PM</li>
+<li>DPSK（差分相移键控）</li>
+<li>QAM</li>
+</ul>
+<h1 id="数据链路层">2 数据链路层</h1>
 <h2 id="三个基本问题">2.1 三个基本问题</h2>
 <ul>
 <li>封装成帧</li>
 <li>透明传输</li>
 <li>差错检测</li>
 </ul>
-<h2 id="点对点信道">2.2 点对点信道</h2>
-<h3 id="ppp-协议">PPP 协议</h3>
-<h4 id="特点">特点</h4>
-<ol type="1">
-<li>简单</li>
-<li>封装成帧</li>
-<li>透明性</li>
-<li>多种网络层协议</li>
-<li>多种类型链路</li>
-<li>差错检测</li>
-<li>检测连接状态</li>
-<li>最大传送单元</li>
-<li>网络层地址协商</li>
-<li>数据压缩协商</li>
-</ol>
-<h4 id="组成">组成</h4>
-<ol type="1">
-<li>一个将 IP 数据报封装到串行链路的方法</li>
-<li>一个用来建立、配置和测试数据链路连接的链路控制协议 LCP</li>
-<li>一套网络控制协议 NCP</li>
-</ol>
-<h4 id="格式">格式</h4>
-<table>
-<thead>
-<tr>
-<th>字段</th>
-<th>长度</th>
-<th>默认</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>F</td>
-<td>1B</td>
-<td>0x7E</td>
-<td>标志</td>
-</tr>
-<tr>
-<td>A</td>
-<td>1B</td>
-<td>0xFF</td>
-<td>地址字段，暂无用途</td>
-</tr>
-<tr>
-<td>C</td>
-<td>1B</td>
-<td>0x03</td>
-<td>控制字段，暂无用途</td>
-</tr>
-<tr>
-<td>协议</td>
-<td>2B</td>
-<td></td>
-<td>网络层所用的协议</td>
-</tr>
-<tr>
-<td>数据部分</td>
-<td>小于MTU</td>
-<td></td>
-<td>数据信息字段</td>
-</tr>
-<tr>
-<td>FSC</td>
-<td>2B</td>
-<td></td>
-<td>CRC帧检验FSC序列</td>
-</tr>
-<tr>
-<td>F</td>
-<td>1B</td>
-<td>0x7E</td>
-<td>标志</td>
-</tr>
-</tbody>
-</table>
-<h4 id="字节填充">字节填充</h4>
+<h2 id="组帧透明传输">2.2 组帧、透明传输</h2>
+<p><strong>字符计数</strong>：首部由Flag、计数字段组成</p>
+<p><strong>字节填充</strong>：</p>
 <p>当PPP协议进行异步传输时，采用字节填充</p>
 <ol type="1">
 <li><p>把信息字段中出现的每一个 0x7E 转变成两字节序列（0x7D
@@ -423,14 +391,164 @@
 <li><p>若信息字段中出现了ASCII 码控制字符，例如 0x03，则转变为 0x7D
 0x23</p></li>
 </ol>
-<h4 id="零比特填充">零比特填充</h4>
+<p><strong>零比特填充</strong>：</p>
 <p>PPP协议用在 SONET/SDH 链路时，使用同步传输，采用零比特填充</p>
 <p>原理：发送端扫描信息字段，发现有5个连续的1，立即填充一个0</p>
-<h2 id="广播信道">2.3 广播信道</h2>
-<h3 id="共享传输媒体">2.3.1 共享传输媒体</h3>
+<p><strong>违规编码法</strong>：</p>
+<p>如曼彻斯特编码，电平跳变表示数据，还有1到1，0到0的编码未使用（违规码），故可以使用这些违规码</p>
+<h2 id="差错控制">2.3 差错控制</h2>
+<p>Error Control 有两种解决方式：</p>
+<ul>
+<li>ARQ（Automatic Repeat reQuest）</li>
+<li>FEC（Forward Error Correction）</li>
+</ul>
+<p>目前，有线信道质量较好，误码率低，为了减少成本，提高效率，通常采用<strong>检错编码</strong>，即出错的帧直接丢弃，由发送方重传</p>
+<p>然而，无线信道，误码率高，一般采用<strong>纠错编码</strong>，接收方进行纠错</p>
+<ul>
+<li>检错编码
+<ul>
+<li>奇偶校验码</li>
+<li>CRC</li>
+</ul></li>
+<li>纠错编码
+<ul>
+<li>海明编码</li>
+</ul></li>
+</ul>
+<h2 id="流量控制">2.4 流量控制</h2>
+<p>Flow Control 总是与可靠传输一起讨论</p>
+<p>数据链路层的流量控制，是相邻节点之间的流量控制</p>
+<p>基于两种原理：</p>
+<ul>
+<li>停止-等待（Stop-Wait）</li>
+<li>滑动窗口</li>
+</ul>
+<p>有3种协议实现：</p>
+<ul>
+<li>停止-等待协议（Stop-Wait）</li>
+<li>多帧滑动回退N帧协议（GBN）</li>
+<li>多帧滑动选择重发（Selective Repeat）</li>
+</ul>
+<h2 id="点对点信道">2.5 点对点信道</h2>
+<h3 id="hdlc">2.5.1 HDLC</h3>
+<p><strong>历史沿革</strong>：</p>
+<ul>
+<li>1970年初，IBM 推出SDLC，是HDLC的前身</li>
+<li>1976年，ISO采纳标准化为HDLC</li>
+<li>1980年代，HDLC成为数据链路层的标准协议之一</li>
+</ul>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>面向比特</li>
+<li>支持点到多点（Original）、点到点</li>
+<li>可靠传输</li>
+<li>流量控制</li>
+<li>透明传输（比特填充）</li>
+</ul>
+<p><strong>三种模式</strong>：</p>
+<ul>
+<li><code>Normal Response Mode</code>：主从模式</li>
+<li><code>Asynchronous Balanced Mode</code>：对等通信模式（点对点，现在通常用这种模式）</li>
+<li><code>Asynchronous Response Mode</code>：点到多点</li>
+</ul>
+<p><strong>三种帧类型</strong>：</p>
+<ul>
+<li>I帧（Information）：用于传输数据，并提供确认功能</li>
+<li>S帧（Supervisory）：用于流控制，和对I帧的确认</li>
+<li>U帧（Unnumberd）：用于链路控制，（如建立、断开、重置等）</li>
+</ul>
+<p><strong>帧格式</strong>：</p>
+<pre><code class=" mermaid">---
+title: HDLC 标准帧格式 
+---
+packet-beta
+0-7:&quot;Flag(0x7E)&quot;
+8-15:&quot;Address&quot;
+16-23:&quot;Control&quot;
+24-31:&quot;Information(variale length)&quot;
+32-47:&quot;FCS&quot;
+48-55:&quot;Flag(0x7E)&quot;
+</code></pre>
+<ul>
+<li><code>Address</code>：在<strong>Multipoint</strong>环境中标识从机，在点对点环境中，置为0xFF（在多点环境中，也可表示广播）</li>
+<li><code>Control</code>
+<ul>
+<li>I帧
+<ul>
+<li>N (S)：3b</li>
+<li>P/F</li>
+<li>N (R)：3b</li>
+</ul></li>
+<li>S帧
+<ul>
+<li>Type：2b</li>
+<li>P/F</li>
+<li>N (R)：3b</li>
+</ul></li>
+<li>U帧
+<ul>
+<li>Type：2b</li>
+<li>P/F</li>
+<li>Type：3b</li>
+</ul></li>
+</ul></li>
+</ul>
+<p>空闲时发送连续的Flag (01111110)</p>
+<h3 id="ppp">2.5.2 PPP</h3>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>支持多种网络层协议</li>
+<li>支持多种类型链路</li>
+<li>差错检测</li>
+<li>检测连接状态</li>
+<li>最大传送单元</li>
+<li>网络层地址协商</li>
+<li>提供连接认证</li>
+<li>数据压缩协商</li>
+<li>数据加密协商</li>
+<li>不可靠</li>
+</ul>
+<p><strong>组成</strong>：</p>
+<ol type="1">
+<li>一个将 IP 数据报封装到串行链路的方法</li>
+<li>一个用来建立、配置和测试数据链路连接的链路控制协议 LCP</li>
+<li>一套网络控制协议 NCP</li>
+</ol>
+<p><strong>帧格式</strong>：</p>
+<pre><code class=" mermaid">---
+title: PPP Syntax
+---
+packet-beta
+0-7: &quot;Flag (0x7D)&quot;
+8-15: &quot;Address (0xFF)&quot;
+16-23: &quot;Control (0x03)&quot;
+24-39: &quot;Protocol&quot;
+40-63: &quot;Data (variable length)&quot;
+64-79: &quot;FSC&quot;
+80-87: &quot;Flag（0x7D)&quot;
+</code></pre>
+<ul>
+<li><code>Address</code>：默认 0xFF
+表示广播，点对点信道不需要MAC地址，保留地址字段为了兼容</li>
+<li><code>Control</code>：默认 0x03
+表示无需帧编号，为了兼容HDLC保留</li>
+</ul>
+<p>透明传输实现：</p>
+<ul>
+<li>字节填充（异步传输时）</li>
+<li>零比特填充（同步传输时）</li>
+</ul>
+<h2 id="广播信道">2.6 广播信道</h2>
+<p>广播：是一种网络架构，其中发送的分组，可以被网络中的其他的节点接收到</p>
+<h3 id="共享传输媒体">2.6.1 共享传输媒体</h3>
 <ol type="1">
 <li><p>静态划分信道</p>
-<p>频分复用、TDM、CDM等</p></li>
+<ul>
+<li>TDM</li>
+<li>FDM</li>
+<li>WDM</li>
+<li>CDM</li>
+</ul></li>
 <li><p>动态媒体接入控制（多点接入 MA）</p>
 <ul>
 <li><p>随机接入</p>
@@ -439,10 +557,38 @@
 <p>用户不能随机发送消息</p></li>
 </ul></li>
 </ol>
-<h3 id="csmacd-协议">2.3.2 CSMA/CD 协议</h3>
+<h3 id="信道划分介质访问控制">2.6.2 信道划分介质访问控制</h3>
+<p>（1）时分多址（TDMA）</p>
+<p>（2）频分多址（FDMA）</p>
+<p>（3）波分多址（WDMA）</p>
+<p>（4）码分多址（CDMA）</p>
+<p>原理：将每个比特时间再划分为m个短槽，称为m位码片（Chip），每个站点被指派一个唯一的码片序列</p>
+<p>发送1时，发送原码片序列；发送0时，发送相反的码片序列</p>
+<p>当有多个站点同时发送信号时，每个站点的码片必须向量两两正交</p>
+<p>所有同时发送的码片信号叠加在一起（码片向量线性相加）</p>
+<p>收到信号的站点的分用器用发送方的原码片向量，乘以叠加的信号（根据线性叠加原理、分配律、正交性质）将其分出来</p>
+<p>规格化正交</p>
+<p>不同站点间的码片正交 <span class="math display">\[
+S\cdot T=\frac{1}{m}\sum_{i=1}^m S_i \cdot T_i=0
+\]</span> 码片与自身的规格化内积为1 <span class="math display">\[
+S\cdot S=\frac{1}{m}\sum_{i=1}^m S_i^2=1
+\]</span> 码片与反码片的规格化内积为-1 <span class="math display">\[
+S\cdot \bar S =-\frac{1}{m}\sum S_i^2 =-1
+\]</span></p>
+<h3 id="随机访问介质访问控制">2.6.3 随机访问介质访问控制</h3>
+<p><strong>1. ALOHA 协议</strong></p>
+<p>（1）纯 ALOHA（Pure ALOHA）</p>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Pure_ALOHA1.svg/1920px-Pure_ALOHA1.svg.png" srcset="/img/loading.gif" lazyload alt="undefined" style="zoom: 25%;" /></p>
+<p>（2）时隙 ALOHA（Slotted ALOHA）</p>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Slotted_ALOHA.svg/1920px-Slotted_ALOHA.svg.png" srcset="/img/loading.gif" lazyload alt="undefined" style="zoom:25%;" /></p>
+<p><strong>2. CSMA 协议</strong></p>
+<p>（1）1-坚持CSMA</p>
+<p>（2）非坚持CSMA</p>
+<p>（3）p-坚持CSMA</p>
+<p><strong>3. CSMA/CD 协议</strong></p>
 <p>Carrier-Sense Multiple Access with Collision Detection
 载波监听多路访问/碰撞检测，是一种传输介质访问控制（MAC）方法。</p>
-<h4 id="截断二进制指数退避算法">2.3.2.1 截断二进制指数退避算法</h4>
+<p><strong>截断二进制指数退避算法</strong>：</p>
 <ol type="1">
 <li><p>协议规定了基本争用时间为 <span
 class="math inline">\(2\tau\)</span>，具体时间是 51.2 微秒</p></li>
@@ -453,72 +599,43 @@ k=\min\{重传次数,10\}
 \]</span></p></li>
 <li><p>当重传次数达16次仍不能成功时，则丢弃该帧，并向高层报告</p></li>
 </ol>
-<h3 id="mac帧">2.3.3 MAC帧</h3>
-<h4 id="dix-ethernet-v2-标准">DIX Ethernet V2 标准</h4>
-<table>
-<thead>
-<tr>
-<th>字段</th>
-<th>大小</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>目的地址</td>
-<td>6B</td>
-</tr>
-<tr>
-<td>源地址</td>
-<td>6B</td>
-</tr>
-<tr>
-<td>类型</td>
-<td>2B</td>
-</tr>
-<tr>
-<td>数据</td>
-<td>46-1500B</td>
-</tr>
-<tr>
-<td>FCS</td>
-<td>4B</td>
-</tr>
-</tbody>
-</table>
-<h4 id="类型">类型</h4>
-<table>
-<thead>
-<tr>
-<th>值</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0x0800</td>
-<td>IPV4</td>
-</tr>
-<tr>
-<td>0x0806</td>
-<td>ARP</td>
-</tr>
-<tr>
-<td>0x8100</td>
-<td>IPV6</td>
-</tr>
-</tbody>
-</table>
-<h2 id="扩展的以太网">2.4 扩展的以太网</h2>
-<h3 id="转发器中继器">2.4.1 转发器（中继器）</h3>
-<p>Repeater，物理层扩展</p>
-<h3 id="集线器">2.4.2 集线器</h3>
-<p>Hub
-是物理层的扩展，将多条以太网双绞线或者光纤集合连接在同一段物理介质下</p>
-<p>连接的设备都处于同一网段下，同一冲突域</p>
-<p>用电子器件模拟实际电缆工作，从逻辑上还是总线结构</p>
-<p>半双工的通信方式采用CSMA/CD的冲突检测方法</p>
-<p>每一个数据包都被发送到集线器的每一个端口</p>
-<h3 id="网桥">2.4.3 网桥</h3>
+<p><strong>4. CSMA/CA 协议</strong></p>
+<p>CA算法：</p>
+<p>检测到空闲后，若为首次发送（非重传），则维持一段DIFS后，发送数据帧，冲突也不中断</p>
+<p>若非，执行退避算法，计算退避（Backoff）时间</p>
+<p>以退避时间为倒计时，继续检测，检测到繁忙倒计时暂停，倒计时为0后发送完整数据帧</p>
+<p>收到确认帧后，发送完毕</p>
+<p>退避算法：</p>
+<p>离散整数集合：<span
+class="math inline">\([0,1,\cdots,2^{2+k}-1]\)</span> <span
+class="math display">\[
+k=\min\{重传次数，6\}
+\]</span></p>
+<p>信道预约：</p>
+<ol type="1">
+<li>检测到空闲后，等待一个DIFS，源站向AP发送一个RTS</li>
+<li>若AP接收到正确的RTS，则信道空闲，等待SIFS后，广播一个CTS</li>
+<li>源站收到CTS后，等待一个SIFS，发送数据</li>
+<li>若AP正确收到数据后，等待一个SIFS，发送ACK</li>
+</ol>
+<h2 id="扩展的以太网">2.7 扩展的以太网</h2>
+<h3 id="转发器">2.7.1 转发器</h3>
+<p>Repeater</p>
+<ul>
+<li><p>工作在物理层</p></li>
+<li><p>同一冲突域</p></li>
+<li><p>直接转发，没有存储转发</p></li>
+</ul>
+<h3 id="集线器">2.7.2 集线器</h3>
+<p>Hub</p>
+<ul>
+<li><p>工作在物理层，将多条以太网双绞线或者光纤集合连接在同一段物理介质下</p></li>
+<li><p>连接的设备都处于同一网段下，同一冲突域</p></li>
+<li><p>用电子器件模拟实际电缆工作，从逻辑上还是总线结构</p></li>
+<li><p>半双工的通信方式采用CSMA/CD的冲突检测方法</p></li>
+<li><p>每一个数据包都被发送到集线器的每一个端口（除输入端口）</p></li>
+</ul>
+<h3 id="网桥">2.7.3 网桥</h3>
 <p>Network Bridge，有内部数据库</p>
 <ul>
 <li>网桥能够识别数据链路层中的数据帧，并将这些数据帧临时存储于内存，再重新生成信号作为一个全新的数据帧转发给相连的另一个网段（network
@@ -532,7 +649,7 @@ DEC在1980年代发明。其机制是网桥内部有一个数据库，最初没�
 <li>桥接器仅仅在不同网络之间有数据传输的时候才将数据转发到其他网络，不是像集线器那样对所有数据都进行广播。对于以太网，“桥接”这一术语正式的含义是指符合IEEE
 802.1D标准的设备，即“网络切换”。桥接器可以分割网段，不似集线器仍是在为同一碰撞域，所以对带宽耗损较小。因桥接器透过其内之MAC表格，让发送帧不会通过，所以其称之为数据链接层操作之网络组件，可隔离碰撞。</li>
 </ul>
-<h3 id="交换机">2.4.4 交换机</h3>
+<h3 id="交换机">2.7.4 交换机</h3>
 <p>Network Switch，相当于多端口的网桥（Network
 Bridge），有内部数据库，提供多端口的二层桥接是以太网交换机的核心功能</p>
 <p>（1）特点</p>
@@ -551,190 +668,1507 @@ Bridge），有内部数据库，提供多端口的二层桥接是以太网交�
 <li>交换机收到一个数据包，查表后发现该数据包的来源地址与目的地址属于同一网段。交换机将不处理该数据包。这称为过滤（filtering）。</li>
 <li>交换机内部的MAC地址-网段查询表的每条记录采用时间戳记录最后一次访问的时间。早于某个阈值（用户可配置）的记录被清除。这称为老化（aging）。</li>
 </ul>
-<h2 id="协议">2.5 协议</h2>
-<h3 id="vlanieee-802.1q">2.5.1 VLAN（IEEE 802.1Q）</h3>
-<h3 id="以太网ieee-802.3">2.5.2 以太网（IEEE 802.3）</h3>
-<h3 id="wi-fiieee-802.11">2.5.3 Wi-Fi（IEEE 802.11）</h3>
-<h1 id="三网络层">三、网络层</h1>
-<h2 id="mindmap">MindMap</h2>
-<pre><code class=" mermaid">mindmap
-	))网络层((
-		(IP)
-		(ICMP)
-			[差错报告报文]
-				3终点不可达
-				11时间超过
-				12参数问题
-				5改变路由
-			[询问报文]
-				回送请求和回答
-				时间戳请求和回答
-		(路由选择协议)
-			[内部网关协议]
-				RIP
-				OSPF
-					五类报文
-						Hello
-						DD
-						LSR
-						LSU
-						LSA
-					七种状态
-					
-			[外部网关协议]
-				BGP
-</code></pre>
-<h2 id="网际协议-ip">网际协议 IP</h2>
-<h3 id="格式-1">格式</h3>
+<h2 id="协议">2.8 协议</h2>
+<p>IEEE 802 是指 IEEE 中关于局域网、城域网的一系列标准</p>
+<p>每个子标准都由委员会下的一个工作组负责</p>
+<p>著名的标准有：</p>
+<ul>
+<li>IEEE 802.1（Bridging and Networking
+Management）：高层局域网协议</li>
+<li>IEEE 802.2（Logic Link Control）：</li>
+<li>IEEE 802.3（Ethernet）</li>
+<li>IEEE 802.4（Token bus）</li>
+<li>IEEE 802.5（Token-ring）</li>
+<li>IEEE 802.6（MAN）</li>
+<li>IEEE 802.8（FDDI）</li>
+<li>IEEE 802.11（Wireless LAN &amp; Mesh）</li>
+</ul>
+<h3 id="vlanieee-802.1q">2.8.1 VLAN（IEEE 802.1Q）</h3>
+<p><strong>历史沿革</strong>：最初由Cisco，3Com，HP等网络设备厂商在其产品中引入<strong>端口分组</strong>或<strong>虚拟网络</strong>技术，形成VLAN雏形，各厂商协议不一</p>
+<p>之后，由 IEEE 委员会的 802
+工作组于1990年代开始制定标准，于1998年正式发表VLAN协议标准</p>
+<p><strong>实现</strong>：通过在标准以太网帧的 <code>Ether Type</code>
+字段前加入4字节的 VLAN tag，形成802.1Q帧</p>
+<p><strong>目的</strong>：将物理网络划分成多个逻辑子网，形成多个独立的广播域。随着设备的增加，广播风暴会降低网络性能，</p>
+<p>不同VLAN之间默认不能通信（安全性）</p>
+<h3 id="以太网ieee-802.3">2.8.2 以太网（IEEE 802.3）</h3>
+<p><strong>历史沿革</strong>：</p>
+<p>1973年，Rober Metcalfe 在 Xerox PARC 发明以太网，灵感来自ALOHA</p>
+<p>1979年，Metcalfe 离开Xerox，创办3Com，推动以太网商业化</p>
+<p>1980年，Intel、DEC、Xerox联合提出 DIX Ethernet V1
+规范，速率为10Mbps，使用粗同轴线缆（10BASE5）</p>
+<p>1983年，IEEE正式发布 802.3标准，这是最初的经典以太网</p>
+<p>1985年，提出10BASE-2</p>
+<p>1990年，出现基于双绞线的10BASE-T</p>
+<p>目前最常用的是DIX Ethernet Ⅱ标准，IEEE 802.3 制定的标准与Ethernet
+Ⅱ相差无几</p>
+<p><strong>802.3 目前标准：</strong></p>
+<ul>
+<li>IEEE 802.3（10BASE-T）</li>
+<li>IEEE 802.3u（100BASE-T）</li>
+<li>IEEE 802.3z（1000BASE-LX）</li>
+<li>IEEE 802.3ab（1000BASE-T）</li>
+<li>IEEE 802.3an（10GBASE-T）</li>
+</ul>
+<p><strong>8P8C标准类别</strong>：</p>
+<ul>
+<li>CAT-3：16MHz，10Mbps，十兆以太网</li>
+<li>CAT-4：20MHz，16 Mbps，常用于十六兆令牌环网</li>
+<li>CAT-5：100MHz，100Mbps，常用于百兆以太网，短距离可跑千兆</li>
+<li>CAT-5e：125MHz，1000Mbps，常用于千兆以太网</li>
+<li>CAT-6：250MHz，1000Mbps，可跑万兆，55m有衰减</li>
+<li>CAT-6A：500MHz，10Gbps，常用于万兆以太网</li>
+<li>CAT-7：600MHz，10Gbps，</li>
+<li>CAT-8：2000MHz，40Gbps，</li>
+</ul>
+<p><strong>以太网标准沿革：</strong></p>
+<p>10Mbps以太网：</p>
+<ul>
+<li>10BASE5：RG-11同轴电缆，最大距离500m，最多100台</li>
+<li>10BASE2：RG-58同轴电缆，最大距离100m，最多30台，成本低</li>
+<li>StarLAN：第一个双绞线上实现的10Mbps以太网，后发展为10BASE-T</li>
+<li>10BASE-T：3，4，5类双绞线</li>
+<li>FOIRL：光纤以太网原始版本</li>
+<li>10BASE-F：10Mbps以太网光纤标准通称</li>
+</ul>
+<p>100Mbps以太网（Fast Ethernet 为 IEEE 于1995年发表）：</p>
+<ul>
+<li>100BASE-T：最远100m
+<ul>
+<li>100BASE-TX</li>
+<li>100BASE-T4</li>
+<li>100BASE-T2</li>
+</ul></li>
+<li>100BASE-FX：多模光纤，最远400m（半双工连接），2km（全双工）</li>
+</ul>
+<p>1000Mbps以太网：</p>
+<ul>
+<li>1000BASE-T：超五类线或6类线</li>
+<li>1000BASE-SX：多模光纤（220m-550m）</li>
+<li>1000BASE-LX：多模光纤（小于550m）、单模光纤（小于5000m）</li>
+<li>1000BASE-LX10：单模光纤（小于10km）</li>
+<li>1000BASE-LHX：单模（10km-40km）</li>
+<li>1000BASE-ZX：单模（40km-70km）</li>
+<li>1000BASE-CX：铜缆上达到短距离的方案（小于25m），早于1000BASE-T</li>
+</ul>
+<p><strong>802.3组成</strong>：</p>
+<ul>
+<li>前导码（Preamble）（7 octets ）（10101010）</li>
+<li>帧开始符（SFD）（1 octets ）(10101011)</li>
+<li>数据帧（64-1522 octets ）
+<ul>
+<li>destination MAC（6 octets）</li>
+<li>soure MAC（6 octets）</li>
+<li>802.1Q tag（4 octets）（可选的）</li>
+<li>Ethernet Type（2 octets）
+<ul>
+<li><code>0x0800</code>：IPv4</li>
+<li><code>0x0806</code>：ARP</li>
+<li><code>0x8100</code>：802.1Q帧</li>
+<li><code>0x86DD</code>：IPv6</li>
+</ul></li>
+<li>Payload（46-1500 octets）</li>
+<li>FCS（4 octets）</li>
+</ul></li>
+<li>帧间间距（IFG or IPG）（12 octets ）</li>
+</ul>
+<p><strong>DIX Ethernet Ⅱ 标准</strong>：</p>
+<p>DIX(DEX Intel Xerox)，最初由DEX，Intel，Xerox联合统一推行</p>
+<p>DIX Ethernet Ⅱ 的格式：</p>
+<figure>
+<img
+src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Ethernet_Type_II_Frame_format.svg/2560px-Ethernet_Type_II_Frame_format.svg.png" srcset="/img/loading.gif" lazyload
+alt="undefined" />
+<figcaption aria-hidden="true">undefined</figcaption>
+</figure>
+<p>Ether Type 取值：</p>
 <table>
 <thead>
 <tr>
-<th>字段</th>
-<th>长度（bit）</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>协议版本</td>
-<td>4</td>
-</tr>
-<tr>
-<td>首部长度</td>
-<td>4</td>
-</tr>
-<tr>
-<td>区分服务</td>
-<td>8</td>
-</tr>
-<tr>
-<td>总长度</td>
-<td>16</td>
-</tr>
-<tr>
-<td>标识</td>
-<td>16</td>
-</tr>
-<tr>
-<td>标志</td>
-<td>3</td>
-</tr>
-<tr>
-<td>片偏移</td>
-<td>13</td>
-</tr>
-<tr>
-<td>生存时间</td>
-<td>8</td>
-</tr>
-<tr>
-<td>协议</td>
-<td>8</td>
-</tr>
-<tr>
-<td>首部校验和</td>
-<td>16</td>
-</tr>
-<tr>
-<td>源地址</td>
-<td>32</td>
-</tr>
-<tr>
-<td>目的地址</td>
-<td>32</td>
-</tr>
-</tbody>
-</table>
-<h3 id="协议类型">协议类型</h3>
-<table>
-<thead>
-<tr>
-<th>字段值</th>
+<th>值</th>
 <th>含义</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>1</td>
-<td>ICMP</td>
+<td>0x0800</td>
+<td>IPV4</td>
 </tr>
 <tr>
-<td>2</td>
-<td>IGMP</td>
+<td>0x0806</td>
+<td>ARP</td>
 </tr>
 <tr>
-<td>4</td>
-<td>IP</td>
+<td>0x8100</td>
+<td>802.1Q</td>
 </tr>
 <tr>
-<td>6</td>
-<td>TCP</td>
-</tr>
-<tr>
-<td>8</td>
-<td>EGP</td>
-</tr>
-<tr>
-<td>9</td>
-<td>IGP</td>
-</tr>
-<tr>
-<td>17</td>
-<td>UDP</td>
-</tr>
-<tr>
-<td>41</td>
+<td>0x86DD</td>
 <td>IPv6</td>
-</tr>
-<tr>
-<td>50</td>
-<td>ESP</td>
-</tr>
-<tr>
-<td>89</td>
-<td>OSPF</td>
 </tr>
 </tbody>
 </table>
-<h2 id="网际控制报文协议-icmp">网际控制报文协议 ICMP</h2>
-<h2 id="互联网路由选择协议">互联网路由选择协议</h2>
-<h1 id="四传输层">四、传输层</h1>
-<h2 id="mindmap-1">MindMap</h2>
-<pre><code class=" mermaid">mindmap
-	))传输层((
-		(UDP: 面向报文的)
-			[首部：8字节]
-				源端口
-				目的端口
-				长度
-				校验和
-			[二进制反码校验]
-		(TCP: 面向字节的)
-			[首部：20字节]
-				源端口
-				目的端口
-				序号
-				确认号
-				数据偏移
-				保留
-				标志
-				窗口
-				校验和
-				紧急指针
-			[传输效率]
-				(传输时机)
-					MSS
-					应用程序指定: PSH,URG
-					计时器
-				(Ngle算法)
-				(糊涂窗口综合症)
-			[拥塞控制]
-				慢开始
-				拥塞避免
-				快重传
-				快恢复
-			
+<h3 id="wlanieee-802.11">2.8.3 WLAN（IEEE 802.11）</h3>
+<p>无线局域网，IEEE802.11 工作组于1997年正式发表初代Wi-Fi</p>
+<p>设计目的是与以太网无缝互通</p>
+<p><strong>历史沿革</strong>:</p>
+<ul>
+<li>802.11a（1999年）（5GHz）（54Mbps）(OFDM)：</li>
+<li>802.11b（1999年）（2.4GHz）（11Mbps）(DSSS)：</li>
+<li>802.11g（2003年）（2.4GHz）（54Mbps）：</li>
+<li>802.11n（2009年）（双频段）（600Mbps）（MIMO）（Wi-Fi4）：</li>
+<li>802.11ac（2013年）（5GHz）（1-7Gbps）（MU-MIMO）（Wi-Fi5）：</li>
+<li>802.11ax（2019年）（双频段）(9.6Gbps）（OFDMA）（Wi-Fi6）：</li>
+<li>802.11be（Wi-Fi7）（三频段）（46Gbps）</li>
+</ul>
+<p><strong>几个概念</strong>：</p>
+<ul>
+<li>AP（接入点）</li>
+<li>BSS</li>
+<li>ESS</li>
+<li>SSID</li>
+<li>STA</li>
+<li>Portal</li>
+</ul>
+<p><strong>WLAN的两种组成类型</strong>：</p>
+<ul>
+<li>有固定基础设施的WLAN（Infastructure Mode）</li>
+<li>无固定基础设置的自组WLAN</li>
+</ul>
+<p><strong>802.11 MAC帧分类</strong>：</p>
+<ul>
+<li>数据帧</li>
+<li>管理帧</li>
+<li>控制帧</li>
+</ul>
+<p><strong>802.11 MAC帧格式</strong>：</p>
+<table style="width:100%;">
+
+<thead>
+<tr>
+<th style="text-align: center;">Field</th>
+<th>Frame control</th>
+<th>Duration, id.</th>
+<th>Address 1</th>
+<th>Address 2</th>
+<th>Address 3</th>
+<th>Sequence control</th>
+<th>Address 4</th>
+<th>QoS control</th>
+<th>HT control</th>
+<th>Frame body</th>
+<th>Frame check sequence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">Length (Bytes)</td>
+<td>2</td>
+<td>2</td>
+<td>6</td>
+<td>6</td>
+<td>6</td>
+<td>0, or 2</td>
+<td>6</td>
+<td>0, or 2</td>
+<td>0, or 4</td>
+<td><em>Variable</em></td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+<p><strong>帧控制字段格式</strong>：</p>
+<table>
+
+<thead>
+<tr>
+<th style="text-align: center;">Field</th>
+<th>协议版本</th>
+<th>类型</th>
+<th>子类型</th>
+<th>去往AP</th>
+<th>来自AP</th>
+<th>更多分片</th>
+<th>重试</th>
+<th>功率管理</th>
+<th>更多数据</th>
+<th>WEP</th>
+<th>顺序</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">Length (bits)</td>
+<td>2</td>
+<td>2</td>
+<td>4</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<h1 id="网络层">3 网络层</h1>
+<h2 id="ipv4">3.1 IPv4</h2>
+<p>IP数据称作Datagram，数据分组称为Fragment</p>
+<p><strong>历史沿革</strong>：</p>
+<p>1973年，Vinton Cerf 与 Robert Kahn
+提出一个通用网络互联协议的设想——TCP</p>
+<p>1978年，由于 TCP 过于复杂，TCP 被拆解为 TCP+IP</p>
+<p>1981年，IP 被标准化定义为 RFC 791，即现在IPv4的初始版本</p>
+<p>1983年1月1日，ARPANET正式替换为 TCP/IP 网络协议栈</p>
+<p>1993年，提出CIDR，RFC 1519</p>
+<p>1994年，提出NAT，RFC 1631</p>
+<p>1996年，提出三类私有IP不在公网上路由，RFC 1918</p>
+<p>1998年，IPv6正式标准化为 RFC 2460</p>
+<p>2012年，提出共享地址空间（Shared Address Space），for CGNAT，RFC
+6598</p>
+<p><strong>首部格式</strong>：</p>
+<pre><code class=" mermaid">packet-beta
+0-3:&quot;Version&quot;
+4-7:&quot;Header Length&quot;
+8-15:&quot;Type of Service&quot;
+16-31:&quot;Total Length&quot;
+32-47:&quot;Identification&quot;
+48-50:&quot;Flag&quot;
+51-63:&quot;Fragment Offset&quot;
+64-71:&quot;TTL&quot;
+72-79:&quot;Protocol&quot;
+80-95:&quot;Header Checksum&quot;
+96-127:&quot;Source IP Address&quot;
+128-159:&quot;Destination IP Address&quot;
 </code></pre>
-<h1 id="五应用层">五、应用层</h1>
+<ul>
+<li><code>Version</code>：版本号</li>
+<li><code>Header Length</code>：首部长度（单位4B）</li>
+<li><code>Type of Service</code>：
+<ul>
+<li>前三位（优先级）</li>
+<li><code>Delay</code>（延迟位）</li>
+<li><code>Throughput</code>（吞吐量位）</li>
+<li><code>Reliability</code>（最高可靠性位）</li>
+<li>后两位（保留）</li>
+</ul></li>
+<li><code>Total Length</code>：首部+数据部分总长度</li>
+<li><code>Identification</code>：标识位，出自同一数据报的分组标识位相同</li>
+<li><code>Flag</code>：
+<ul>
+<li>前一位：保留，无意义</li>
+<li><code>DF</code>：Don't Fragment，1允许分片</li>
+<li><code>MF</code>：More Fragment，1表示还有分片，0表示没有</li>
+</ul></li>
+<li><code>Fragment Offset</code>：片偏移（单位8B）</li>
+<li><code>TTL</code>：分组能通过的最大路由器数量，路由器转发分组数据前，减1</li>
+<li><code>Protocol</code>：数据部分使用的协议</li>
+<li><code>Header Checksum</code>：首部校验和，路由器每次会校验首部，出错直接丢弃</li>
+</ul>
+<p>Protocol 字段取值：</p>
+<ul>
+<li><code>ICMP</code>：1</li>
+<li><code>IGMP</code>：2</li>
+<li><code>IP</code>：4</li>
+<li><code>TCP</code>：6</li>
+<li><code>EGP</code>：8</li>
+<li><code>IGP</code>：9</li>
+<li><code>UDP</code>：17</li>
+<li><code>IPv6</code>：41</li>
+<li><code>ESP</code>：50</li>
+<li><code>OSPF</code>：89</li>
+</ul>
+<p><strong>地址划分</strong>：</p>
+<ul>
+<li>分类的IP地址（两级结构）（1981年的RFC 791）</li>
+<li>划分子网（1985年的RFC 950）</li>
+<li>CIDR (Classless Inter-Domain Routing)（无分类编址）（1993年的RFC
+1519）</li>
+</ul>
+<p>分类的IP地址：</p>
+<pre><code class=" mermaid">packet-beta
+0-0:&quot;0&quot;
+1-7:&quot;网络号&quot;
+8-31:&quot;主机号&quot;
+32-32:&quot;1&quot;
+33-33:&quot;0&quot;
+34-47:&quot;网络号&quot;
+48-63:&quot;主机号&quot;
+64-64:&quot;1&quot;
+65-65:&quot;1&quot;
+66-66:&quot;0&quot;
+67-87:&quot;网络号&quot;
+88-95:&quot;主机号&quot;
+96-96:&quot;1&quot;
+97-97:&quot;1&quot;
+98-98:&quot;1&quot;
+99-99:&quot;0&quot;
+100-127:&quot;多播地址&quot;
+128-128:&quot;1&quot;
+129-129:&quot;1&quot;
+130-130:&quot;1&quot;
+131-131:&quot;1&quot;
+132-159:&quot;保留&quot;
+
+</code></pre>
+<p>特殊地址：</p>
+<ul>
+<li><p><code>网络号+主机号全0</code>：表示网络本身，通常在路由表上</p></li>
+<li><p><code>网络号+主机号全1</code>：定向广播地址</p></li>
+<li><p><code>0.X.X.X</code>：表示本网络的主机</p>
+<ul>
+<li><code>0.0.0.0</code>：本网络的本主机，主机发起DHCP请求时没有IP号，以此表示源地址；路由表上，表示默认路由；端口绑定，表示监听任意端口</li>
+</ul></li>
+<li><p><code>127.X.X.X</code>：回环测试地址</p>
+<ul>
+<li><code>127.0.0.1</code>：标准回环测试地址</li>
+</ul></li>
+<li><p><code>255.255.255.255</code>：本网广播地址（受限）</p></li>
+</ul>
+<p>缓解IPv4地址不足：</p>
+<p>鼓励局域网使用私有地址，不在公网上进行路由</p>
+<ul>
+<li><p>私有地址（RFC 1918_1996年)</p></li>
+<li><p>NAT技术（RFC 1631_1994年)</p></li>
+<li><p>共享地址空间（RFC
+6598_2012年）：<code>100.64.0.0/10</code>，同于CGNAT (Carrier
+NAT)</p></li>
+</ul>
+<p>三类私有网络（RFC 1918）：</p>
+<ul>
+<li>10.0.0.0/8</li>
+<li>172.16.0.0/12</li>
+<li>192.168.0.0/16</li>
+</ul>
+<h2 id="ipv6">3.2 IPv6</h2>
+<p>支持：</p>
+<ul>
+<li>单播（unicast）</li>
+<li>多播（multicast）：IPv6取消使用广播概念，将其看作时多播的一个特例</li>
+<li>任播（anycast）：用路由选择算法，交付给距离最近的主机</li>
+</ul>
+<p>组成：基本首部+有效载荷</p>
+<p><strong>数据报格式</strong>：(40B)</p>
+<pre><code class=" mermaid">packet-beta
+---
+title: IPv6 Syntax
+---
+0-3:&quot;Version&quot;
+4-11:&#x27;Traffic Class&#x27;
+12-31:&#x27;Flow Label&#x27;
+32-47:&#x27;Payload Length&#x27;
+48-55:&#x27;Next Header&#x27;
+56-63:&#x27;Hop Limit&#x27;
+64-191:&quot;Source IP&quot;
+192-319:&quot;Destination IP&quot;
+</code></pre>
+<p><strong>基本首部字段解析</strong>：</p>
+<ul>
+<li><code>Type</code>：版本 6</li>
+<li><code>Traffic Class</code>：类似于IPv4的ToS
+<ul>
+<li>DSCP（前6位）</li>
+<li>ECN（后2位）</li>
+</ul></li>
+<li><code>Flow Label</code>：流标识符，标识某条数据流</li>
+<li><code>Payload Length</code>：有效载荷长度，最大65535</li>
+<li><code>Next Header</code>：下个首部类型，TCP=6，UDP=17，或扩展首部（如路由扩展头=43，分段扩展头=44）</li>
+<li><code>Hop Limit</code>：跳数限制，等同于TTL，只是叫法不同</li>
+</ul>
+<p>DSCP（Differentiated Service Code Point）：</p>
+<ul>
+<li><code>CS0</code>：000000，普通流量</li>
+<li><code>CS1-CS7</code>：00100-111000，优先级队列</li>
+</ul>
+<p>ECN（Explicit Congestion Notification）：</p>
+<ul>
+<li><code>00</code>：非ECN支持</li>
+<li><code>01</code>：ECN(1)</li>
+<li><code>10</code>：ECN(0)</li>
+<li><code>11</code>：拥塞已发生-CE</li>
+</ul>
+<p><strong>流（Flow）的概念</strong>：</p>
+<p>Flow 是一组具有相同源IP、目的IP、Traffic Class、Flow
+Label的IPv6数据报</p>
+<p><strong>流的工作机制</strong>：</p>
+<ol type="1">
+<li>主机初始化一个流时，给该流分配一个<code>Flow Label</code></li>
+<li>后续这个流的所有数据报都带有相同的<code>Flow Label</code></li>
+<li>路由器或交换机，识别<code>Flow Label</code>+<code>源/目的IP</code>后，为该流建立缓存状态或转发表项，避免每次解析复杂头部</li>
+<li>中间节点可以对这个流施加
+<ul>
+<li>一致性转发（如同一条MPLS路径）</li>
+<li>QoS策略</li>
+<li>负载均衡策略</li>
+</ul></li>
+</ol>
+<p><strong>地址</strong>：</p>
+<ul>
+<li>未指明地址：<code>::/128</code></li>
+<li>环回地址：<code>::1/128</code></li>
+<li>多播地址：<code>FF00/8</code>
+<ul>
+<li>前8位：固定多播标识</li>
+<li>后4位：Flag，0表示永久地址</li>
+<li>后4位：Scope，作用域，如链路本地=2</li>
+<li>余112位：Group ID，如All Nodes=1; All Routers=2</li>
+</ul></li>
+<li>本地链路单播地址（link-local unicast）：<code>FE80::/10</code>
+<ul>
+<li>前10位：固定标识</li>
+<li>中54位：全0，预留</li>
+<li>后64位：接口标识（IID），可采用EUI-64计算</li>
+</ul></li>
+<li>全球单播地址</li>
+</ul>
+<p><strong>从IPv4过渡到IPv6</strong>：</p>
+<ul>
+<li>双协议栈</li>
+<li>隧道技术</li>
+</ul>
+<h2 id="arp">3.3 ARP</h2>
+<p><strong>基本特点</strong>：</p>
+<ul>
+<li>工作在网络层</li>
+<li>在以太网MAC帧上封装</li>
+</ul>
+<p><strong>ARP数据报格式</strong>：</p>
+<pre><code class=" mermaid">---
+title: ARP Format
+---
+packet-beta
+0-15:&quot;HType&quot;
+16-31:&quot;PType&quot;
+32-39:&quot;HLEN&quot;
+40-47:&quot;PLEN&quot;
+48-63:&quot;Opcode&quot;
+64-95:&quot;SHA&quot;
+96-111:&quot;SHA(续)&quot;
+112-127:&quot;SPA&quot;
+128-143:&quot;SPA(续)&quot;
+144-159:&quot;THA&quot;
+160-191:&quot;续&quot;
+192-223:&quot;TPA&quot;
+
+
+</code></pre>
+<ul>
+<li><code>HType</code>：硬件类型，以太网填0x0001</li>
+<li><code>PType</code>：协议类型，IPv4填0x0800</li>
+<li><code>Opcode</code>：ARP请求填1，响应填2；RARP 请求填3，响应填4</li>
+</ul>
+<p>在请求阶段，不知道目的方的MAC地址，填 00:00:00:00:00:00 表示</p>
+<p><strong>工作流程</strong>：</p>
+<ol type="1">
+<li>查源主机本地的ARP缓存表</li>
+<li>若有，直接发送；若无，继续下一步</li>
+<li>广播ARP请求报文</li>
+<li>目的主机收到ARP请求后，单播ARP响应报文</li>
+<li>源主机更新ARP缓存表</li>
+<li>查表，发送</li>
+</ol>
+<p><strong>ARP Spoofing 原理</strong>：</p>
+<p>因为</p>
+<ul>
+<li>ARP协议对ARP响应不做认证</li>
+<li>不存在有请求才响应，响应可以直接发</li>
+<li>只要有响应，接受到该ARP响应的主机就直接覆盖其本地ARP缓存表</li>
+</ul>
+<p>所以，攻击者可以通过高频率持续不断地发送伪造的ARP响应，保持被害者的arp缓存表一直是脏的</p>
+<h2 id="dhcp">3.4 DHCP</h2>
+<p>于1993年10月制定为标准，前身是 BOOTP</p>
+<p><strong>基本特点</strong>：</p>
+<ul>
+<li>基于UDP：客户端68，服务器67</li>
+<li>C/S结构</li>
+</ul>
+<p><strong>DHCP工作流程</strong>：<strong>DORA</strong></p>
+<ol type="1">
+<li>Discover</li>
+<li>Offer</li>
+<li>Request</li>
+<li>Acknowledge</li>
+</ol>
+<p>客户端的报文的源地址：0.0.0.0，目的地址：255.255.255.255</p>
+<h2 id="icmp">3.5 ICMP</h2>
+<p>一共分两大类：</p>
+<p>（1）差错报文</p>
+<ul>
+<li><code>3</code>：终点不可达
+<ul>
+<li>网络不可达（code=0）</li>
+<li>主机不可达（code=1）</li>
+<li>协议不可达：（code=2）</li>
+<li>端口不可达：（code=3）</li>
+<li>要求分段，却设置DF：（code=4）</li>
+<li>源路由失败：（code=5）</li>
+</ul></li>
+<li><code>5</code>：重定向（改变路由）
+<ul>
+<li>重定向网络</li>
+<li>重定向主机</li>
+<li>基于TOS的网络重定向</li>
+<li>基于TOS的主机重定向</li>
+</ul></li>
+<li>源点抑制</li>
+<li><code>11</code>：超时
+<ul>
+<li>TTL超时（0）</li>
+<li>分组重组超时（1）</li>
+</ul></li>
+<li><code>12</code>：参数问题
+<ul>
+<li>IP报首部参数错误（0）</li>
+<li>丢失必要选项（1）</li>
+<li>不支持的长度（2）</li>
+</ul></li>
+</ul>
+<p>（2）查询报文</p>
+<ul>
+<li>回送请求与响应报文
+<ul>
+<li><code>8</code>：请求</li>
+<li><code>0</code>：响应</li>
+</ul></li>
+<li>时间戳请求与响应报文
+<ul>
+<li><code>13</code>：请求</li>
+<li><code>14</code>：响应</li>
+</ul></li>
+</ul>
+<p>报文结构：</p>
+<pre><code class=" mermaid">---
+title: ICMP Header
+---
+packet-beta
+0-7: &quot;Type&quot;
+8-15: &quot;Code&quot;
+16-31: &quot;Checksum&quot;
+32-63: &quot;Rest of Header&quot;
+</code></pre>
+<ul>
+<li><code>Type</code>：ICMP报文类型</li>
+<li><code>Code</code>：代码，进一步指明子类型</li>
+<li><code>Checksum</code>：校验和</li>
+<li><code>Rest of Header</code></li>
+</ul>
+<h2 id="互联网路由选择协议">3.6 互联网路由选择协议</h2>
+<p>路由算法是路由选择协议的核心</p>
+<p>路由算法：</p>
+<ul>
+<li>距离-向量算法</li>
+<li>链路状态算法</li>
+</ul>
+<p>分层的路由选择协议：</p>
+<ul>
+<li>IGP</li>
+<li>EGP</li>
+</ul>
+<h2 id="rip">3.7 RIP</h2>
+<p><strong>历史沿革</strong>：</p>
+<p>RIP所用的Bellman-Ford算法，最早被用于计算机网络是在1969年，当时是ARPANET的初始路由算法。</p>
+<p><strong>版本</strong>：</p>
+<ul>
+<li><p>RIPv1：使用分类路由，定义在《RFC 1058》中。不支持VLSM</p></li>
+<li><p>RIPv2：支持Route Tag；携带掩码信息，路由聚合与CIDR</p></li>
+<li><p>RIPng</p></li>
+</ul>
+<p><strong>前置知识点</strong>：</p>
+<p>松弛（Relaxation）：</p>
+<blockquote>
+<p>对于目的节点，若有一中间节点u，dist[u]+w(u, v) &lt;
+dist[v]，即通过中间节点达到目的节点，耗费更少，则更新最短路径估计</p>
+<p>中间节点，使最短路径估计dist[v]松弛了，缩小了其距离</p>
+</blockquote>
+<p>python 代码演示：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">if</span> dist[u] + w(u, v) &lt; dist [v]:<br>    dist[v] = dist[u] + w(u, v)<br>    predecessor[v] = u<br></code></pre></td></tr></table></figure>
+<p><strong>特点</strong>：</p>
+<ul>
+<li><p>基于 Bellman-Ford 算法</p></li>
+<li><p>是一种距离向量路由算法</p></li>
+<li><p>基于UDP，端口520</p></li>
+<li><p>距离是跳数（Hop
+count）：最大15，16表示不可达；0表示到直接与路由器相连的网络的距离（计算机网络教材上是1）</p></li>
+<li><p>Cisco RIP策略启动了等价负载均衡，标准RIP没有</p></li>
+<li><p>与谁交换？交换的对象是直接相连的路由器（邻居路由）</p></li>
+<li><p>交换什么？广播交换的是整个路由表（路由器的全部信息）</p></li>
+<li><p>何时交换？通常30s，根据Update Timer的值</p></li>
+</ul>
+<p><strong>缺点</strong>：</p>
+<ul>
+<li><p>跳数限制了网络规模</p></li>
+<li><p>坏消息传播慢</p></li>
+<li><p>传递的是整个网络的距离向量，报文太大</p></li>
+</ul>
+<p><strong>工作原理</strong>：通过邻居的Router
+Imformation来松弛最短路径估计</p>
+<p>若有新网络的路由，则增加一条；</p>
+<p>若有旧网络的原路由（端口一致），则更新；</p>
+<p>若有旧网络的新路由（端口不一致），则松弛</p>
+<p><strong>4个关键计时器</strong>：</p>
+<ul>
+<li><code>Update Timer</code>：计时30秒，向邻居广播自己的整个路由表（255.255.255.255
+in RIPv1; 224.0.0.9 in RIPv2）</li>
+<li><code>Invalid Timer</code>：计时180秒，若某路由表项没收到更新，则使之失效，Hop
+Count设置为16</li>
+<li><code>Flush Timer</code>：计时240秒，删除所有无效路由表项（所以路由表项失效后，有60s的时间来向邻居传递）</li>
+<li><code>Hold-down Timer</code>：计时180秒，当检测到坏消息后（跳数增加），180s内该表项不接收任何更新（not
+part of RFC 1058, Cisco's implemention）</li>
+</ul>
+<p><strong>RIP数据报格式</strong>：首部（4B）+一条路由项（20B）</p>
+<pre><code class=" mermaid">packet-beta
+0-7: &quot;Command&quot;
+8-15: &quot;Version&quot;
+16-31:&quot;must to be zero&quot;
+32-47:&quot;Address Family ID&quot;
+48-63:&quot;Route Tag&quot;
+64-95:&quot;IP address&quot;
+96-127:&quot;Subnet Mask&quot;
+128-159:&quot;Next Hop&quot;
+160-191:&quot;Metric&quot;
+</code></pre>
+<ul>
+<li><code>Command</code>：1表示请求；2表示响应；请求常用于路由器启动时</li>
+<li><code>Version</code>：版本号，1表示RIPv1；2表示RIPv2</li>
+<li><code>RIP Routing Entry</code>：（20B）
+<ul>
+<li><code>Address Family ID</code>：1表示IPv4；全0在请求中表示全部</li>
+<li><code>Route Tag</code>：仅RIPv2</li>
+<li><code>IP address</code>：目的网络地址</li>
+<li><code>Subnet Mask</code>：子网掩码；RIPv1用默认类地址掩码</li>
+<li><code>Next Hop</code>：sender路由器的接口IP地址，仅RIPv2</li>
+<li><code>Metric</code>：度量值，Hopcount</li>
+</ul></li>
+</ul>
+<p><strong>防止环网络，计数到无穷方法</strong>：</p>
+<ul>
+<li>水平分割（Split
+Horizon）：RIP从某接口学到的路由信息，不会从该接口再发回邻居设备</li>
+<li>毒性逆转（Poison
+Reverse）：RIP从某接口学到的路由信息后，将该路由的开销设置为16，并从原接口返回（给邻居投毒）</li>
+<li>滞留计时器（Hold down
+Timer）：检测到坏消息，180s内不接收任何对该路由表项的更新</li>
+<li>触发更新（Triggered
+updates）：事件驱动，路由信息一有变化，立即向邻居设备发送触发更新报文</li>
+</ul>
+<h2 id="ospf">3.8 OSPF</h2>
+<p>采用开销（Cost）作为度量</p>
+<p>用LSDB来保存当前网络拓扑结构，一台多区域路由器，为每一个区域维护一份LSDB</p>
+<p>将网络划分多个区域，其中骨干区域是核心，所有的非骨干区域于骨干区域直接连接，或者虚链路连接</p>
+<p>区域将网络中的路由器逻辑上分组，并以区域为单位向网络的其余部分发送汇总的路由信息</p>
+<p>区域是以接口位单位划分的</p>
+<p><strong>历史沿革</strong>：</p>
+<ul>
+<li>1998年，提出OSPFv2，RFC 2328</li>
+<li>2008年，提出OSPFv4，RFC 5340，支持IPv6</li>
+</ul>
+<p><strong>基本特点</strong>：</p>
+<ul>
+<li><p>网络层协议：直接搭载在IP数据报，IP首部的协议字段是89</p></li>
+<li><p>发送信息采用洪泛法（Flooding）：传播给邻居，邻居再传邻居（但不回传）</p></li>
+<li><p>发送的信息是链路状态（与相邻路由器的链路状态）</p></li>
+<li><p>只有链路状态有变化时（或者一个同步周期），才洪泛信息</p></li>
+<li><p>允许对每条链路，设置不同的代价</p></li>
+<li><p>负载均衡</p></li>
+<li><p>具有鉴别功能</p></li>
+<li><p>支持VLSM与CIDR</p></li>
+<li><p>每个链路状态都带有32位的序号，序号越大，状态越新</p></li>
+</ul>
+<p><strong>数据报格式</strong>：（24B通用Header）</p>
+<pre><code class=" mermaid">packet-beta
+0-7:&quot;Version&quot;
+8-15:&quot;Type&quot;
+16-31:&quot;Packet Length&quot;
+32-63:&quot;Router ID&quot;
+64-95:&quot;Area ID&quot;
+96-111:&quot;Checksum&quot;
+112-127:&quot;AuType&quot;
+128-191:&quot;Authentication&quot;
+
+</code></pre>
+<ul>
+<li><code>Version</code>：目前有v2，v3</li>
+<li><code>Type</code>：报文类型
+<ul>
+<li>Hello：用于邻居发现于保持邻居关系</li>
+<li>DBD：交换LSA摘要</li>
+<li>LSR：请求某些LSA</li>
+<li>LSU：搭载LSA</li>
+<li>LSAck：确认LSA已收到</li>
+</ul></li>
+<li><code>Router ID</code>：发出报文的路由器ID</li>
+<li><code>Area ID</code>：报文所属OSPF区域ID</li>
+<li><code>AuType</code>：认证类型
+<ul>
+<li>无认证</li>
+<li>明文</li>
+<li>MD5</li>
+</ul></li>
+<li><code>Authentication</code>：根据认证类型决定用途</li>
+</ul>
+<p><strong>Hello 报文格式</strong>：</p>
+<pre><code class=" mermaid">packet-beta
+0-31:&quot;Network Mask&quot;
+32-47:&quot;Hello Interval&quot;
+48-55:&quot;Options&quot;
+56-63:&quot;&quot;
+64-95:&quot;Router Dead Interval&quot;
+96-127:&quot;Designated Router&quot;
+128-159:&quot;Backup Designated Router&quot;
+160-191:&quot;Neighbor (n)&quot;
+
+</code></pre>
+<ul>
+<li><code>Hello Interval</code>：指定时间间隔，向所有接口发送Hello数据包，收到Hello包的路由器会将对方标识放进自己的Hello包，形成Helloseen包</li>
+<li><code>Router Dead Interval</code>：指定时间间隔内，未收到来自已经建立连接的邻居的Hello包，则将对方状态转为down</li>
+</ul>
+<p><strong>DBD 报文格式</strong>：</p>
+<pre><code class=" mermaid">packet-beta
+0-15:&quot;链路 MTU&quot;
+16-23:&quot;Options&quot;
+24:&quot;0&quot;
+25:&quot;0&quot;
+26:&quot;0&quot;
+27:&quot;0&quot;
+28:&quot;0&quot;
+29:&quot;I&quot;
+30:&quot;M&quot;
+31:&quot;MS&quot;
+32-63:&quot;DD Sequence Number&quot;
+64-223:&quot;An LSA Header&quot;
+</code></pre>
+<p>当两个路由器互相收到Hello
+Seen数据包之后，开始相互发送空DBD数据包，以便确立主从关系（路由ID较大的为Master）</p>
+<p>主从关系确定后，从机使用主机的DD序列号发送第一个带有LSA
+Header的DBD数据包</p>
+<p>主机发送确认DBD数据包（主机序列号+1）</p>
+<p><strong>划分区域</strong>：区域编号占32bit，可采用点分十进制表示，也可以采用十进制表示；限制了洪泛范围，每个区域只维护本区域的链路状态</p>
+<ul>
+<li>骨干区域</li>
+<li>传送区域</li>
+<li>末梢区域（Stub Area）
+<ul>
+<li>不完全末梢区域（NSSA）</li>
+<li>完全末梢区域（Totally SA）</li>
+<li>完全非纯末梢区域（Totally NSSA）</li>
+</ul></li>
+</ul>
+<p><strong>路由器类型</strong>：OSPF定义了4种路由器类型</p>
+<ul>
+<li>内部路由器</li>
+<li>骨干路由器</li>
+<li>区域边界路由器（ABR）</li>
+<li>自治系统边界路由器（ASBR）</li>
+</ul>
+<p><strong>网络类型</strong>：OSPF定义了4种网络类型</p>
+<ul>
+<li><code>点对点网络</code>：不选举DR与BDR；直接使用224.0.0.5发送</li>
+<li><code>广播网络</code>：需要选举DR与BDR；所有始发于DR以及BDR的OSPF数据报，以224.0.0.5为目的地址，多播发送给其他路由器，其他路由器则以224.0.0.6作为目的地址，多播到DR与BDR</li>
+<li><code>非广播多路访问（NBMA）</code>：需要选举DR与BDR；所有OSPF数据报以单播发送</li>
+<li><code>点到多点网络</code>：不选举DR与BDR；是NBMA网络的特殊设置，可看作是一群点到点链路的集合，使用224.0.0.5发送OSPF数据报</li>
+</ul>
+<p><strong>LSA类型</strong></p>
+<p>LSA 通过 LSU报文进行传递</p>
+<ul>
+<li>Router-LSA：每个OSPF路由器都会产生此LSA，记录了本路由器的接口状态、出站代价，只能在区域内洪泛</li>
+<li>Network-LSA：是由DR为了描述其连接的MA网络，以及与其建立邻接关系的所有路由器产生的，只能在区域内洪泛</li>
+<li>Summary-LSA：描述的是此区域间的网络，用于传播到其他区域，由ABR生成</li>
+<li>ASBR Summary-LSA：由ABR生成，用于区域间转发外部路由</li>
+<li>AS-External-LSA：描述的是AS外部的网络（如BGP），由ASBR生成</li>
+<li>Group-Membership-LSA</li>
+<li>NSSA-External-LSA</li>
+</ul>
+<p><strong>指定路由器与备份指定路由器</strong>：</p>
+<p>DR与其他路由器完全邻接（Fully
+Adjacency），其他路由器之间邻居状态停留在2-Way</p>
+<p>DR是路由器上的接口属性</p>
+<p>DR完成两项工作：</p>
+<ul>
+<li>描述该多路访问网络和与其相连接的路由器</li>
+<li>管理该多路访问网络上的LSA洪泛扩散过程</li>
+</ul>
+<p>DR选举规则：</p>
+<ul>
+<li>接口优先级为0的路由器永远不可能称为DR或BDR</li>
+<li>最高优先级的路由器选举为DR，次高优先级选举为BDR</li>
+<li>如果多台路由器优先级相同，那么具有最高路由器ID的路由器成为DR</li>
+<li>DR失效时，BDR成为DR，同时重新选举一个BDR</li>
+<li>优先级取值范围：0-255</li>
+<li>DR与BDR选举是非抢占式的</li>
+</ul>
+<p><strong>邻接（同步）关系</strong>：</p>
+<p>OSPF中两台路由器要建立完全邻接关系，一下参数需要相同：</p>
+<ol type="1">
+<li>Hello 间隔</li>
+<li>Dead 间隔</li>
+<li>区域编号</li>
+<li>认证</li>
+<li>链路MTU大小</li>
+<li>子网掩码</li>
+<li>子网号</li>
+<li>末梢区域设置</li>
+</ol>
+<p><strong>建立邻接关系需要经历以下状态</strong>：</p>
+<ol type="1">
+<li>失效状态（Down）：表示最近没有从邻居收到信息</li>
+<li>尝联状态（Attempt）：表示最近没有从邻居收到信息，这时按一定时间间隔向邻居发送Hello数据包</li>
+<li>初始状态（Init）：表示最近收到了从邻居发送来的Hello数据包。但仍未建立双向通信</li>
+<li>双向通信（2-Way）：建立了双向通信。只有2-Way状态下的路由器才能参与DR与BDR选举</li>
+<li>信息交换状态（ExChange）：具有发送所有OSPF数据报的能力</li>
+<li>信息加载状态（Loading）：路由器向邻居发送LSR数据报</li>
+<li>完全邻接状态（Fully Adjacency）</li>
+</ol>
+<h2 id="bgp">3.9 BGP</h2>
+<p><strong>基本特点</strong>：</p>
+<ul>
+<li>基于TCP，端口号179</li>
+<li>是路径向量（Path Vector）路由选择算法</li>
+<li>寻找一条较好的路由，并非最佳路由</li>
+<li>非负载均衡</li>
+</ul>
+<p><strong>eBGP与iBGP</strong>：</p>
+<ul>
+<li><p>AS内的节点是iBGP全连接的</p></li>
+<li><p>从eBGP收到的路由通告，向它的所有BGP对等端发布</p></li>
+<li><p>从iBGP收到的路由通告，不再向它的iBGP对等端发布</p></li>
+<li><p>从iBGP收到的路由通告，可以向它的eBGP对等端发布，视具体同步情况</p></li>
+</ul>
+<p><strong>路由</strong>：</p>
+<p>路由格式：&lt;网络前缀，BGP路由属性&gt;</p>
+<p>最重要的路由属性包括：</p>
+<ul>
+<li>AS-PATH</li>
+<li>NEXT HOP</li>
+</ul>
+<p><strong>路由选择策略</strong>：</p>
+<ol type="1">
+<li>本地偏好值（LOCAL-PREFerence）最高</li>
+<li>经过的AS数量最少</li>
+<li>热土豆路由选择算法：离开本地AS准发次数最少</li>
+<li>路由标识最高</li>
+</ol>
+<p><strong>数据包类型</strong>：</p>
+<ul>
+<li>Open：用于建立连接</li>
+<li>Update：用于更新一跳路由，或者撤销多条</li>
+<li>Keepalive：用于保活，大小19B</li>
+<li>Notification</li>
+</ul>
+<h2 id="ip多播">3.10 IP多播</h2>
+<p>1988 年 Steve Deering ，首次在其博士学位论文中提出IP多播概念</p>
+<p>网络层上的多播叫IP多播</p>
+<p>局域网支持硬件多播</p>
+<p>IP多播到硬件多播的映射关系是：28位到23位；即32个多播地址映射到同一个硬件多播地址上</p>
+<p>实现互联网上的IP多播需要两种协议</p>
+<ul>
+<li>IGMP：主机动态加入多播组，以该多播组地址发送IGMP，只是通知本地多播路由本地多播组的成员关系（IGMP运行在主机山）</li>
+<li>多播路由选择协议：通告多播组成员关系到互联网上</li>
+</ul>
+<h2 id="移动ip">3.11 移动IP</h2>
+<p>漫游（roaming）：是指移动站在不同网络接入点之间移动时，任然保持网络连接不中断的能力</p>
+<p><strong>移动IP定义了三种功能实体</strong>：</p>
+<ul>
+<li>移动节点：具有永久IP地址的移动主机</li>
+<li>本地代理（归属代理）：连接在归属网络上的路由器</li>
+<li>外地代理：连接在被访网络上的路由器
+<ul>
+<li>为移动站创建转交地址（临时地址）</li>
+<li>及时把转交地址告诉其归属代理</li>
+</ul></li>
+</ul>
+<p><strong>移动IP技术实现原理</strong>：</p>
+<ol type="1">
+<li>外地代理先为移动站创建转交地址，再将转交地址告知其归属代理</li>
+<li>归属地址与归属网络之间的联系是不断的</li>
+<li>通过归属地址（永久地址）访问移动站，会定位到归属网络</li>
+<li>归属代理再通过转交地址找到被访网络中的移动站</li>
+</ol>
+<p>需注意：</p>
+<p>移动站的入站分组，通过归属代理转发</p>
+<p>移动站的出站分组，直接通过外地代理发出</p>
+<p><strong>WLAN漫游</strong>：</p>
+<ul>
+<li>网络切换对用户透明</li>
+<li>同属一个SSID</li>
+<li>设备根据信号强度自动决定是否切换AP</li>
+</ul>
+<p><strong>蜂窝网络漫游</strong>：</p>
+<h2 id="网络层设备">3.12 网络层设备</h2>
+<p><strong>路由器体系结构</strong>：</p>
+<ul>
+<li>路由选择部分（控制部分）
+<ul>
+<li>路由选择处理机</li>
+<li>路由选择协议</li>
+<li>路由表</li>
+</ul></li>
+<li>分组交换部分：
+<ul>
+<li>交换结构（交换组织）</li>
+<li>一组输入端口</li>
+<li>一组输出端口</li>
+</ul></li>
+</ul>
+<p><strong>路由表与转发表</strong>：</p>
+<ul>
+<li>标准路由表格式
+<ul>
+<li>目的网络IP地址</li>
+<li>子网掩码</li>
+<li>下一跳</li>
+<li>接口标识符</li>
+</ul></li>
+<li>转发表（可以用硬件实现）：
+<ul>
+<li>目的网络</li>
+<li>下一跳（MAC地址）</li>
+</ul></li>
+</ul>
+<h2 id="尽最大努力交付">3.13 尽最大努力交付</h2>
+<ul>
+<li><p>不保证无差错交付</p></li>
+<li><p>不保证按时交付</p></li>
+<li><p>不保证按序交付</p></li>
+<li><p>不保证不重复交付</p></li>
+<li><p>保证不故意丢弃分组：有两种情况丢包（不算故意）</p>
+<ul>
+<li>首部校验检测出错误</li>
+<li>处理速度赶不上传输速度（缓冲空间不足）</li>
+</ul></li>
+</ul>
+<h1 id="传输层">4 传输层</h1>
+<h2 id="传输层提供的服务">4.1 传输层提供的服务</h2>
+<h2 id="udp">4.2 UDP</h2>
+<p>UDP分组称为Message</p>
+<p><strong>历史沿革</strong>：由 David P. Reed 在1980年设计，且在《RFC
+768》中规范</p>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>面向数据报：对应用层传递的数据不再分割</li>
+</ul>
+<p><strong>首部格式</strong>：</p>
+<pre><code class=" mermaid">---
+title: UDP Header Format 
+---
+packet-beta
+0-15:&quot;Source Port&quot;
+16-31:&quot;Destination Port&quot;
+32-47:&quot;Packet Length&quot;
+48-63:&quot;Checksum&quot;
+</code></pre>
+<p><strong>伪首部</strong>：</p>
+<pre><code class=" mermaid">---
+title: Pesudo Header
+---
+packet-beta
+0-31:&quot;Source IP&quot;
+32-63:&quot;Destination IP&quot;
+64-71:&quot;全0&quot;
+72-79:&quot;Protocol&quot;
+80-95:&quot;UDP Packet Length&quot;
+</code></pre>
+<p><strong>检验</strong>：</p>
+<p>检验字段是可选的，源主机不想计算检验和，则该字段置0，若检验和恰好为0，则置全1</p>
+<p>发送方计算检验和：</p>
+<ol type="1">
+<li>添加伪首部</li>
+<li>两字节对齐，数据部分不足则0填充</li>
+<li>检验和字段置0</li>
+<li>二进制反码求和运算
+<ul>
+<li>按位相加，带进位</li>
+<li>最高位进位回卷</li>
+</ul></li>
+<li>结果取反</li>
+</ol>
+<p>接收方检验：</p>
+<ol type="1">
+<li>加伪首部</li>
+<li>两字节对齐，不足填充</li>
+<li>二进制反码求和</li>
+<li>比对：若全1，无误交付；否则丢弃</li>
+</ol>
+<h2 id="tcp">4.3 TCP</h2>
+<p>TCP中数据称为Stream，数据分组称为Segment</p>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>面向连接</li>
+<li>提供可靠交付服务</li>
+<li>只有两个端点，只能是一对一的</li>
+<li>面向字节流：视应用程序交下来的数据是一串无结构的<strong>字节流</strong></li>
+<li>提供全双工通信，都有发送缓存与接收缓存
+<ul>
+<li>发送缓存：（1）应用程序给TCP准备的数据（2）TCP已发送但尚未确认的数据</li>
+<li>接收缓存：（1）按序到达但未被应用程序接收的数据（2）不按序到达的数据</li>
+</ul></li>
+</ul>
+<p><strong>首部格式</strong>：</p>
+<pre><code class=" mermaid">---
+title: TCP Segment Format 
+---
+packet-beta
+0-15:&quot;Source Port&quot;
+16-31:&quot;Destination Port&quot;
+32-63:&quot;Sequence Number&quot;
+64-95:&quot;Acknowledge Number&quot;
+96-99:&quot;Data Offset&quot;
+100-103:&quot;Reserved&quot;
+104:&quot;CWR&quot;
+105:&quot;ECE&quot;
+106:&quot;URG&quot;
+107:&quot;ACK&quot;
+108:&quot;PSH&quot;
+109:&quot;RST&quot;
+110:&quot;SYN&quot;
+111:&quot;FIN&quot;
+112-127:&quot;Window&quot;
+128-143:&quot;Checksum&quot;
+144-159:&quot;Urgent Point&quot;
+160-183:&quot;Options (variable length)&quot;
+184-191:&quot;Padding&quot;
+
+</code></pre>
+<ul>
+<li><code>Sequence Number</code>：表示本报文段的传输的字节流数据的第一个字节的编号</li>
+<li><code>Acknowledge Number</code>：在TCP确认报文中，若值是N，则表示N-1个字节已经收到，期待接收第N个字节</li>
+<li><code>Data Offset</code>：指明TCP数据部分距离报文段的起始位置有多远，占4位，单位4B</li>
+<li><code>CWR</code>：拥塞窗口减少</li>
+<li><code>ECE</code>：显示拥塞回显</li>
+<li><code>URG</code>：表明本报文段中有紧急数据，在发送方，将紧急数据插队到本报文段前面，就算Window为0，也可以发送紧急数据</li>
+<li><code>ACK</code>：连接建立后，传送的所有报文ACK置1</li>
+<li><code>PSH</code>：接收方收到PSH置1的报文段后，尽快交付，不必等待缓存满</li>
+<li><code>RST</code>：通常用来出错时，释放连接，并重新建立连接，还可以拒绝非法报文段或拒绝打开一个连接</li>
+<li><code>SYN</code>：在连接建立时用来同步序号；SYN=1表示这是一个连接请求或连接接收报文</li>
+<li><code>FIN</code>：释放连接讯号</li>
+<li><code>Window</code>：从本报文段首部的确认号算起，容许对方发送的数据量大小，单位字节</li>
+<li><code>Urgent Point</code>：指明本报文段中，紧急数据的字节数（数据末尾在报文段的位置）</li>
+</ul>
+<p>常用选项字段：</p>
+<ul>
+<li><code>MSS</code>：4B，在SYN报文中使用，表示本端能接收的最大报文段长度，通常设置为（MTU-40）</li>
+<li><code>Window Scale</code>：3B，在SYN报文中使用</li>
+<li><code>sackOK</code>：2B，在SYN报文中使用，发送端支持并同意使用SACK</li>
+</ul>
+<p><strong>连接管理</strong>：</p>
+<p>特点：</p>
+<ul>
+<li>TCP把连接作为最基本的抽象，两个端点唯一确定一条连接</li>
+<li>采用C/S模式，主动发起连接的是Client，被动等待连接的是Server</li>
+</ul>
+<p>解决三个问题：</p>
+<p>（1）是使每一方都能够感知对方的存在</p>
+<p>（2）要允许双方协商一些参数（最大窗口值、是否使用窗口扩大选项、时间戳选项等）</p>
+<p>（3）能够对运输实体资源进行分配（缓存大小、连接表项中的项目）</p>
+<p>三次握手（three-way handshake）：</p>
+<p>（1）SYN=1；seq=x</p>
+<p>（2）SYN=1；ACK=1；seq=y；ack=x+1</p>
+<p>（3）ACK=1；seq=x+1；ack=y+1（可以携带数据，否则不消耗序列号）</p>
+<p>注意点：</p>
+<ul>
+<li><p>SYN报文段的初始序列号（ISN）都是随机的，防止TCP序号预测攻击</p></li>
+<li><p>ACK包并不意味着数据已经交付了上层应用</p></li>
+<li><p>三次握手的目的：是为了"<strong>防止已失效的连接请求报文段传送到了服务端，因而产生错误</strong>"，也是即为了解决"<strong>网络中存在延迟的重复分组</strong>"</p></li>
+</ul>
+<p>例子：若不进行第三次握手，服务端收到第一个SYN包（若是因为网络延迟，而失效的），就响应并建立连接，服务端会白白等待客户端发送数据，但客户端并没有想建立连接，会忽视这个第二次握手的SYN/ACK包</p>
+<ul>
+<li>服务端重试策略：服务端会在SYN-RCVD状态等待第三次握手，在Linux默认重试次数为5，重试间隔会从1s开始每次翻倍，如1s、2s、4s、8s、16s</li>
+</ul>
+<p>四次挥手（four-way handshake）：</p>
+<p>（1）FIN=1；seq=u</p>
+<p>（2）ACK=1；seq=v；ack=u+1</p>
+<p>（3）FIN=1；ACK=1；ceq=w；ack=u+1</p>
+<p>（4）ACK=1；seq=u+1；ack=w+1</p>
+<p>状态编码：</p>
+<ul>
+<li>LISTEN S</li>
+<li>SYN-SENT C</li>
+<li>SYN-RECIVED S</li>
+<li>ESTABLISHED S&amp;C</li>
+<li>FIN-WAIT-1 S&amp;C</li>
+<li>FIN-WAIT-2 S&amp;C</li>
+<li>CLOSE-WAIT S&amp;C</li>
+<li>CLOSING S&amp;C</li>
+<li>LAST-ACK S&amp;C</li>
+<li>TIME-WAIT S/C</li>
+<li>CLOSED S&amp;C</li>
+</ul>
+<p><strong>可靠的传输</strong>：</p>
+<p>（1）序号</p>
+<p>（2）确认</p>
+<ul>
+<li>累计确认（CACK）</li>
+<li>捎带确认</li>
+<li>冗余确认（DupACK）</li>
+<li>选择确认（SACK）（TCP扩展）</li>
+</ul>
+<p>（3）重传</p>
+<ul>
+<li>超时：通过<strong>Retransmission
+Timer</strong>，问题是超时周期过长</li>
+<li>冗余ACK：每次有失序报文段到达，立即发送冗余ACK；TCP规定当发送方收到连续3个对同一个报文的冗余ACK时，则执行快重传</li>
+</ul>
+<p>（4）检验（同UDP）</p>
+<p><strong>重要计时器</strong>：</p>
+<ul>
+<li><p><code>Retransmission Timer</code>：当发送方发出一个报文后，开始等待确认，如果在一定时间内没有收到ACK，触发重传</p></li>
+<li><p><code>Keepalive Timer</code>：服务端每收到一次客户端数据，重置计时器。超时后，每75s，发送一个<strong>keepalive
+probe</strong>，最多连续发送10个 probe。</p></li>
+<li><p><code>Persist Timer</code>：收到0窗口报文后，发送方超过一定时间，开始周期性发送
+<strong>zero window
+probe</strong>（3次后RST），避免因为修改窗口报文的丢失而陷入死锁</p></li>
+<li><p><code>TIME-WAIT Timer</code>：客户端FIN-2状态收到FIN包后，立即发送ACK报文，进入TIME-WAIT状态，等待2MSL时间后进入CLOSED</p></li>
+<li><p><code>Connection Establishment Timer</code>：TCP连接建立过程中，防止三次握手响应时间过长，SYN报文丢失，TCP重传若干次，若仍无任何回应，则放弃</p></li>
+</ul>
+<p><strong>流量控制</strong>：</p>
+<p>流量控制目的：是端到端的（区别于二层的点到点的流量控制）通过控制发送方发送分组的速率，以便接收方机器能顺利接收（来得及，否则丢包）</p>
+<p>糊涂窗口综合症：接收端以小增量的形式处理数据，那么它会发送一系列小窗口，数据利用率低</p>
+<p>解决方法：</p>
+<ul>
+<li>David D Clark算法（接收端）：若收到的数据导致windows size
+小于某值，则直接ack把window关闭，直到window
+size大于等于MSS后或缓存空闲过半</li>
+<li>Nagle算法（发送端）：任意满足以下条件之一，则发送数据；否则积累数据（默认打开）
+<ul>
+<li><span class="math inline">\(\text{Window size} \ge MSS \
+\&amp;\   \text{Data size}\ge MSS\)</span></li>
+<li>等待时间或者超时200ms</li>
+</ul></li>
+</ul>
+<p><strong>拥塞控制</strong>：</p>
+<p>拥塞控制目的：通过控制发送方发送分组的速率，避免网络出现拥塞瘫痪</p>
+<p>在通信端点的表现：拥塞发生时，端点通常不了解发生拥塞的细节，往往表现为通信时延的增加</p>
+<p>TCP的发送方需考虑的因素：（1）接收方的接收能力（2）不使网络发生拥塞</p>
+<p>TCP在发送方维持一个cwnd（拥塞窗口）</p>
+<p>TCP控制拥塞的原则：只要没出现网络拥塞，就将cwnd调大一些；出现拥塞就调小一些</p>
+<p>发送窗口的上限取值：<span
+class="math inline">\(\min\{\text{rwnd},\text{cwnd}\}\)</span></p>
+<p>TCP的四种拥塞控制算法：</p>
+<ul>
+<li>慢开始：初始拥塞窗口为1，指数递增，直到达到慢开始阈值（ssthresh）</li>
+<li>拥塞避免：达到ssthresh后，cwnd线性增加</li>
+<li>快重传：发现3个冗余ACK后，立即重传（不认为是网络拥塞，因为没有等到超时，3个冗余ACK，间接说明网络也没那么堵）</li>
+<li>快恢复：发现3个冗余ACK后，将当前ssthresh设置为当前cwnd的一半，cwnd也设置为cwnd的一般，然后线性增加</li>
+</ul>
+<p>无论是慢开始阶段，还是拥塞避免阶段，只要当网络拥塞发生了之后，采取<strong>拥塞处理</strong>算法：</p>
+<p>cwnd置为1，ssthresh置为出现拥塞时的cwnd的一半</p>
+<p>需要注意：</p>
+<ul>
+<li>在慢开始阶段，若下个轮次
+2cwnd&gt;ssthresh，则下个轮次cwnd=ssthresh</li>
+</ul>
+<p>总结：</p>
+<ul>
+<li>慢开始+拥塞避免
+<ul>
+<li>TCP连接建立</li>
+<li>网络超时</li>
+</ul></li>
+<li>快重传+快恢复
+<ul>
+<li>3个冗余ACK</li>
+</ul></li>
+</ul>
+<h1 id="应用层">5 应用层</h1>
+<h2 id="网络应用模型">5.1 网络应用模型</h2>
+<p><strong>C/S模型</strong>：</p>
+<p>特点：</p>
+<ul>
+<li>网络集中管理</li>
+<li>客户端之间不可直接互相通信</li>
+<li>网络存在瓶颈（受服务器硬件、带宽限制）：服务器只能支持一定数量的请求</li>
+</ul>
+<p><strong>P2P模型</strong>：</p>
+<p>优点：</p>
+<ul>
+<li>任务分配到各个节点，消除了对某个服务器的完全依赖</li>
+<li>用户之间可以文件共享</li>
+<li>支持的请求数量无限制</li>
+<li>网络健壮性强（单个节点故障，不影响整个应用）</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>节点内存占用高，影响处理速度（节点既是客户，又是服务器）</li>
+<li>对硬盘损害大（依赖节点的存储空间）</li>
+<li>占用网络流量高（依赖节点的上传带宽）</li>
+<li>不稳定（节点随时下线、随时上线）</li>
+<li>一致性维护困难</li>
+<li>管控复杂（更新、配置、健康都困难）</li>
+<li>安全性差（没有中心化的身份认证和访问控制）</li>
+</ul>
+<h2 id="dns">5.2 DNS</h2>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>基于UDP，端口53，工作在应用层</li>
+<li>C/S模式</li>
+</ul>
+<p><strong>区概念</strong>：一个服务器所负责管辖的（或有权限管辖的）范围称为区</p>
+<ul>
+<li>小于等于域</li>
+<li>区中的所有节点必须是能够连通的</li>
+<li>每个区设置相应的权限域名服务器</li>
+</ul>
+<p><strong>域名服务器体系架构</strong>：</p>
+<ul>
+<li>根域名服务器（13个）：是具有13个服务器的冗余集群，用来管辖顶级域名，它知道所有的顶级域名服务器的域名和IP地址</li>
+<li>顶级域名服务器：管辖所有在它下面注册的所有二级域名（给出的结果可能是最后的结果，也可能是下一步应当查询的域名服务器的IP地址）</li>
+<li>权限域名服务器
+<ul>
+<li>每台主机都必须在权限域名服务器上登记</li>
+<li>一台主机最好至少有两个权限域名服务器</li>
+<li>许多权限域名服务器都同时充当本地域名服务器和权限域名服务器</li>
+<li>权限域名服务器总能将其管辖的主机名转换为该主机的IP地址</li>
+</ul></li>
+<li>本地域名服务器
+<ul>
+<li>每个ISP、大学，甚至大学下面的系都可以拥有一个本地域名服务器</li>
+<li>每个主机发出的DNS查询请求都发送给主机配置的本地域名服务器</li>
+<li>windows上本地连接配置的DNS服务器就是本地域名服务器</li>
+<li>自己不能转换，则首先求助根服务器</li>
+</ul></li>
+</ul>
+<p><strong>域名解析过程</strong>：</p>
+<p>两种解析方式：</p>
+<ul>
+<li>递归查询：若查询不到主机名对应的IP地址，则本地域名服务器以DNS客户身份，向根域名服务器发起DNS查询报文（替该主机查询）</li>
+<li>迭代查询：若查询失败，则由服务端返回下一个应该查询的IP地址</li>
+</ul>
+<p>主机向本地域名服务器的查询都采用<strong>递归查询</strong></p>
+<p>本地域名服务器向其他域名服务器的查询采用<strong>递归查询</strong>或<strong>迭代查询</strong></p>
+<h2 id="ftp">5.3 FTP</h2>
+<p><strong>历史沿革</strong>：</p>
+<p>1971年，由 <strong>Abhay Bhushan</strong> 编写，作为 ARPANET
+的一部分，最早规范为《RFC 114》，建立在NCP之上</p>
+<p>1980年，向TCP/IP迁移，发布了《RFC 765》</p>
+<p>1985年，标准化，《RFC 959》，沿用至今：</p>
+<ul>
+<li>控制连接</li>
+<li>数据连接：
+<ul>
+<li>PORT：主动模式，熟知端口20</li>
+<li>PASSIVE：被动模式，动态端口</li>
+</ul></li>
+<li>用户身份认证：USER、PASS</li>
+</ul>
+<p>1997年至今，出现FTPS和SFTP（基于SSH的完全不同的文件传输协议）</p>
+<p><strong>特点</strong>：</p>
+<ul>
+<li><p>明文传输</p></li>
+<li><p>允许用户指明文件的类型与格式</p></li>
+<li><p>允许文件具有存储权限</p></li>
+<li><p>带外传送（Out of Band）：控制信息与数据信息的传送分离</p></li>
+<li><p>主进程接收新的请求，从进程处理单个请求</p></li>
+<li><p>数据连接只是一次性的，传送完就关闭</p></li>
+</ul>
+<p><strong>提供的功能</strong>：</p>
+<ul>
+<li>不同种类主机系统之间的文件传输能力</li>
+<li>以用户权限管理的方式提供用户对远程FTP服务器上的文件管理能力</li>
+<li>以匿名FTP方式提供公用文件共享能力</li>
+</ul>
+<p><strong>数据连接</strong>：</p>
+<p>两种模式：</p>
+<ul>
+<li>主动模式（PORT）：客户端随机开放端口，并告知服务器，服务器从20端口连接客户端的开放端口</li>
+<li>被动模式（PASV）：服务器随即开放端口，并告知客户端，客户端连接服务器端口</li>
+</ul>
+<p>控制连接：</p>
+<p>客户端通过熟知端口21建立与服务器的控制连接</p>
+<p>在文件传输时，还可以使用控制连接</p>
+<p>控制连接在整个会话期间保持打开状态</p>
+<h2 id="smtp">5.4 SMTP</h2>
+<p><strong>历史沿革</strong>：</p>
+<p>1982年，制定标准《RFC 821》，由 <strong>Jonathan B. Postel</strong>
+编写</p>
+<p>2008年，制定《RFC 5322》，现代邮件标准格式</p>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>SMTP用于发送邮件</li>
+<li>SMTP只能传输ASCII编码的内容</li>
+<li>服务端监听熟知端口25</li>
+</ul>
+<p><strong>电子邮件收发流程</strong>：</p>
+<ul>
+<li>调用用户代理编辑邮件</li>
+<li>用户代理通过SMTP发送到<strong>发送端服务器</strong>（推）</li>
+<li>发送端服务器通过SMTP发送到<strong>接收端服务器</strong>（推）</li>
+<li>用户代理通过POP3或IMAP从<strong>接收端服务器</strong>拉取邮件</li>
+</ul>
+<p><strong>电子邮件格式</strong>：</p>
+<ul>
+<li>首部：关键字+冒号+值</li>
+<li>内容</li>
+</ul>
+<p><strong>MIME</strong>：对SMTP进行扩展，支持非ASCII编码内容进行传送</p>
+<ul>
+<li>5个新首部：
+<ul>
+<li>MIME版本</li>
+<li>内容描述</li>
+<li>内容标识</li>
+<li>传送编码</li>
+<li>内容类型</li>
+</ul></li>
+<li>定义了邮件内容格式</li>
+<li>定义了传输编码</li>
+</ul>
+<p><strong>SMTP通信阶段</strong>：</p>
+<ul>
+<li>连接建立：
+<ol type="1">
+<li>发件方服务器的SMTP客户周期性扫描缓存，一发现有邮件缓存，就与收件方服务器建立TCP连接</li>
+<li>TCP连接建立之后，收件方SMTP服务器返回<code>220 Service Ready</code></li>
+<li>SMTP客户向SMTP服务器发送<code>Hello</code>命令，附上发送方的主机名</li>
+</ol></li>
+<li>邮件传送
+<ol type="1">
+<li>发送方SMTP客户发送<code>MAIL</code>命令，附带发件人地址</li>
+<li>若接收方SMTP服务器准备好接收，则回复<code>250 OK</code></li>
+<li>发送方发送一串<code>RCPT</code>命令（用于对地址的确认）</li>
+<li>服务器对<code>RCPT</code>命令逐一回复</li>
+<li>得到服务器的<code>OK</code>回答后，发送端发送<code>DATA</code>命令，表示要开始传送邮件的内容</li>
+<li>服务器回复<code>354 Start mail input; end up with &lt;CRLF&gt;</code></li>
+<li>此时发送端开始发送邮件内容</li>
+</ol></li>
+<li>连接释放
+<ol type="1">
+<li>邮件内容发送完毕后，发送端发送<code>QUIT</code>命令</li>
+<li>服务器回复<code>221</code>，表示同意释放TCP连接</li>
+</ol></li>
+</ul>
+<p><strong>POP3</strong>：</p>
+<ul>
+<li>C/S模式</li>
+<li>TCP连接</li>
+<li>工作在110端口</li>
+<li>两种工作方式
+<ul>
+<li>下载并保留</li>
+<li>下载并删除</li>
+</ul></li>
+</ul>
+<p><strong>IMAP</strong>：</p>
+<ul>
+<li>提供联机命令：
+<ul>
+<li>远程文件夹中查询邮件</li>
+<li>创建文件夹</li>
+<li>不同文件夹之间移动邮件</li>
+</ul></li>
+<li>IMAP服务器维护会话用户的状态信息</li>
+<li>允许用户代理只获得报文的某些部分（例如报文的首部，多部分MIME报文的一部分，适用于低带宽情况）</li>
+</ul>
+<h2 id="http">5.5 HTTP</h2>
+<p><strong>特点</strong>：</p>
+<ul>
+<li><p>基于TCP</p></li>
+<li><p>无连接的：在交换Http报文之前，不需要建立HTTP连接</p></li>
+<li><p>无状态的：服务器不保存用户状态</p></li>
+<li><p>既可使用非持续性连接，又可使用持续性连接（HTTP/1.1默认）</p></li>
+<li><p>面向事务的</p></li>
+<li><p>面向文本的（报文中每个字段都是ASCII码串，不定长）</p></li>
+</ul>
+<p><strong>TCP连接</strong>：</p>
+<ul>
+<li>非持续性连接</li>
+<li>持续性连接
+<ul>
+<li>非流水线式</li>
+<li>流水线式</li>
+</ul></li>
+</ul>
+<h2 id="telnet">5.6 Telnet</h2>
+<p><strong>历史沿革</strong>：</p>
+<p>1969年，开发，主要用于ARPANET内</p>
+<p>1973年，《RFC 318》定义了Telnet
+基本协议架构，引入了控制字符和命令协商机制（IAC）</p>
+<p>1983年，转向TCP/IP，《RFC 854》是最经典的Telnet版本</p>
+<p><strong>工作流程</strong>：</p>
+<ol type="1">
+<li>Telnet协商阶段</li>
+<li>Telnet登录阶段</li>
+<li>数据传输阶段（没有行缓冲，一个字符一个字符传输）</li>
+<li>Telnet退出</li>
+</ol>
+<h2 id="ssh">5.7 SSH</h2>
+<p><strong>历史沿革</strong>：</p>
+<ul>
+<li>1995年，一次校园内Telnet密码被窃听事件，促使芬兰学者 Tatu Ylönen
+发明了SSH-1</li>
+<li>1999年，由于SSH-1开始商业化，引起社区反感，OpenBSD项目组创建了OpenSSH</li>
+<li>2002-2006年，由于SSH-1存在一些设计缺陷，缺乏模块化扩展，IETF制定新协议SSH-2</li>
+</ul>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>对称加密+非对称密钥交换+哈希完整性验证</li>
+</ul>
+<p><strong>工作流程</strong>：</p>
+<ol type="1">
+<li>版本协商（Protocol Version
+ExChange）：若版本兼容，继续；否则，终止</li>
+<li>密钥交换（Key Exchange）</li>
+<li>服务器认证：客户端校验服务器的公钥，通常存储在<code>~\.ssh\known_hosts</code>
+<ul>
+<li>若首次连接，会回显是否接收该主机公钥</li>
+</ul></li>
+<li>用户认证（Authentication）
+<ul>
+<li>密码登录</li>
+<li>公钥登录：客户端将自己的公钥，放到服务器的<code>~\.ssh\authorized_keys</code>，服务器通过公钥发送Challenge，客户端破解成功则登录</li>
+<li>GSSAPI或双因子</li>
+</ul></li>
+<li>安全通道建立</li>
+</ol>
+<h2 id="https">5.8 HTTPS</h2>
+<p><strong>工作流程</strong>：</p>
+<ol type="1">
+<li>客户端发起HTTPS请求</li>
+<li>TCP连接建立（端口443）</li>
+<li>TLS握手</li>
+<li>ClientHello：客户端发送ClientHello消息，包含支持的TLS版本、加密套件列表、随机数等</li>
+<li>ServerHello：服务器选择TLS版本、加密套件，返回ServerHello消息和自己的数字证书（含公钥）</li>
+<li>证书验证：客户端验证服务器证书的合法性（是否由受信任的CA签发，域名是否匹配，证书是否过期）</li>
+<li>密钥交换：客户端生成 <strong>pre-master
+secret</strong>，使用服务器公钥加密后发送服务器</li>
+<li>TLS握手完成：互相发送<strong>Finished</strong>消息，确认握手成功</li>
+<li>加密通信阶段</li>
+<li>连接关闭</li>
+</ol>
+<h1 id="bonus">6 Bonus</h1>
+<h2 id="bluetooth">6.1 Bluetooth</h2>
+<p>蓝牙协议栈：</p>
+<ul>
+<li><p>应用层</p></li>
+<li><p>GATT（Generic Attribute Profile）（BLE）/OBEX/HID（Human
+Interface Device）（键鼠）/A2DP（Advanced Audio Distribution
+Profile）（音频）</p></li>
+<li><p>L2CAP（逻辑链路控制与适配协议）</p></li>
+<li><p>HCI（主机控制接口）</p></li>
+<li><p>物理层（RF射频+基带控制）</p></li>
+</ul>
+<p>工作流程：</p>
+<ul>
+<li>设备处于发现模式，广播 Advertising 包</li>
+<li>设备处于扫描模式，接收广播包并记录发送设备的信息</li>
+<li>发起配对：扫描设备向广播设备发起 Connection Request</li>
+<li>配对&amp;配密：完成身份认证与加密设置
+<ul>
+<li>简单配对（Just Works）</li>
+<li>PIN</li>
+<li>数字确认</li>
+</ul></li>
+<li>链路建立：建立物理链路，并分配一个连接句柄；配置链路参数，如MTU</li>
+<li>数据通信</li>
+</ul>
+<h2 id="zigbee">6.2 Zigbee</h2>
+<p>zigbee（802.15.4）协议栈：</p>
+<ul>
+<li><p>应用层：AF+ZDO+APS</p></li>
+<li><p>网络层</p></li>
+<li><p>MAC层</p></li>
+<li><p>物理层</p></li>
+</ul>
 
                 
               </div>
@@ -846,8 +2280,8 @@ Bridge），有内部数据库，提供多端口的二层桥接是以太网交�
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/10/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Java/" title="Java #1 基础">
-                        <span class="hidden-mobile">Java #1 基础</span>
+                      <a href="/2024/10/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JavaScript/" title="JavaScript #1 基础">
+                        <span class="hidden-mobile">JavaScript #1 基础</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

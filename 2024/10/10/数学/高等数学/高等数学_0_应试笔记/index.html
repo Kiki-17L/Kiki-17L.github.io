@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://blog.kdata.top/img/pt/cal.jpg">
 <meta property="article:published_time" content="2024-10-10T02:00:00.000Z">
-<meta property="article:modified_time" content="2025-04-24T12:52:13.204Z">
+<meta property="article:modified_time" content="2025-10-22T13:27:01.746Z">
 <meta property="article:author" content="Louis Liang">
 <meta property="article:tag" content="Math">
 <meta property="article:tag" content="Calculus">
@@ -323,7 +323,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年4月24日 晚上
+                    本文最后更新于 2025年10月22日 晚上
                   
                 
               </p>
@@ -331,8 +331,8 @@
             
               <div class="markdown-body">
                 
-                <h1 id="一一元微积分">一、一元微积分</h1>
-<h2 id="最优问题极值">最优问题（极值）</h2>
+                <h1 id="一元微积分">1 一元微积分</h1>
+<h2 id="最优问题极值">1.1 最优问题（极值）</h2>
 <p>一元函数极值问题：</p>
 <ol type="1">
 <li><p>必要条件（费马引理）</p>
@@ -402,13 +402,13 @@ X)^\top\mathbf{H}_f\Delta X
 <span class="math inline">\(\text{Sylvester&#39;s Criterion}\)</span>
 判别法（顺序主子式判定）</p></li>
 </ol>
-<h2 id="局部意义下最优逼近">局部意义下，最优逼近</h2>
+<h2 id="局部意义下最优逼近">1.2 局部意义下，最优逼近</h2>
 <p>定理：</p>
 <p>如果一个函数在<strong>局部</strong>具有<strong>高阶逼近</strong>的性质，那么这个能用来逼近的多项式只能是泰勒多项式。（唯一性）</p>
 <p><span class="math display">\[
 a_k=\frac{f^{(k)}(x_0)}{k!}
 \]</span></p>
-<h2 id="整体意义下最优逼近">整体意义下，最优逼近</h2>
+<h2 id="整体意义下最优逼近">1.3 整体意义下，最优逼近</h2>
 <p>函数内积： <span class="math display">\[
 \langle f,g\rangle=\int_a^b f(t)g(t)dt
 \]</span> 函数范数： <span class="math display">\[
@@ -432,7 +432,7 @@ f(x)\sim a_0+\sum_{k=1}^n a_k\cos\frac{\pi}{l}kx +b_k\sin\frac{\pi}{l}kx
 <p><span class="math display">\[
 a_k=\frac{\langle\cos\frac{\pi}{l}kx,f(x)\rangle}{\langle\cos\frac{\pi}{l}kx,\cos\frac{\pi}{l}kx\rangle}
 \]</span></p>
-<h2 id="凹凸性">凹凸性</h2>
+<h2 id="凹凸性">1.4 凹凸性</h2>
 <p>拐点充分条件</p>
 <p>（1）第一充分条件</p>
 <p>在去心邻域内 <span
@@ -447,7 +447,7 @@ class="math inline">\(n\)</span> 阶可导，且<span
 class="math inline">\(f^{(m)}(x_0)=0,m=\{2,3,\cdots,n-1\},\quad
 f^{(n)}(x_0)\ne0\)</span>，则当 <span class="math inline">\(n\)</span>
 是奇数阶时，该点是拐点</p>
-<h2 id="斜渐进线">斜渐进线</h2>
+<h2 id="斜渐进线">1.5 斜渐进线</h2>
 <p>依据： <span class="math display">\[
 \lim_{x\to \infty} [f(x)-(ax+b)]=0
 \]</span></p>
@@ -455,7 +455,7 @@ f^{(n)}(x_0)\ne0\)</span>，则当 <span class="math inline">\(n\)</span>
 \lim_{x\to\infty}\frac{f(x)}{x}=a,\quad
 \lim_{x\to\infty}f(x)-ax=b
 \]</span></p>
-<h2 id="曲率">曲率</h2>
+<h2 id="曲率">1.6 曲率</h2>
 <p>意义：曲线弯曲程度的度量</p>
 <p>定义：<span class="math inline">\(\alpha\)</span> 是切线的角度，<span
 class="math inline">\(s\)</span> 是弧 <span class="math display">\[
@@ -490,7 +490,7 @@ class="math inline">\(f&#39;&#39;(x)\ne0\)</span>
 <p>曲率半径： <span class="math display">\[
 r=\frac{[1+f&#39;^2(x)]^{\frac{3}{2}}}{|f&#39;&#39;(x)|}
 \]</span></p>
-<h2 id="平面图形面积">平面图形面积</h2>
+<h2 id="平面图形面积">1.7 平面图形面积</h2>
 <p>（1）极坐标系下 <span class="math display">\[
 \frac{1}{2}\int^\beta_\alpha r^2(\theta)\mathrm{d}\theta
 \]</span></p>
@@ -498,7 +498,7 @@ r=\frac{[1+f&#39;^2(x)]^{\frac{3}{2}}}{|f&#39;&#39;(x)|}
 class="math display">\[
 \Delta A_i=\frac{lr}{2}=\frac{r^2(\theta)}{2}
 \]</span></p>
-<h2 id="旋转体体积">旋转体体积</h2>
+<h2 id="旋转体体积">1.8 旋转体体积</h2>
 <p>（1）绕 x 轴旋转</p>
 <p>解法：<span class="math inline">\(\text{Disc Integral}\)</span> <span
 class="math display">\[
@@ -535,7 +535,7 @@ V=2\pi p\cdot S
 <p><span class="math display">\[
 V=2\pi\iint_D r(x,y)\,\mathrm{d}\sigma
 \]</span></p>
-<h2 id="积分技巧">积分技巧</h2>
+<h2 id="积分技巧">1.9 积分技巧</h2>
 <p>换元技巧：</p>
 <ol type="1">
 <li><p>欧拉代换</p></li>
@@ -555,7 +555,7 @@ class="math inline">\(\mathrm{d}u=\alpha(x^{\alpha-1}\mp\frac{1}{x^{\alpha+1}})\
 \frac{x}{2}
 \]</span></p></li>
 </ol>
-<h2 id="微元法">微元法</h2>
+<h2 id="微元法">1.10 微元法</h2>
 <p>假设在某一实际问题中，对于给定的连续函数 <span
 class="math inline">\(f(x)\)</span> ，量 <span
 class="math inline">\(Q\)</span> 有如下特点</p>
@@ -576,8 +576,8 @@ x_i\)</span></p>
 将其表示为定积分。</p>
 <p>关键是 <span class="math inline">\(Q\)</span> 的微分，得满足 <span
 class="math inline">\(\Delta Q-\mathrm{d}Q\)</span> 是高阶无穷小</p>
-<h1 id="二微分中值定理">二、微分中值定理</h1>
-<h2 id="罗尔定理">罗尔定理</h2>
+<h1 id="微分中值定理">2 微分中值定理</h1>
+<h2 id="罗尔定理">2.1 罗尔定理</h2>
 <p>适用题目：根的存在性证明</p>
 <p>解法：</p>
 <p>（1）构造函数法（分析法） <span class="math display">\[
@@ -591,7 +591,7 @@ nf&#39;(\xi)&amp; + &amp;p&#39;(x)f(\xi)&amp;=&amp;0\\
 \end{array}
 \]</span> （2）确定区间法</p>
 <p>（3）寻找等值点法</p>
-<h2 id="拉格朗日中值定理">拉格朗日中值定理</h2>
+<h2 id="拉格朗日中值定理">2.2 拉格朗日中值定理</h2>
 <p>适用题目：结论涉及<strong>函数增量</strong>与区间内某一点的导数的等式关系，或是函数值与函数值之间的不等关系</p>
 <p>解法</p>
 <p>1）设置辅助函数</p>
@@ -599,9 +599,9 @@ nf&#39;(\xi)&amp; + &amp;p&#39;(x)f(\xi)&amp;=&amp;0\\
 <p>​ （2）待定系数法</p>
 <p>​ （3）不定积分法</p>
 <p>2）确定区间法</p>
-<h2 id="柯西中值定理">柯西中值定理</h2>
+<h2 id="柯西中值定理">2.3 柯西中值定理</h2>
 <p>适用题目：结论涉及<strong>两个不同函数的增量</strong>或<strong>函数值与导数值之间关系</strong>的等式与不等式命题</p>
-<h2 id="泰勒公式">泰勒公式</h2>
+<h2 id="泰勒公式">2.4 泰勒公式</h2>
 <p>适用题目：条件涉及二阶以及二阶以上导数，结论涉及<strong>多个函数值间</strong>或<strong>函数值与各阶导数值间的等式或不等式</strong>关系</p>
 <p>三种题型：</p>
 <p>1）隐含三点内容题型</p>
@@ -610,8 +610,8 @@ nf&#39;(\xi)&amp; + &amp;p&#39;(x)f(\xi)&amp;=&amp;0\\
 <p>​ （3）展开后 <span class="math inline">\(x\)</span> 取什么值</p>
 <p>2）带有极限条件的题型</p>
 <p>3）局部泰勒公式题型（带皮亚诺余项的泰勒公式）</p>
-<h1 id="三多元微分学">三、多元微分学</h1>
-<h2 id="实值多元函数">实值多元函数</h2>
+<h1 id="多元微分学">3 多元微分学</h1>
+<h2 id="实值多元函数">3.1 实值多元函数</h2>
 <p>（1）微分</p>
 <ol type="1">
 <li><p>全微分</p>
@@ -737,7 +737,7 @@ m&lt;n\)</span></p>
 <p><span class="math inline">\(\Rightarrow G(x_0)=0,\hspace{1em}\exists
 \hat{\lambda_0}\quad
 f&#39;(x_0)+\hat{\lambda_0}G&#39;(x_0)=0\)</span></p>
-<h2 id="向量值多元函数">向量值多元函数</h2>
+<h2 id="向量值多元函数">3.2 向量值多元函数</h2>
 <p>设映射 <span class="math inline">\(F: \mathring{U}(\mathbf
 x_0,\delta) \rightarrow \mathbb{R}^m\)</span> ，<span
 class="math inline">\(\mathbf{x}\in \mathbb{R}^n\)</span></p>
@@ -764,8 +764,8 @@ class="math inline">\(\Leftrightarrow\)</span>
 每一个分量的多元函数可微</p>
 <p><span class="math inline">\(\text{Jocbian}\)</span>
 矩阵就是向量值多元函数的全导数。</p>
-<h1 id="四多元积分学">四、多元积分学</h1>
-<h2 id="对称性">对称性</h2>
+<h1 id="多元积分学">4 多元积分学</h1>
+<h2 id="对称性">4.1 对称性</h2>
 <ol type="1">
 <li><p>关于 y 轴对称</p></li>
 <li><p>关于 x 轴对称</p></li>
@@ -775,7 +775,7 @@ class="math inline">\(\Leftrightarrow\)</span>
 <p>椭圆</p>
 </blockquote></li>
 </ol>
-<h2 id="三重积分">三重积分</h2>
+<h2 id="三重积分">4.2 三重积分</h2>
 <ol type="1">
 <li><p>直角坐标系</p>
 <ul>
@@ -797,7 +797,7 @@ z&amp;=z(r,\phi,\theta)
 class="math inline">\(\mathrm{d}v=r^2\sin{\phi}\mathrm{d}r\mathrm{d}\phi\mathrm{d}\theta\)</span></p></li>
 <li><p>换元法（将积分区域做变换）</p></li>
 </ol>
-<h2 id="对弧长的曲线积分">对弧长的曲线积分</h2>
+<h2 id="对弧长的曲线积分">4.3 对弧长的曲线积分</h2>
 <p>背景意义：<strong>线质量</strong></p>
 <p>内蕴：<strong>一维流形</strong></p>
 <p><strong>关键</strong>：弧微分的计算</p>
@@ -928,7 +928,7 @@ z&amp;=r(\theta(t))\cos\phi(t)
 \end{aligned}
 \right.
 \]</span></p>
-<h2 id="对坐标的曲线积分">对坐标的曲线积分</h2>
+<h2 id="对坐标的曲线积分">4.4 对坐标的曲线积分</h2>
 <h3 id="计算">计算</h3>
 <p>（1）平面（二维） <span class="math display">\[
 \int_{L} P(x,y)\,\mathrm{d}x+Q(x,y)\,\mathrm{d}y
@@ -950,7 +950,7 @@ y}\ne\frac{\partial Q}{\partial x}\)</span> ，只能采用 3、4方法</p>
 y&#39;(t)+R(x(t),y(t),z(t))\cdot z&#39;(t)]\,\mathrm{d}t
 \]</span> 封闭曲线：开尔文-斯托克斯（<span
 class="math inline">\(Stokes&#39;theorem\)</span>）公式</p>
-<h2 id="对面积的曲面积分">对面积的曲面积分</h2>
+<h2 id="对面积的曲面积分">4.5 对面积的曲面积分</h2>
 <h3 id="面微元推导">面微元推导</h3>
 <p><span class="math display">\[
 \left\{\begin{aligned}
@@ -1047,7 +1047,7 @@ s}\times\frac{\partial\mathbf x}{\partial t}\right|
 \,\mathrm{d}s\mathrm{d}t
 \]</span></p></li>
 </ol>
-<h2 id="对坐标的曲面积分">对坐标的曲面积分</h2>
+<h2 id="对坐标的曲面积分">4.6 对坐标的曲面积分</h2>
 <p><span class="math display">\[
 \iint_{\Sigma}P(x,y,z)\,\mathrm{d}y\mathrm{d}z+Q(x,y,z)\,\mathrm{d}x\mathrm{d}z+R(x,y,z)\,\mathrm{d}x\mathrm{d}y
 \]</span></p>
@@ -1067,7 +1067,7 @@ y}+R(x,y,z)]\,\mathrm{d}x\mathrm{d}y
 class="math display">\[
 \iint_{\Sigma}P(x,y,z)\cos\alpha+Q(x,y,z)\cos\beta+R(x,y,z)\cos\gamma\,\mathrm{d}\sigma
 \]</span> （4）对于封闭曲面：<strong>高斯公式</strong></p>
-<h2 id="梯度定理">梯度定理</h2>
+<h2 id="梯度定理">4.7 梯度定理</h2>
 <p>梯度的二型线积分</p>
 <p>对于任何标量场的梯度场是无旋场，也就是保守场（<span
 class="math inline">\(\mathbf{curl}\ \mathbf A=0\)</span>） <span
@@ -1078,8 +1078,8 @@ class="math display">\[
 \int_{P[\mathbf p\rightarrow\mathbf q]}\nabla{f(\mathbf
 r)}\,\mathrm{d}\mathbf{r}=f(\mathbf{p})-f(\mathbf{q})
 \]</span></p>
-<h1 id="五微分方程">五、微分方程</h1>
-<h2 id="一阶方程">一阶方程</h2>
+<h1 id="微分方程">5 微分方程</h1>
+<h2 id="一阶方程">5.1 一阶方程</h2>
 <p>​ （1）变量可分离型 <span class="math display">\[
 P(y)\mathrm{d}y=Q(x)\mathrm{d}x
 \]</span> ​ （2）齐次方程 <span class="math display">\[
@@ -1108,7 +1108,7 @@ class="math inline">\(y&#39;=p,\quad y&#39;&#39;=p&#39;\)</span></p>
 <p>​ 解法：<strong>将 <span class="math inline">\(y\)</span>
 作为中间变量</strong> <span class="math inline">\(y&#39;=p,\quad
 y&#39;&#39;=\frac{\mathrm{d}p}{\mathrm{d}y}\cdot\frac{\mathrm{d}y}{\mathrm{d}x}\)</span></p>
-<h2 id="高阶方程">高阶方程</h2>
+<h2 id="高阶方程">5.2 高阶方程</h2>
 <p>函数线性无关的判别？</p>
 <p>（1）二阶常系数线性常微分方程 <span class="math display">\[
 y&#39;&#39;+py&#39;+qy=f(x)
@@ -1123,11 +1123,11 @@ x=t\)</span> <span class="math display">\[
 \]</span> 可将 <span class="math inline">\(x^k\)</span>
 变系数因子消去，则变为一般的常系数线性微分方程</p>
 <p>（4）非欧拉方程的变系数</p>
-<h3 id="非齐次特解求法">非齐次特解求法</h3>
+<h3 id="非齐次特解求法">5.3 非齐次特解求法</h3>
 <p>（1）待定系数法</p>
 <p>（2）常数变易法</p>
 <p>（3）<span class="math inline">\(\text{Heaviside}\)</span> 算子法</p>
-<h2 id="全微分方程">全微分方程</h2>
+<h2 id="全微分方程">5.3 全微分方程</h2>
 <p>定义：两个在区域 <span class="math inline">\(D\)</span>
 上面的两个<strong>连续</strong>的函数 <span
 class="math inline">\(M(x,y)\)</span> 和 <span
@@ -1176,7 +1176,8 @@ x}-\frac{\partial M}{\partial y}=0
 <p>（4） <span class="math display">\[
 C(y)=\int (N(x,y)-\frac{\partial}{\partial y}\int
 M(x,y)\,\mathrm{d}x)\,\mathrm{d}y
-\]</span> ### 求法</p>
+\]</span></p>
+<h3 id="求法">求法</h3>
 <ol type="1">
 <li><p>凑微分（最快）</p></li>
 <li><p>不定积分法（基本方法，即充分性证明法）</p></li>
@@ -1191,7 +1192,7 @@ class="math display">\[
 class="math inline">\((x_0,y_0)=(0,0)\)</span></p></li>
 <li><p>积分因子法</p></li>
 </ol>
-<h1 id="六无穷级数">六、无穷级数</h1>
+<h1 id="无穷级数">6 无穷级数</h1>
 <ol type="1">
 <li><p>p 级数（常用、关键）</p>
 <blockquote>
@@ -1205,7 +1206,7 @@ class="math inline">\(\frac{1}{c}=\frac{1}{2}(\frac{1}{a}+\frac{1}{b})\)</span><
 <li><p>自然级数</p>
 <p><span class="math inline">\(\sum\frac{1}{n!}\)</span></p></li>
 </ol>
-<h2 id="审敛法">审敛法</h2>
+<h2 id="审敛法">6.1 审敛法</h2>
 <ol type="1">
 <li><p>正项级数</p>
 <blockquote>
@@ -1251,7 +1252,7 @@ class="math inline">\(\sum_{n=1}^{\infty}|a_n|\)</span></p>
 <p>（2）<span class="math inline">\(a_n\)</span>
 <strong>展开</strong>成带皮亚诺余项的泰勒多项式</p></li>
 </ol>
-<h2 id="特殊的无穷小">特殊的无穷小</h2>
+<h2 id="特殊的无穷小">6.2 特殊的无穷小</h2>
 <p>当 <span class="math inline">\(n\rightarrow \infty\)</span> 时 <span
 class="math display">\[
 \ln n\lt n^k(k\gt 0)\lt a^n(a\gt1)\lt n!\lt n^n
@@ -1261,7 +1262,7 @@ class="math display">\[
 为<strong>没有最低阶的低阶无穷小</strong></p>
 <p><span class="math inline">\(\beta(x)=\frac{1}{a^x}\)</span>
 为<strong>没有最高阶的高阶无穷小</strong></p>
-<h2 id="数项级数">数项级数</h2>
+<h2 id="数项级数">6.3 数项级数</h2>
 <p>求数项级数和 <span class="math inline">\(\Sigma
 a_n\)</span>的4种方法</p>
 <p>（1）计算部分和序列极限 <span class="math inline">\(\lim
@@ -1272,7 +1273,7 @@ class="math inline">\(S(x)\)</span>，代入值计算</p>
 的幂级数展开式</p>
 <p>（4）利用 <span class="math inline">\(f(x)\)</span>
 的傅里叶级数展开式</p>
-<h2 id="幂级数">幂级数</h2>
+<h2 id="幂级数">6.4 幂级数</h2>
 <h3 id="注意项">注意项</h3>
 <p>（1）通过将级数化为正项级数，再由比值或者根值法求出的 <span
 class="math inline">\(R=\frac{1}{\rho}\)</span>
@@ -1345,7 +1346,7 @@ class="math inline">\(\text{Maclaurin}\)</span>）级数公式求和</p>
 class="math inline">\((1+x)^\alpha\)</span> 的级数去凑</p>
 <p>​ 中间过程注意，级数下标保持正确。</p>
 <p>（3）利用解常微分方程初值问题的特解方法</p>
-<h2 id="傅里叶级数">傅里叶级数</h2>
+<h2 id="傅里叶级数">6.5 傅里叶级数</h2>
 <blockquote>
 <p>现代数学的发源地，黎曼积分的引入（研究傅里叶级数的敛散性）、抽象函数空间（内积空间）、康托集合论、勒贝格积分（黎曼积分的推广）</p>
 </blockquote>
@@ -1584,9 +1585,9 @@ f(x),&amp; x\text{ is continuous}\\
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/10/10/%E6%95%B0%E5%AD%A6/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6_1_%E5%87%A0%E4%BD%95%E7%89%A9%E7%90%86%E5%BA%94%E7%94%A8/" title="高等数学 #1 几何物理应用">
+                      <a href="/2024/10/10/%E6%95%B0%E5%AD%A6/%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1/%E6%A6%82%E7%8E%87%E8%AE%BA_0_%E5%BA%94%E8%AF%95%E7%AC%94%E8%AE%B0/" title="概率论 #0 应试笔记">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">高等数学 #1 几何物理应用</span>
+                        <span class="hidden-mobile">概率论 #0 应试笔记</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -1594,8 +1595,8 @@ f(x),&amp; x\text{ is continuous}\\
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/10/10/%E6%95%B0%E5%AD%A6/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6_2_%E4%BA%8C%E6%AC%A1%E6%9B%B2%E9%9D%A2/" title="高等数学 #2 Quadrics">
-                        <span class="hidden-mobile">高等数学 #2 Quadrics</span>
+                      <a href="/2024/10/10/%E6%95%B0%E5%AD%A6/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6_1_%E5%87%A0%E4%BD%95%E7%89%A9%E7%90%86%E5%BA%94%E7%94%A8/" title="高等数学 #1 几何物理应用">
+                        <span class="hidden-mobile">高等数学 #1 几何物理应用</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -1664,7 +1665,7 @@ f(x),&amp; x\text{ is continuous}\\
         aria-expanded="true"
       >
         数学
-        <span class="list-group-count">(10)</span>
+        <span class="list-group-count">(11)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -1765,7 +1766,7 @@ f(x),&amp; x\text{ is continuous}\\
         aria-expanded="true"
       >
         高等数学
-        <span class="list-group-count">(8)</span>
+        <span class="list-group-count">(9)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -1776,6 +1777,15 @@ f(x),&amp; x\text{ is continuous}\\
           
   <div class="category-post-list">
     
+    
+      
+      
+        <a href="/2025/07/01/%E6%95%B0%E5%AD%A6/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%AE%9E%E6%95%B0/" title=""
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post"></span>
+        </a>
+      
     
       
       

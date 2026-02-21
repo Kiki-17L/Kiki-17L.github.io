@@ -27,7 +27,7 @@
 <meta property="og:description" content="1 官方下载器安装 （1）访问 AMD Xilinx 官网，下载 ISE 14.7 的完整安装包 Full installer for Linux (TAR&#x2F;GZIP) （2）将下载好的压缩包 Xilinx_ISE_DS_Lin_14.7_1015_1.tar 解压到非中文目录 （3）执行解压好的安装包里面的安装程序 123cd Xilinx_ISE_DS_Lin_14.7_1015_">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-06-16T07:01:07.643Z">
-<meta property="article:modified_time" content="2025-06-18T10:28:56.401Z">
+<meta property="article:modified_time" content="2026-02-20T15:41:56.106Z">
 <meta property="article:author" content="Louis Liang">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -253,7 +253,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          923 字
+          1.2k 字
         
       </span>
     
@@ -264,7 +264,7 @@
         
         
         
-          8 分钟
+          10 分钟
         
       </span>
     
@@ -319,7 +319,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年6月18日 晚上
+                    本文最后更新于 2026年2月20日 晚上
                   
                 
               </p>
@@ -335,6 +335,10 @@ installer for Linux (TAR/GZIP)</a></p>
 解压到非中文目录</p>
 <p>（3）执行解压好的安装包里面的安装程序</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> Xilinx_ISE_DS_Lin_14.7_1015_1<br><span class="hljs-built_in">sudo</span> <span class="hljs-built_in">chmod</span> +x xsetup     <span class="hljs-comment">#当前sudo用户下给xsetup文件添加执行权限</span><br><span class="hljs-built_in">sudo</span> ./xsetup            <span class="hljs-comment">#进行安装</span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>ps：在使用 xsetup
+脚本进行安装时，如果出现依赖缺失等错误，请参见步骤4</p>
+</blockquote>
 <p>（4）在弹出的可视化的安装程序中，选择
 <code>ISE Design Suite System Edition</code></p>
 <p>（5）在官方下载程序里面下载 Cable Driver 通常会失败。</p>
@@ -349,7 +353,10 @@ driver需要使用windrvr6模块，而该模块不支持较新的linux内核，�
 <p>将其存放到你自定义的目录下（如：<code>~/Documents/MyScript/ise14.7_start.sh</code>），并添加执行权限</p>
 <p>（3）编辑一个新的 <code>Desktop Entry</code> 文件（这是 GNOME
 环境，配置桌面快捷启动方式的入口文件）</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-section">[Desktop Entry]</span><br><span class="hljs-attr">Name</span>=ISE <span class="hljs-number">14.7</span><br><span class="hljs-attr">Exec</span>=/path/to/your/ise14.<span class="hljs-number">7</span>_start.sh /opt/Xilinx/<span class="hljs-number">14.7</span>/ISE_DS/ %f<br><span class="hljs-attr">Icon</span>=/opt/Xilinx/<span class="hljs-number">14.7</span>/ISE_DS/ISE/data/images/pn-ise.png<br><span class="hljs-attr">StartupWMClass</span>=_np			//解决窗口活动问题。只要设置了正确的WMClass，启动应用就会在图标旁边加点来表示活动。<br><span class="hljs-attr">Type</span>=Application<br></code></pre></td></tr></table></figure>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-section">[Desktop Entry]</span><br><span class="hljs-attr">Name</span>=ISE <span class="hljs-number">14.7</span><br><span class="hljs-attr">Exec</span>=/path/to/your/ise14.<span class="hljs-number">7</span>_start.sh /opt/Xilinx/<span class="hljs-number">14.7</span>/ISE_DS/ %f<br><span class="hljs-attr">Icon</span>=/opt/Xilinx/<span class="hljs-number">14.7</span>/ISE_DS/ISE/data/images/pn-ise.png<br><span class="hljs-attr">StartupWMClass</span>=_pn			//解决窗口活动问题。只要设置了正确的WMClass，启动应用就会在图标旁边加点来表示活动。<br><span class="hljs-attr">Type</span>=Application<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>可以通过<code>xprop</code>工具来查询<code>WMClass</code></p>
+</blockquote>
 <p>保存为 <code>ise.desktop</code>
 文件，可以暂时保存到桌面，然后右键设置该文件的属性，添加执行权限，允许
 Launch</p>
@@ -398,11 +405,33 @@ Cable，直接进行步骤（3）</p></li>
 <p>git 库地址：<a
 target="_blank" rel="noopener" href="https://github.com/JohnDMcMaster/xilinx-usb-driver">https://github.com/JohnDMcMaster/xilinx-usb-driver</a></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">clone</span> git://git.zerfleddert.de/usb-driver<br><span class="hljs-built_in">cd</span> /path/to/your/usb-driver<br>make<br></code></pre></td></tr></table></figure>
-<p>编译完成后可能会弹出 Warnning，可以忽略</p>
+<blockquote>
+<p>注：编译完成后可能会弹出 Warnning，可以忽略</p>
+<p>编译完成后得到 <code>libusb-driver.so</code> 文件</p>
+<p>impact 启动前，需要预加载此文件</p>
+<p>所以要在ISE的启动脚本里将此文件的路径设置为变量<code>LD_PRELOAD</code>，以确保
+impact 能成功识别此驱动</p>
+</blockquote>
 <p>（4）通过设置文件<code>your/path/usb-driver/setup_pcusb</code>，安装编译好的驱动</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> ./setup_pcusb /opt/Xilinx/14.7/ISE_DS/ISE/<br></code></pre></td></tr></table></figure>
-<p>（5）重启 <code>udevadm</code></p>
+<p>（5）使用<code>udevadm</code>重新加载规则</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> udevadm control --reload-rules<br></code></pre></td></tr></table></figure>
+<h1 id="依赖缺失libncurses5">4 依赖缺失(libncurses5)</h1>
+<blockquote>
+<p>常见问题如<code>libncurses.so.5</code>的缺失</p>
+<p>ncurses（new
+curses）是一个终端库，新版的Ubuntu全面转向ncurses6，只有一些旧程序还依赖ncurses5</p>
+<p>ISE14.7依赖<code>libncurses5</code>，而<code>ubuntu20.04</code>及以上发行版的apt库默认只有<code>libncurses6</code></p>
+</blockquote>
+<p>如果<code>xsetup</code>脚本执行后报错：</p>
+<figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs subunit"><span class="hljs-keyword">error </span>while loading shared libraries: libncurses.so.5: cannot open shared object file: No such file<br></code></pre></td></tr></table></figure>
+<p>而使用apt去下载这个<code>libncurses5</code>，也会报错：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">E:unable to locate libncurses5<br></code></pre></td></tr></table></figure>
+<p>为了解决这个问题，我们需手动下载<code>libncurses5</code>：</p>
+<p>（1）下载两个deb包</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">wget http://security.ubuntu.com/ubuntu/pool/universe/n/ncurses/libtinfo5_6.3-2ubuntu0.1_amd64.deb http://security.ubuntu.com/ubuntu/pool/universe/n/ncurses/libncurses5_6.3-2ubuntu0.1_amd64.deb <br></code></pre></td></tr></table></figure>
+<p>（2）安装deb包</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-built_in">sudo</span> apt install ./libtinfo5_6.3-2ubuntu0.1_amd64.deb ./libncurses5_6.3-2ubuntu0.1_amd64.deb<br></code></pre></td></tr></table></figure>
 
                 
               </div>
