@@ -1,0 +1,23 @@
+media:
+  input: src/img
+  output: /img
+  rename: false
+  categories: [image]
+content:
+  - name: pages
+    label: Pages
+    type: collection
+    path: source/_posts
+    fields:
+      - name: title
+        type: string
+      - name: index_img
+        label: index_img
+        type: image
+        options:
+          path: source/img
+      - name: Math
+        type: boolean
+        default: true
+      - name: body
+        type: rich-text
