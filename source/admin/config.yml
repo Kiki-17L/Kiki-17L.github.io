@@ -1,8 +1,6 @@
 backend:
-  name: github # https://github.com/netlify/netlify-cms
-  repo: Kiki-17L/Kiki-17L.github.io
+  name: git-gateway # https://github.com/netlify/netlify-cms
   branch: main # 要更新的分支(可选；默认为主分支)
-  site_domain: magical-rolypoly-9f612c.netlify.app
   # client_id: Ov23liaqn7f87l246XCC
   # auth_endpoint: https://github.com/login/oauth/authorize
 
