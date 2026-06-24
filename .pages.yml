@@ -1,5 +1,5 @@
 media:
-  input: src/img
+  input: source/img
   output: /img
   rename: false
   categories: [image]
