@@ -16,8 +16,14 @@ content:
         type: image
         options:
           path: source/img
+      - name: date
+        type: date
+        label: "发表时间"
+        default: ""
+        options:
+          time: true
+          format: yyyy-MM-dd'T'HH:mm
       - name: Math
         type: boolean
-        default: true
       - name: body
         type: rich-text
