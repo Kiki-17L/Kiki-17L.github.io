@@ -96,8 +96,8 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 plugins:
-  - hexo-directory-category
-
+  - hexo-directory-category 
+  
 auto_dir_categorize:
 	enable: true  # options:true, false; default is true
 	force: true # options:true, false; default is false
