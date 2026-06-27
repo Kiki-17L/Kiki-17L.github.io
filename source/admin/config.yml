@@ -40,7 +40,7 @@ collections:      # https://www.netlifycms.org/docs/configuration-options/#colle
       depth: 4
       summary: '{{path}}'
       subfolders: false
-    meta: { path: { widget: string, label: '存放路径' }}
+    # meta: { path: { widget: string, label: '存放路径' }}
 
   - name: "pages"
     label: "Pages"
