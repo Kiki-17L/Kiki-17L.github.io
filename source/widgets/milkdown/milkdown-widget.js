@@ -1,18 +1,21 @@
 const MilkdownControl = (props) => {
   let editor = null
 
-  return {
-    // CMS 会把这个作为 DOM 挂载点
-    mount(el) {
-      if (!editor) {
-        editor = window.initMilkdown(el, props.value || '')
-      }
-    },
-
-    unmount() {
-      editor?.destroy?.()
-    }
+  const destroy = () => {
+    editor?.destroy?.()
+    editor = null
   }
+
+  // CMS 可能重复挂载，所以用 ref 控制初始化
+  return React.createElement('div', {
+    ref: (el) => {
+      if (!el || editor) return
+
+      editor = window.initMilkdown(el, props.value || '')
+
+      props._editor = editor
+    }
+  })
 }
 
 CMS.registerWidget('milkdown', MilkdownControl)
