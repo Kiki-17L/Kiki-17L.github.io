@@ -3,6 +3,7 @@ title: "最佳安装实践 #1 WSL2"
 tags:
   - Installation
 index_img: /img/pt/linux.svg
+date: 2025-06-18 15:00:00
 ---
 >参考于 Windows 官方文档
 

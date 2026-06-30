@@ -5,6 +5,7 @@ tags:
   - Installation
 excerpt:
   - Windows 11 下安装 Docker
+date: 2025-01-01 15:00:00
 ---
 
 # 命令行安装（推荐）
