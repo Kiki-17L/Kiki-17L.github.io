@@ -12,7 +12,13 @@ const MilkdownControl = createClass({
       value: value ? value : '',
       onChange: this.handleChange,
       ref: (el) => {
-        window.initMilkdown(el,value)
+        if (!el || this._editor) return
+
+        this._editor = window.initMilkdown(el, this.props.value || '')
+
+        this._editor.onChange?.((val) => {
+          this.props.onChange(val)
+        })
       }
     });
   },
