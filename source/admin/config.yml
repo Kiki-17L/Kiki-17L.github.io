@@ -14,6 +14,8 @@ public_folder: "/img" # 上传的媒体的src属性将以/images/uploads开头�
 site_url: https://kiki-17l.github.io/ # 网站网址
 display_url: https://kiki-17l.github.io/ # 显示网址
 
+show_preview_links: false
+
 locale: "zh_Hans" # 语言环境 https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-locales/src
 
 collections:      # https://www.netlifycms.org/docs/configuration-options/#collections
