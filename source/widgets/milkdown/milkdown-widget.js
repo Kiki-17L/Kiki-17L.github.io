@@ -1,7 +1,6 @@
 const MilkdownControl = createClass({
   handleChange: function(e) {
-    const separator = this.props.field.get('separator', ', ')
-    this.props.onChange(e.target.value.split(separator).map((e) => e.trim()));
+     this.props.onChange(e.target.value);
   },
 
   render: function() {
@@ -10,7 +9,7 @@ const MilkdownControl = createClass({
     return h('div', {
       id: this.props.forID,
       className: this.props.classNameWrapper,
-      // value: value ? value.join(separator) : '',
+      value: value ? value : '',
       onChange: this.handleChange,
       ref: (el) => {
         window.initMilkdown(el)
