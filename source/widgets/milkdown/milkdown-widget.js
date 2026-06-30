@@ -7,7 +7,7 @@ const MilkdownControl = (props) => {
   }
 
   // CMS 可能重复挂载，所以用 ref 控制初始化
-  return React.createElement('div', {
+  return createClass('div', {
     ref: (el) => {
       if (!el || editor) return
 
