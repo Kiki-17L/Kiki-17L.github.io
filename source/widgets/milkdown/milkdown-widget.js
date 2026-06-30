@@ -1,21 +1,20 @@
-const MilkdownControl = (props) => {
-  let editor = null
+const MilkdownControl = createClass({
+  handleChange: function(e) {
+    const separator = this.props.field.get('separator', ', ')
+    this.props.onChange(e.target.value.split(separator).map((e) => e.trim()));
+  },
 
-  const destroy = () => {
-    editor?.destroy?.()
-    editor = null
-  }
-
-  // CMS 可能重复挂载，所以用 ref 控制初始化
-  return createClass('div', {
-    ref: (el) => {
-      if (!el || editor) return
-
-      editor = window.initMilkdown(el, props.value || '')
-
-      props._editor = editor
-    }
-  })
-}
+  render: function() {
+    const separator = this.props.field.get('separator', ', ');
+    var value = this.props.value;
+    return h('input', {
+      id: this.props.forID,
+      className: this.props.classNameWrapper,
+      type: 'text',
+      value: value ? value.join(separator) : '',
+      onChange: this.handleChange,
+    });
+  },
+});
 
 CMS.registerWidget('milkdown', MilkdownControl)
