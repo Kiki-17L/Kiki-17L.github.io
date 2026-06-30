@@ -1,22 +1,17 @@
-const MilkdownControl = class extends React.Component {
-  constructor(props) {
-    super(props)
-    this.ref = React.createRef()
-  }
+const MilkdownControl = (props) => {
+  let editor = null
 
-  componentDidMount() {
-    this.editor = window.initMilkdown(
-      this.ref.current,
-      this.props.value || ''
-    )
-  }
+  return {
+    // CMS 会把这个作为 DOM 挂载点
+    mount(el) {
+      if (!editor) {
+        editor = window.initMilkdown(el, props.value || '')
+      }
+    },
 
-  componentWillUnmount() {
-    this.editor?.destroy?.()
-  }
-
-  render() {
-    return React.createElement('div', { ref: this.ref })
+    unmount() {
+      editor?.destroy?.()
+    }
   }
 }
 
