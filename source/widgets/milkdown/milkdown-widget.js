@@ -12,7 +12,7 @@ const MilkdownControl = createClass({
       value: value ? value : '',
       onChange: this.handleChange,
       ref: (el) => {
-        window.initMilkdown(el)
+        window.initMilkdown(el,value)
       }
     });
   },
