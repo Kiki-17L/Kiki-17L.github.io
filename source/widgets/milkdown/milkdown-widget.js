@@ -7,12 +7,14 @@ const MilkdownControl = createClass({
   render: function() {
     const separator = this.props.field.get('separator', ', ');
     var value = this.props.value;
-    return h('input', {
+    return h('div', {
       id: this.props.forID,
       className: this.props.classNameWrapper,
-      type: 'text',
-      value: value ? value.join(separator) : '',
+      // value: value ? value.join(separator) : '',
       onChange: this.handleChange,
+      ref: (el) => {
+        window.initMilkdown(el)
+      }
     });
   },
 });
