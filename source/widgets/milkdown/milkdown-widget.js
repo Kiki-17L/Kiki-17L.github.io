@@ -16,7 +16,7 @@ const MilkdownControl = class extends React.Component {
   }
 
   render() {
-    return <div ref={this.ref} />
+    return React.createElement('div', { ref: this.ref })
   }
 }
 
