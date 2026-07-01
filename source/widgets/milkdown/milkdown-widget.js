@@ -22,4 +22,26 @@ const MilkdownControl = createClass({
   },
 });
 
+const TestControl = createClass({
+  handleChange: function(e) {
+    console.log('TestControl handleChange', e.target.value)
+    this.props.onChange(e.target.value);
+  },
+
+  render: function() {
+
+    var value = this.props.value;
+    return h('input', {
+      id: this.props.forID,
+      className: this.props.classNameWrapper,
+      value: value ? value : '',
+      onChange: this.handleChange,
+      type: 'text',
+    });
+  },
+});
+
+
 CMS.registerWidget('milkdown', MilkdownControl)
+
+CMS.registerWidget('test', TestControl)
