@@ -1,10 +1,11 @@
 const MilkdownControl = createClass({
   handleChange: function(e) {
-     this.props.onChange(e.target.value);
+    console.log('MilkdownControl handleChange', e.target.value)
+    this.props.onChange(e.target.value);
   },
 
   render: function() {
-    const separator = this.props.field.get('separator', ', ');
+
     var value = this.props.value;
     return h('div', {
       id: this.props.forID,
@@ -14,11 +15,8 @@ const MilkdownControl = createClass({
       ref: (el) => {
         if (!el || this._editor) return
 
-        this._editor = window.initMilkdown(el, this.props.value || '')
-
-        this._editor.onChange?.((val) => {
-          this.props.onChange(val)
-        })
+        this._editor = window.initMilkdown(el, value || '')
+        this._editor.onChange?.(this.handleChange)
       }
     });
   },
