@@ -36,7 +36,7 @@ collections:      # https://www.netlifycms.org/docs/configuration-options/#colle
       - { label: "摘要",      name: "excerpt",      widget: "list",     required: false }
       - { label: "Math",      name: "math",         widget: "boolean",  required: false }
       - { label: "Mermaid",   name: "mermaid",      widget: "boolean",  required: false }
-      - { label: "内容",      name: "body",         widget: "milkdown", required: false }
+      # - { label: "内容",      name: "body",         widget: "milkdown", required: false }
       - { label: "test内容",  name: "body",         widget: "test", required: false }
 
     nested:
