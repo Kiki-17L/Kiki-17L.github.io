@@ -5,7 +5,6 @@ const MilkdownControl = createClass({
   },
 
   render: function() {
-
     var value = this.props.value;
     return h('div', {
       id: this.props.forID,
@@ -14,7 +13,6 @@ const MilkdownControl = createClass({
       onChange: this.handleChange,
       ref: (el) => {
         if (!el || this._editor) return
-
         this._editor = window.initMilkdown(el, value || '')
         this._editor.onChange?.(this.handleChange)
       }
